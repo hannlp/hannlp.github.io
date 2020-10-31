@@ -1,16 +1,17 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+### Me
+A senior in AHU(Anhui University), majoring in CS, being interested in *NLP(Natural Language Processing)*, *RS(Recommendation System)* and *KG(Knowledge Graph)*. My tutor in AHU is [*Liu Huiting*](http://cs.ahu.edu.cn/7d/7e/c11202a163198/page.htm). I will go to NEU(Northeastern University) [NLP lab](http://www.nlplab.com/) in next year to pursuit of my dreams ^ ^  
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+### Links
 
-What else do you need?
+[*ylink's Nest*](http://ylinknest.top/)
 
-### My story
+[*LoliMay's Blog*](https://www.lolimay.cn)
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+[*Beauty Of Coding*](https://bofc.tech/)
+
+[*PeterShi's blog*](http://littleblackte.com/)
