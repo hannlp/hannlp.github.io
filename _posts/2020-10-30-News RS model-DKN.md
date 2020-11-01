@@ -8,9 +8,8 @@ tags:
 ---
 
 ## 1 Framework
-![framework](assets/img/install-steps.gif)
-![](https://i.imgur.com/zNBkzj1.png)
-_posts/imgs/frameworks/dkn_framework.jpg
+
+![dkn](imgs_bed/dkn_framework.jpg)
 
 ## 2 背景
 1. 目前的众多推荐算法不能很好的用到新闻之间潜在的语义信息（这一点不仅限于新闻推荐）
