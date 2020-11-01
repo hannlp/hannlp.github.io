@@ -8,7 +8,7 @@ tags:
 ---
 
 ## 1 Framework
-![framework](https://github.com/hannlp/hannlp.github.io/blob/master/_posts/imgs/frameworks/dkn_framework.jpg)
+![framework](_posts/imgs/frameworks/dkn_framework.jpg)
 
 ## 2 背景
 1. 目前的众多推荐算法不能很好的用到新闻之间潜在的语义信息（这一点不仅限于新闻推荐）
