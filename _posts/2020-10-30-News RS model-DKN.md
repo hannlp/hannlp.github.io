@@ -9,7 +9,11 @@ tags:
 
 ## 1 Framework
 
-![dkn]({{ 'imgs_bed/dkn_framework.jpg' | prepend: site.baseurl }})
+![dkn](imgs_bed/dkn_framework.jpg)
+
+![dkna](/imgs_bed/dkn_framework.jpg)
+
+![dknb](hannlp.github.io/imgs_bed/dkn_framework.jpg)
 
 ## 2 背景
 1. 目前的众多推荐算法不能很好的用到新闻之间潜在的语义信息（这一点不仅限于新闻推荐）
