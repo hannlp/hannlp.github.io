@@ -9,6 +9,7 @@ tags:
 
 ## 1 Framework
 ![framework](assets/img/install-steps.gif)
+![](https://i.imgur.com/zNBkzj1.png)
 _posts/imgs/frameworks/dkn_framework.jpg
 
 ## 2 背景
