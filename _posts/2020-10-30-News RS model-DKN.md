@@ -9,7 +9,7 @@ tags:
 
 ## 1 Framework
 
-![dkn](imgs_bed/dkn_framework.jpg)
+![dkn]({{ 'imgs_bed/dkn_framework.jpg' | prepend: site.baseurl }})
 
 ## 2 背景
 1. 目前的众多推荐算法不能很好的用到新闻之间潜在的语义信息（这一点不仅限于新闻推荐）
@@ -23,7 +23,7 @@ tags:
 
 ## 4 算法思路
 
-![dkn](imgs_bed/dkn_framework.png)
+![dkn2]({{ 'imgs_bed/dkn_framework.png' | prepend: site.baseurl }})
 
 ### 4.1 算法性质
 基于内容的推荐，目的是评估点选率
