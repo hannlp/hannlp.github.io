@@ -23,6 +23,8 @@ tags:
 
 ## 4 算法思路
 
+![dkn](imgs_bed/dkn_framework.png)
+
 ### 4.1 算法性质
 基于内容的推荐，目的是评估点选率
 
