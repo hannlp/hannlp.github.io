@@ -5,11 +5,8 @@ tags:
 - 推荐系统
 - 知识图谱
 - 新闻推荐
-toc: true
 ---
-{% include toc.html html=content %}
 
-{{
 # 1 背景
 1. 目前的众多推荐算法不能很好的用到新闻中潜在的语义信息
 2. 新闻推荐有很高的**时间敏感性**，新旧更替很频繁，使传统的以ID为基础的协同过滤效果降低
@@ -79,4 +76,3 @@ $ python main.py (note: use -h to check optional arguments)
 
 ## 5.2 源码开跑
 跑到“g++ transE.cpp -o transE -pthread -O3 -march=native”这一步，死活跑不动了，这个g++编译真的有毒。可能之后还要遇到许多这样的问题，因为表示学习算法大多数都是基于C++的。等搞出来再来更新。
-}}
