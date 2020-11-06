@@ -24,6 +24,7 @@ tags:
 # 2 深度神经网络中的反向传播推导
 
 ## 2.1 变量定义
+<div class="mermaid">
 | 符号            | 含义                                                   |
 | --------------- | ------------------------------------------------------ |
 | $X_{m\times n}$ | 输入的数据，其中$m$为样本数，$n$为样本的维度           |
@@ -34,9 +35,11 @@ tags:
 | $\sigma^l$      | 第$l$层的激活函数                                      |
 | $a_j^l$         | 第$l$层第$j$个神经元的输出                             |
 | $N_l$           | 第$l$层神经元数量                                      |
+</div>
 
 ## 2.2 前向传播
-
+为方便考虑数据的流动，我们首先仅考虑一个样本$\bm{x}$在DNN中的前向传播。
+### 2.2.1 第一层
 
 # 参考文献
 1.[Matrix Cookbook - Kaare Brandt Petersen, Michael Syskind Pedersen](https://cdn.jsdelivr.net/gh/hannlp/Books@1.01/Matrix%20Cookbook.pdf)
