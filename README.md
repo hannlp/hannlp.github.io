@@ -7,7 +7,7 @@ This is a repo of my Blog. It's a simple and fast blog with the help of Github P
 ```
     <article role="main" class="blog-post">
         {% include toc.html html=content sanitize=true class="inline_toc" id="my_toc" %}
-    {{ content }}
+        {{ content }}
     </article>
 ```
 # To do list
