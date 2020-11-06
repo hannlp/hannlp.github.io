@@ -3,7 +3,6 @@ layout: base
 ---
 
 {% include header.html type="post" %}
-{% include toc.html html=content %}
 
 <div class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
   <div class="row">
@@ -45,6 +44,7 @@ layout: base
       {% endif %}
 
       <article role="main" class="blog-post">
+        {% include toc.html html=content %}
         {{ content }}
       </article>
 
