@@ -44,9 +44,7 @@ layout: base
       {% endif %}
 
       <article role="main" class="blog-post">
-        <div class="text" style=" text-align:center;">
-          {% include toc.html html=content %}
-        </div>
+        {% include toc.html html=content sanitize=true class="inline_toc" id="my_toc" h_min=2 h_max=3 %}
         {{ content }}
       </article>
 
