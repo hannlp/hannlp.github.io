@@ -3,13 +3,11 @@ This is a repo of my Blog. It's a simple and fast blog with the help of Github P
 
 # Some personal settings
 ## a TOC system ([link](https://github.com/allejo/jekyll-toc))
-> _Usage_: 
-> 1.Download the latest toc.html file and add that file in your _includes folder.
-> 2.Update your post.html file like this:
+> _Usage_: <br/>1.Download the latest toc.html file and add that file in your _includes folder.<br/>2.Update your post.html file like this:
 ```
     <article role="main" class="blog-post">
         {% include toc.html html=content sanitize=true class="inline_toc" id="my_toc" %}
-        {{ content }}
+    {{ content }}
     </article>
 ```
 # To do list
