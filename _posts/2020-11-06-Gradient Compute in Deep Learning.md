@@ -24,24 +24,24 @@ $\frac{\partial f}{\bm{x}},其中\bm{x}=\begin{pmatrix} x_1 \\ x_2 \\ ... \\x_n 
 # 2 深度神经网络(DNN)中反向传播的推导
 
 ## 2.1 变量定义
-| 符号            | 含义                                                   |
-| --------------- | ------------------------------------------------------ |
-| $X_{m\times n}$ | 输入的数据，其中$m$为样本数，$n$为样本的维度           |
-| $\bm{x}$        | 一个输入样本(维度为$n$)                                |
-| $W_{jk}^l$      | 第$l-1$层第$k$个神经元到第$l$层第$j$个神经元的连接权重 |
-| $b_j^l$         | 第$l$层第$j$个神经元的偏置                             |
-| $z_j^l$         | 第$l$层第$j$个神经元的加权输入                         |
-| $\sigma^l$      | 第$l$层的激活函数                                      |
-| $a_j^l$         | 第$l$层第$j$个神经元的输出                             |
-| $N_l$           | 第$l$层神经元数量                                      |
+| 符号       | 含义                                                   |
+| ---------- | ------------------------------------------------------ |
+| $\bm{x}$   | 一个输入样本，维度为($N_0\times 1$)                    |
+| $W_{jk}^l$ | 第$l-1$层第$k$个神经元到第$l$层第$j$个神经元的连接权重 |
+| $b_j^l$    | 第$l$层第$j$个神经元的偏置                             |
+| $z_j^l$    | 第$l$层第$j$个神经元的加权输入                         |
+| $\sigma^l$ | 第$l$层的激活函数                                      |
+| $a_j^l$    | 第$l$层第$j$个神经元的输出                             |
+| $N_l$      | 第$l$层神经元数量                                      |
 
 ## 2.2 前向传播
 为方便考虑数据的流动，我们首先仅考虑一个样本$\bm{x}$在DNN中的前向传播。
 
 很容易发现，样本在每一层中流动的过程都是一样的，可以表示为:
-$\bm{a^l}=\sigma^l(\bm{W^la^{l-1}+b^l})$
+$\bm{z^l}=\bm{W^la^{l-1}+b^l}$
+$\bm{a^l}=\sigma^l(\bm{z^l})$
 
-其中，当$\bm{a^0}=\bm{x}$，$\bm{W^l}的维度为(N_{l-1}\times N_{l})$,$\bm{a^{l-1}}$的维度为$(N_{l-1}\times1)$,$\bm{b^l,a^l}$的维度均为$(N_l\times1)$，$\bm{a^L}$是DNN的输出
+其中，$\bm{a^0}=\bm{x}$，$\bm{W^l}的维度为(N_{l}\times N_{l-1})$,$\bm{a^{l-1}}$的维度为$(N_{l-1}\times1)$,$\bm{b^l,z^l,a^l}$的维度均为$(N_l\times1)$，$\bm{a^L}$是DNN的输出
 
 ## 2.3 接下来要做的事情
 通过前向传播，样本$\bm{x}$一层一层地通过DNN走到了输出层，并得到了$\bm{a^L}$。那么我们就能够通过$\bm{a^L}$和真实的标签$\bm{y}$得到这个样本的损失，即$C=Loss(\bm{a^L,y})$。
@@ -91,7 +91,28 @@ $C=Loss(\bm{a^L,y})=\frac{1}{2}||\bm{a^L-y}||^2=\frac{1}{2}\sum_j(a_j^L-y_j)^2$
 
 从二次损失扩展到其他各种损失函数，即$\frac{\partial C}{\partial\bm{z^L}}=(\frac{\partial C}{\partial \bm{a^L}})\bigodot\sigma'^L(\bm{z^L})$
 
+### 2.4.1 误差从第$l+1$层传播到第$l$层
+为了计算误差在两层之间是怎么流动的，我们首先需要观察一下两层之间$\bm{z}$的关系，很简单，就是$\bm{z^{l+1}}=\bm{W^{l+1}}\sigma(\bm{z^l})+\bm{b^{l+1}}$
+
+我们可以从上面的式子观察一下第$l$层的第$j$个神经元的$z_j^l$是怎么作用到下一层的。同样很简单，$z_j^l$会先经过一个激活函数$\sigma$得到$a_j^l$，再乘上不同的权重，作用在下一层的每一个神经元上。
+
+所以，根据链式法则，有$\frac{\partial C}{\partial z_j^l}=\sum_k\frac{\partial C}{\partial z_k^{l+1}}\frac{\partial z_k^{l+1}}{\partial z_j^l}$
+
+我们先看$\frac{\partial z_k^{l+1}}{\partial z_j^l}$这一项。$z_k^{l+1}$是怎么得到的呢？是上一层所有的$z_i^l$经过一个激活函数，再乘一个权重，最后加上一个偏置得到的，即$z_k^{l+1}=\sum_i^{N_l}\sigma^l(z_i^l)\times W_{ki}^{l+1}+b_k^{l+1}$
+
+所以$\frac{\partial z_k^{l+1}}{\partial z_j^l}=\sigma'^l(z_j^l)\times W_{kj}^{l+1}$(仅当$i=j$时求和项不为0)
+
+把他带回$\frac{\partial C}{\partial z_j^l}$，得到$\frac{\partial C}{\partial z_j^l}=\sum_k\frac{\partial C}{\partial z_k^{l+1}}\times W_{kj}^{l+1}\times\sigma'^l(z_j^l)$。
+
+展开求和项，得到$\frac{\partial C}{\partial z_j^l}=[\frac{\partial C}{\partial z_1^{l+1}}\times W_{1j}^{l+1}+\frac{\partial C}{\partial z_2^{l+1}}\times W_{2j}^{l+1}+...+\frac{\partial C}{\partial z_{N_{l+1}}^{l+1}}\times W_{N_{l+1}j}^{l+1}]\times \sigma'^l(z_j^l)$
+
+仔细观察其向量表示！
+
+很惊讶的发现，上式$=[\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{z^{l+1}}})]_j\times \sigma'^l(z_j^l)$
+
+因为只由下标$j$决定，所以又可以得到一个完美漂亮的向量表达~
+
+$\frac{\partial C}{\bm{\partial \bm{z^l}}}=\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{z^{l+1}}})\bigodot\sigma'^l(\bm{z^l})$
+
 # 参考文献
 1.[Matrix Cookbook - Kaare Brandt Petersen, Michael Syskind Pedersen](https://cdn.jsdelivr.net/gh/hannlp/Books@1.01/Matrix%20Cookbook.pdf)
-
-
