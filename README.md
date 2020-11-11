@@ -1,8 +1,6 @@
 # Hello World! I'm hans
 This is a repo of my Blog. It's a simple and fast blog with the help of Github Pages and [beautiful-jekyll](https://github.com/daattali/beautiful-jekyll) by daattali.
 
-[TOC]
-
 # 1 Some personal settings
 
 ## 1.1 My Colour Style
@@ -31,7 +29,8 @@ footer-link-col: "#404040"
 ```
 ## 1.3 Mathematical Formula Supporting
 
-I use KaTex in my blog to show any mathematical formula. Like this(**Only need to add these code in your head.html**):
+I use KaTex in my blog to show any mathematical formula. 
+> _Usage_: <br/>**Only need to add these code in your 'head.html' file:**
 ```
 <head>
   ...
