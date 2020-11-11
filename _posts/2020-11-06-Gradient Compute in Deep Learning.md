@@ -41,6 +41,13 @@ $$\frac{\partial f}{\bm{x}},其中\bm{x}=\begin{pmatrix} x_1 \\ x_2 \\ ... \\x_n
 | Seven  | Eight       | Six             |
 | Two    | Three       | One             |
 
+| Number | Next number |
+| :----- | :---------- |
+| $Five$ | Six         |
+| Ten    | Eleven      |
+| Seven  | Eight       |
+| Two    | Three       |
+
 ## 2.2 前向传播
 为方便考虑数据的流动，我们首先仅考虑一个样本$\bm{x}$在DNN中的前向传播。
 
