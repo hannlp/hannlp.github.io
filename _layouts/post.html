@@ -6,17 +6,6 @@ layout: base
 
 <div class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
   <div class="row"> 
-  	<script>
-	  $("script[type='math/tex']").replaceWith(function() {
-		  var tex = $(this).text();
-		  return KaTeX.renderToString(tex, {displayMode: false});
-	  });
-
-	  $("script[type='math/tex; mode=display']").replaceWith(function() {
-		  var tex = $(this).html();
-		  return KaTeX.renderToString(tex.replace(/%.*/g, ''), {displayMode: true});
-	  });
-	</script>
     <div class="{% if page.full-width %} col {% else %} col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 {% endif %}">
 
       {% if page.gh-repo %}
