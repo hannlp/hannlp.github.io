@@ -88,7 +88,7 @@ $b_j^l$会对$C$有什么影响呢？他只会作用在第$l$层的第$j$个节�
 其中$a_j^L=\sigma^L(z_j^l)$,所以有$\frac{\partial a_j^L}{\partial z_j^L}=\sigma'^L(z_j^L)$
 而$\frac{\partial C}{\partial a_j^L}$这一项需要根据具体的损失函数$Loss()$来计算。我们以平方损失为例：
 
-$C=Loss(\bm{a^L,y})=\frac{1}{2}||\bm{y-a^L}||^2=\frac{1}{2}\sum_j(y_j-a_j^L)^2$
+$C=Loss(\bm{a^L,y})=\frac{1}{2}\Vert\bm{y-a^L}\Vert^2=\frac{1}{2}\sum_j(y_j-a_j^L)^2$
 
 那么，我们便可以求得$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+(y_2-a_2^L)^2+...+(y_{N_L}-a_{N_L}^L)^2]}{{\partial a_j^L}}=\frac{1}{2}\times2(y_j-a_j^L)\times-1=a_j^L-y_j$
 
