@@ -16,4 +16,15 @@ tags:
 
 ![rec_models](/imgs/newsrec/rec_models.png)
 
-其中，DKN这篇论文我在去年已经读过并研究过代码了，现在效果比它好的有四个，NPA，NAML，LSTUR和NRMS。
+其中，DKN这篇论文我在去年已经读过并研究过代码了，现在效果比它好的有四个，NPA，NAML，LSTUR和NRMS。我去找来并阅读了这四篇论文，发现第1，2，4篇是同一个人([清华一个很强的博士](https://wuch15.github.io/))发的...而且他也是第3篇的参与者。
+
+本小菜鸡简单的在我的博客里写一下对这四篇论文的分析和理解~出场顺序大概就按照上图中的**效果从低到高**吧^ ^
+
+# 1. NPA: Neural News Recommendation with Personalized Attention
+## 1.1 背景
+## 1.2 模型
+# 2. NAML: Neural News Recommendation with Attentive Multi-View Learning
+
+# 3. LSTUR: Neural News Recommendation with Long- and Short-termUser Representations
+
+# 4. NRMS: Neural News Recommendation with Multi-Head Self-Attention
