@@ -34,6 +34,13 @@ $$\frac{\partial f}{\bm{x}},其中\bm{x}=\begin{pmatrix} x_1 \\ x_2 \\ ... \\x_n
 |  $a_j^l$   |               第$l$层第$j$个神经元的输出               |
 |   $N_l$    |                   第$l$层神经元数量                    |
 
+| Number | Next number | Previous number |
+| :----- | :---------- | :-------------- |
+| Five   | Six         | Four            |
+| Ten    | Eleven      | Nine            |
+| Seven  | Eight       | Six             |
+| Two    | Three       | One             |
+
 ## 2.2 前向传播
 为方便考虑数据的流动，我们首先仅考虑一个样本$\bm{x}$在DNN中的前向传播。
 
