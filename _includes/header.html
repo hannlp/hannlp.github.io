@@ -85,19 +85,9 @@
 {% else %}
 <div class="intro-header"></div>
 {% endif %}
+
+
 <!--
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-	skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-	inlineMath: [['$','$']]
-  }
-});
-</script>
-
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
--->
-
 <script type="text/x-mathjax-config"> 
 	MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); 
 </script>
@@ -109,10 +99,28 @@ MathJax.Hub.Config({
 	 });
 </script>
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+-->
 
 <!--
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
 -->
+
+<link rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css">
+<script defer src="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.js"></script>
+<script defer>
+	//KaTeX≈‰÷√
+	<script>
+	var katex_config = {
+		delimiters: 
+		[
+			{left: "$$", right: "$$", display: true},
+			{left: "$", right: "$", display: false}
+		]
+	};
+	</script>
+	<script defer src="https://cdn.bootcss.com/KaTeX/0.11.1/contrib/auto-render.min.js" onload="renderMathInElement(document.body,katex_config)"></script>
+</script>
+<script defer src="https://cdn.bootcss.com/KaTeX/0.11.1/contrib/auto-render.min.js">
 
 <script src="/assets/js/mermaid.min.js"></script>
