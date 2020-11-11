@@ -1,10 +1,9 @@
 ---
-title: DKN-Deep Knowledge-Aware Network for news Recommendation
+title: A News Recommendation Model-DKN (Deep Knowledge-Aware Network) 
 date: 2019-04-16
 tags:
 - 推荐系统
 - 知识图谱
-- 新闻推荐
 ---
 
 # 1 背景

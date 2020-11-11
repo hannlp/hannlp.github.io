@@ -1,5 +1,5 @@
 ---
-title: Gradient Compute in Deep Learning
+title: Gradient Calculation in Deep Learning
 date: 2020-11-06
 tags:
 - 基础知识
