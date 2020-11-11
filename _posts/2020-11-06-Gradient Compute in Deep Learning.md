@@ -11,13 +11,13 @@ tags:
 - *这篇博客内容* : 包括**部分深度学习所需数学知识**，以及**各种深度学习模型(DNN,RNN等)的原理推导**。
 
 # 1 数学知识
-> 注: 在本博客中，所有向量<span>$\bm{x}$</span>默认都为列向量
+> 注: 在本博客中，所有向量<span>$\bm{v}$</span>默认都为列向量
 
 ## 1.1 深度学习中几种常见的求导
 在神经网络中，很常见的求导类型是一个**实值函数$f$**(如损失函数)对**一个向量$\bm{x}$**(如网络某一层的输出)或**一个矩阵$\bm{W}$**(如网络中的参数)进行求导，这些求导的实质其实就是多元函数求导，即求自变量关于函数值的梯度。
 
 ### 1.1.1 常数(实值函数)对向量的求导
-$\frac{\partial f}{\bm{x}},其中\bm{x}=\begin{pmatrix} x_1 \\ x_2 \\ ... \\x_n \end{pmatrix}.等价于\begin{pmatrix} \frac{\partial f}{x_1} \\ \frac{\partial f}{x_2} \\ ... \\\frac{\partial f}{x_n} \end{pmatrix}$
+$$\frac{\partial f}{\bm{x}},其中\bm{x}=\begin{pmatrix} x_1 \\ x_2 \\ ... \\x_n \end{pmatrix}.等价于\begin{pmatrix} \frac{\partial f}{x_1} \\ \frac{\partial f}{x_2} \\ ... \\\frac{\partial f}{x_n} \end{pmatrix}$$
 
 ### 1.1.2 常数(实值函数)对矩阵的求导
 同1.1.1，即使用$f$依次对矩阵的每一个元素求导，结果仍然为一个矩阵。
@@ -38,8 +38,12 @@ $\frac{\partial f}{\bm{x}},其中\bm{x}=\begin{pmatrix} x_1 \\ x_2 \\ ... \\x_n 
 为方便考虑数据的流动，我们首先仅考虑一个样本$\bm{x}$在DNN中的前向传播。
 
 很容易发现，样本在每一层中流动的过程都是一样的，可以表示为:
-$\bm{z^l}=\bm{W^la^{l-1}+b^l}$
-$\bm{a^l}=\sigma^l(\bm{z^l})$
+$$
+\begin{aligned}
+\bm{z^l}=\bm{W^la^{l-1}+b^l}\\
+\bm{a^l}=\sigma^l(\bm{z^l})     
+\end{aligned}
+$$
 
 其中，$\bm{a^0}=\bm{x}$，$\bm{W^l}的维度为(N_{l}\times N_{l-1})$,$\bm{a^{l-1}}$的维度为$(N_{l-1}\times1)$,$\bm{b^l,z^l,a^l}$的维度均为$(N_l\times1)$，$\bm{a^L}$是DNN的输出
 
