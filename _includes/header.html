@@ -85,7 +85,7 @@
 {% else %}
 <div class="intro-header"></div>
 {% endif %}
-
+<!--
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
   tex2jax: {
@@ -94,20 +94,12 @@ MathJax.Hub.Config({
   }
 });
 </script>
+
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+-->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
 
 <script src="/assets/js/mermaid.min.js"></script>
-
-<style>
-  table{
-    border-left:1px solid #000000;border-top:1px solid #000000;
-    width: 100%;
-    word-wrap:break-word; word-break:break-all;
-  }
-  table th{
-  text-align:center;
-  }
-  table th,td{
-    border-right:1px solid #000000;border-bottom:1px solid #000000;
-  }
-</style>
