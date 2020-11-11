@@ -96,6 +96,16 @@ $$
 ![npa_visual_attention](/imgs/newsrec/npa_visual_attention.png)
 
 # 2. NAML: Neural News Recommendation with Attentive Multi-View Learning
+## 2.1 核心思想
+从新闻的多种成分(标题，类别，内容)中学习到有用的表示(将他们看成新闻的多个视角)
+
+有如下假设：
+1. 新闻包含多种成分，对学习其表示有所帮助(我理解为信息可以相互补充)
+2. 新闻的不同成分通常会蕴含着不同特性(比如标题很简明扼要，内容会长而具体)
+3. 不同用户对不同新闻有不同的注意(同npa模型)
+
+## 2.2 模型
+该模型基本与npa相同，只有在**news-model**中，又考虑了另外两个成分(新闻类别和新闻内容)，作为多个**view**。
 
 # 3. LSTUR: Neural News Recommendation with Long- and Short-termUser Representations
 
