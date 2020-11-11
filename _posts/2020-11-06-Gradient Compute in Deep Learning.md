@@ -19,6 +19,12 @@ tags:
 ### 1.1.1 常数(实值函数)对向量的求导
 $$\frac{\partial f}{\bm{x}},其中\bm{x}=\begin{pmatrix} x_1 \\ x_2 \\ ... \\x_n \end{pmatrix}.等价于\begin{pmatrix} \frac{\partial f}{x_1} \\ \frac{\partial f}{x_2} \\ ... \\\frac{\partial f}{x_n} \end{pmatrix}$$
 
+$\frac{\partial f}{\bm{x}},其中\bm{x}=\begin{pmatrix} x_1 \\ x_2 \\ ... \\x_n \end{pmatrix}.等价于\begin{pmatrix} \frac{\partial f}{x_1} \\ \frac{\partial f}{x_2} \\ ... \\\frac{\partial f}{x_n} \end{pmatrix}$
+
+\(\frac{\partial f}{\bm{x}},其中\bm{x}=\begin{pmatrix} x_1 \\ x_2 \\ ... \\x_n \end{pmatrix}.等价于\begin{pmatrix} \frac{\partial f}{x_1} \\ \frac{\partial f}{x_2} \\ ... \\\frac{\partial f}{x_n} \end{pmatrix}\)
+
+\[\frac{\partial f}{\bm{x}},其中\bm{x}=\begin{pmatrix} x_1 \\ x_2 \\ ... \\x_n \end{pmatrix}.等价于\begin{pmatrix} \frac{\partial f}{x_1} \\ \frac{\partial f}{x_2} \\ ... \\\frac{\partial f}{x_n} \end{pmatrix}\]
+
 ### 1.1.2 常数(实值函数)对矩阵的求导
 同1.1.1，即使用$f$依次对矩阵的每一个元素求导，结果仍然为一个矩阵。
 # 2 深度神经网络(DNN)中反向传播的推导
