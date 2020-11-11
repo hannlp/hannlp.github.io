@@ -1,6 +1,6 @@
 ---
 title: Gradient Compute in Deep Learning
-date: 2019-04-16 19:32:34
+date: 2020-11-06
 tags:
 - 基础知识
 - 深度学习

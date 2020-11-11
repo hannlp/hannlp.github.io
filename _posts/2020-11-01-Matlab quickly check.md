@@ -1,6 +1,6 @@
 ---
 title: Matlab quickly check
-date: 2019-06-05 12:14:49
+date: 2019-06-05
 tags: 基础知识
 ---
 ## matlab与c的不同
