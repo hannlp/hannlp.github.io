@@ -91,6 +91,10 @@ $$
 $$
 训练目标是在正例新闻集合$S$中，最小化似然函数$L$。使用梯度下降等优化算法，就可以更新模型中的所有参数。另外这种方法还可以将计算复杂度降低到大约$K$分之一。
 
+## 1.3 实验结果和其他有价值的东东
+![npa_ex](/imgs/newsrec/npa_ex.png)
+![npa_visual_attention](/imgs/newsrec/npa_visual_attention.png)
+
 # 2. NAML: Neural News Recommendation with Attentive Multi-View Learning
 
 # 3. LSTUR: Neural News Recommendation with Long- and Short-termUser Representations
