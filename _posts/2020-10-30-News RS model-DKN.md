@@ -1,6 +1,7 @@
 ---
 title: DKN-Deep Knowledge-Aware Network for news Recommendation
 date: 2019-04-16 19:32:34
+math: true
 tags:
 - 推荐系统
 - 知识图谱
