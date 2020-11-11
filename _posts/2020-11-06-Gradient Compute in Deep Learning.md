@@ -17,6 +17,7 @@ tags:
 在神经网络中，很常见的求导类型是一个**实值函数$f$**(如损失函数)对**一个向量$\bm{v}$**(如网络某一层的输出)或**一个矩阵$\bm{W}$**(如网络中的参数)进行求导，这些求导的实质其实就是多元函数求导，即求自变量关于函数值的梯度。
 
 ### 1.1.1 常数(实值函数)对向量的求导
+
 $$
 \frac{\partial f}{\bm{v}},其中\bm{v}=\begin{pmatrix} v_1 \\ v_2 \\ ... \\v_n \end{pmatrix}.等价于\begin{pmatrix} \frac{\partial f}{v_1} \\ \frac{\partial f}{v_2} \\ ... \\\frac{\partial f}{v_n} \end{pmatrix}
 $$
