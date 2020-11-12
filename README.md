@@ -58,3 +58,4 @@ Thanks to my friend [LoliMay](https://www.lolimay.cn) and This article [JS配置
 # 2 To do list
 * Add a commit system base on github issues
 * Use some method to accelerate image loading
+* Use cdn to accelerate my Github pages
