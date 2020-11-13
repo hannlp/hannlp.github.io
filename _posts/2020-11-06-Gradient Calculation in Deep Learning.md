@@ -64,6 +64,7 @@ $$
 $W_{jk}^l$会对$C$有什么影响呢？他只会与第$l-1$层第$\bm{k}$个节点的输出$a_k^{l-1}$相乘，然后作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上。如图所示:
 
 <span><div style="text-align: center;">
+
 ![W](/imgs/gradient/DNN_W.png)
 </div></span>
 
@@ -75,7 +76,7 @@ $W_{jk}^l$会对$C$有什么影响呢？他只会与第$l-1$层第$\bm{k}$个节
 
 ### 2.3.2 损失$C$对$\bm{b^l}$求梯度
 同样，我们只考虑$b_j^l$的梯度。
-$b_j^l$会对$C$有什么影响呢？他只会作用在第$l$层的第$j$个节点上，作为一个小小的偏置。所以我们依然可以根据链式法则得到$\frac{\partial C}{\partial b_j^l}=\frac{\partial C}{\partial z_j^l}\frac{\partial z_j^l}{\partial b_j^l}$。其中，$z_j^l=\sum_{i=1}^{N_{l-1}}a_i^{l-1}W_{ji}^l+b_j^l$(与2.3.1中是一样的)
+$b_j^l$会对$C$有什么影响呢？他只会作用在第$l$层的第$\bm{j}$个节点上，作为一个小小的偏置(如上图)。所以我们依然可以根据链式法则得到$\frac{\partial C}{\partial b_j^l}=\frac{\partial C}{\partial z_j^l}\frac{\partial z_j^l}{\partial b_j^l}$。其中，$z_j^l=\sum_{i=1}^{N_{l-1}}a_i^{l-1}W_{ji}^l+b_j^l$(与2.3.1中是一样的)
 
 所以，$\frac{\partial z_j^l}{\partial b_j^l}=1$
 
