@@ -68,10 +68,7 @@ $W_{jk}^l$会对$C$有什么影响呢？他只会与第$l-1$层第$\bm{k}$个节
 
 所以根据链式法则，有$\frac{\partial C}{\partial W_{jk}^l}=\frac{\partial C}{\partial z_j^l}\frac{\partial z_j^l}{\partial W_{jk}^l}$。其中，$z_j^l=\sum_{i=1}^{N_{l-1}}a_i^{l-1}W_{ji}^l+b_j^l$
 
-所以，$\frac{\partial z_j^l}{\partial W_{jk}^l}=a_k^{l-1}$(仅当$i=k$时，求和项不为0)
-
-所以，
-
+所以，$\frac{\partial z_j^l}{\partial W_{jk}^l}=a_k^{l-1}$(仅当$i=k$时，求和项不为0)， 从而：
 > $$\frac{\partial C}{\partial W_{jk}^l}=\frac{\partial C}{\partial z_j^l}a_k^{l-1}$$
 
 ### 2.3.2 损失$C$对$\bm{b^l}$求梯度
@@ -79,10 +76,7 @@ $W_{jk}^l$会对$C$有什么影响呢？他只会与第$l-1$层第$\bm{k}$个节
 
 $b_j^l$会对$C$有什么影响呢？他只会作用在第$l$层的第$\bm{j}$个节点上，作为一个小小的偏置(如上图)。所以我们依然可以根据链式法则得到$\frac{\partial C}{\partial b_j^l}=\frac{\partial C}{\partial z_j^l}\frac{\partial z_j^l}{\partial b_j^l}$。其中，$z_j^l=\sum_{i=1}^{N_{l-1}}a_i^{l-1}W_{ji}^l+b_j^l$(与2.3.1中是一样的)
 
-所以，$\frac{\partial z_j^l}{\partial b_j^l}=1$
-
-所以，
-
+所以，$\frac{\partial z_j^l}{\partial b_j^l}=1$，从而：
 > $$\frac{\partial C}{\partial b_j^l}=\frac{\partial C}{\partial z_j^l}\times1=\frac{\partial C}{\partial z_j^l}$$
 
 ## 2.4 (误差的)反向传播
@@ -106,7 +100,7 @@ $$C=Loss(\bm{a^L,y})=\frac{1}{2}\Vert\bm{y-a^L}\Vert^2=\frac{1}{2}\sum_j(y_j-a_j
 
 那么，我们便可以求得
 
-$$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+(y_2-a_2^L)^2+...+(y_{N_L}-a_{N_L}^L)^2]}{{\partial a_j^L}}=\frac{1}{2}\times2(y_j-a_j^L)\times-1=a_j^L-y_j$$
+$$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...+(y_{N_L}-a_{N_L}^L)^2]}{{\partial a_j^L}}=\frac{1}{2}\times2(y_j-a_j^L)\times-1=a_j^L-y_j$$
 
 可以看到$\frac{\partial C}{\partial a_j^L}和\frac{\partial a_j^L}{\partial z_j^L}$都是只与下标$\bm{j}$有关的，所以我们可以直接将其扩展成向量形式，即$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\bigodot\sigma'^L(\bm{z^L})$，其中$\bigodot$是两个向量的按元素乘法
 
