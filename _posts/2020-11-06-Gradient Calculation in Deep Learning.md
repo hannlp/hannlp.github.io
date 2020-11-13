@@ -109,7 +109,7 @@ $$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...
 > $$\frac{\partial C}{\partial\bm{z^L}}=(\frac{\partial C}{\partial \bm{a^L}})\bigodot\sigma'^L(\bm{z^L})$$
 
 ### 2.4.1 误差从第$l+1$层传播到第$l$层
-为了计算误差在两层之间是怎么流动的，我们首先需要观察一下两层之间$\bm{z}$的关系，很简单，就是$\bm{z^{l+1}}=\bm{W^{l+1}}\sigma^{l+1}(\bm{z^l})+\bm{b^{l+1}}$
+为了计算误差在两层之间是怎么流动的，我们首先需要观察一下两层之间$\bm{z}$的关系，很简单，就是$\bm{z^{l+1}}=\bm{W^{l+1}}\sigma^l(\bm{z^l})+\bm{b^{l+1}}$
 
 我们可以从上面的式子观察一下第$l$层的第$\bm{j}$个神经元的$z_j^l$是怎么作用到下一层的。同样很简单，$z_j^l$会先经过一个激活函数$\sigma$得到$a_j^l$，再乘上不同的权重，作用在下一层的每一个神经元上。
 
