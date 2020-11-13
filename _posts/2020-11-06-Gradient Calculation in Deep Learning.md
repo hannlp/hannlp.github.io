@@ -64,16 +64,15 @@ $$
 
 $W_{jk}^l$会对$C$有什么影响呢？他只会与第$l-1$层第$\bm{k}$个节点的输出$a_k^{l-1}$相乘，然后作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上。如图所示:
 
-<div style="text-align: center;">
-
 ![W](/imgs/gradient/DNN_W.png)
-</div>
 
 所以根据链式法则，有$\frac{\partial C}{\partial W_{jk}^l}=\frac{\partial C}{\partial z_j^l}\frac{\partial z_j^l}{\partial W_{jk}^l}$。其中，$z_j^l=\sum_{i=1}^{N_{l-1}}a_i^{l-1}W_{ji}^l+b_j^l$
 
 所以，$\frac{\partial z_j^l}{\partial W_{jk}^l}=a_k^{l-1}$(仅当$i=k$时，求和项不为0)
 
-所以，$\frac{\partial C}{\partial W_{jk}^l}=\frac{\partial C}{\partial z_j^l}a_k^{l-1}$
+所以，
+
+> $$\frac{\partial C}{\partial W_{jk}^l}=\frac{\partial C}{\partial z_j^l}a_k^{l-1}$$
 
 ### 2.3.2 损失$C$对$\bm{b^l}$求梯度
 同样，我们只考虑$b_j^l$的梯度。
@@ -82,7 +81,9 @@ $b_j^l$会对$C$有什么影响呢？他只会作用在第$l$层的第$\bm{j}$�
 
 所以，$\frac{\partial z_j^l}{\partial b_j^l}=1$
 
-所以，$\frac{\partial C}{\partial b_j^l}=\frac{\partial C}{\partial z_j^l}\times1=\frac{\partial C}{\partial z_j^l}$
+所以，
+
+> $$\frac{\partial C}{\partial b_j^l}=\frac{\partial C}{\partial z_j^l}\times1=\frac{\partial C}{\partial z_j^l}$$
 
 ## 2.4 (误差的)反向传播
 通过2.3节可以看到：如果想求$\bm{W^l}$和$\bm{b^l}$中每一个元素的梯度，都需要求$\frac{\partial C}{\partial z_j^l}$这一项。该怎么求呢？接下来就是反向传播的精髓了。
@@ -91,30 +92,38 @@ $b_j^l$会对$C$有什么影响呢？他只会作用在第$l$层的第$\bm{j}$�
 
 ### 2.4.1 计算第$L$层的误差$\frac{\partial C}{\partial\bm{z^L}}$
 
-同样的方法，我们还是先只考虑这一层中第$j$个神经元的误差$\frac{\partial C}{\partial z_j^L}$。
+同样的方法，我们还是先只考虑这一层中第$\bm{j}$个神经元的误差$\frac{\partial C}{\partial z_j^L}$。
 
 首先考虑$z_j^L$会对$C$产生什么影响。很简单的，$z_j^L$在被激活函数$\sigma^L$激活得到$a_j^L$然后作为计算$C$的一部分。
 
-所以，又根据链式法则，得到$\frac{\partial C}{\partial z_j^L}=\frac{\partial C}{\partial a_j^L}\frac{\partial a_j^L}{\partial z_j^L}$
-其中$a_j^L=\sigma^L(z_j^l)$,所以有$\frac{\partial a_j^L}{\partial z_j^L}=\sigma'^L(z_j^L)$
+所以，又根据链式法则，得到$\frac{\partial C}{\partial z_j^L}=\frac{\partial C}{\partial a_j^L}\frac{\partial a_j^L}{\partial z_j^L}$.
+
+其中$\frac{\partial a_j^L}{\partial z_j^L}$这一项等于$\sigma'^L(z_j^L)$.因为$a_j^L=\sigma^L(z_j^L)$
+
 而$\frac{\partial C}{\partial a_j^L}$这一项需要根据具体的损失函数$Loss()$来计算。我们以平方损失为例：
 
-$C=Loss(\bm{a^L,y})=\frac{1}{2}\Vert\bm{y-a^L}\Vert^2=\frac{1}{2}\sum_j(y_j-a_j^L)^2$
+$$C=Loss(\bm{a^L,y})=\frac{1}{2}\Vert\bm{y-a^L}\Vert^2=\frac{1}{2}\sum_j(y_j-a_j^L)^2$$
 
-那么，我们便可以求得$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+(y_2-a_2^L)^2+...+(y_{N_L}-a_{N_L}^L)^2]}{{\partial a_j^L}}=\frac{1}{2}\times2(y_j-a_j^L)\times-1=a_j^L-y_j$
+那么，我们便可以求得
 
-可以看到$\frac{\partial C}{\partial a_j^L}和\frac{\partial a_j^L}{\partial z_j^L}$都是只与下标$j$有关的，所以我们可以直接将其扩展成向量形式，即$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\bigodot\sigma'^L(\bm{z^L})$，其中$\bigodot$是两个向量的按元素乘法
+$$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+(y_2-a_2^L)^2+...+(y_{N_L}-a_{N_L}^L)^2]}{{\partial a_j^L}}=\frac{1}{2}\times2(y_j-a_j^L)\times-1=a_j^L-y_j$$
 
-从二次损失扩展到其他各种损失函数，即$\frac{\partial C}{\partial\bm{z^L}}=(\frac{\partial C}{\partial \bm{a^L}})\bigodot\sigma'^L(\bm{z^L})$
+可以看到$\frac{\partial C}{\partial a_j^L}和\frac{\partial a_j^L}{\partial z_j^L}$都是只与下标$\bm{j}$有关的，所以我们可以直接将其扩展成向量形式，即$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\bigodot\sigma'^L(\bm{z^L})$，其中$\bigodot$是两个向量的按元素乘法
+
+从二次损失扩展到其他各种损失函数，即
+
+> $$\frac{\partial C}{\partial\bm{z^L}}=(\frac{\partial C}{\partial \bm{a^L}})\bigodot\sigma'^L(\bm{z^L})$$
 
 ### 2.4.1 误差从第$l+1$层传播到第$l$层
-为了计算误差在两层之间是怎么流动的，我们首先需要观察一下两层之间$\bm{z}$的关系，很简单，就是$\bm{z^{l+1}}=\bm{W^{l+1}}\sigma(\bm{z^l})+\bm{b^{l+1}}$
+为了计算误差在两层之间是怎么流动的，我们首先需要观察一下两层之间$\bm{z}$的关系，很简单，就是$\bm{z^{l+1}}=\bm{W^{l+1}}\sigma^{l+1}(\bm{z^l})+\bm{b^{l+1}}$
 
-我们可以从上面的式子观察一下第$l$层的第$j$个神经元的$z_j^l$是怎么作用到下一层的。同样很简单，$z_j^l$会先经过一个激活函数$\sigma$得到$a_j^l$，再乘上不同的权重，作用在下一层的每一个神经元上。
+我们可以从上面的式子观察一下第$l$层的第$\bm{j}$个神经元的$z_j^l$是怎么作用到下一层的。同样很简单，$z_j^l$会先经过一个激活函数$\sigma$得到$a_j^l$，再乘上不同的权重，作用在下一层的每一个神经元上。
 
-所以，根据链式法则，有$\frac{\partial C}{\partial z_j^l}=\sum_k\frac{\partial C}{\partial z_k^{l+1}}\frac{\partial z_k^{l+1}}{\partial z_j^l}$
+![z](/imgs/gradient/DNN_z.png)
 
-我们先看$\frac{\partial z_k^{l+1}}{\partial z_j^l}$这一项。$z_k^{l+1}$是怎么得到的呢？是上一层所有的$z_i^l$经过一个激活函数，再乘一个权重，最后加上一个偏置得到的，即$z_k^{l+1}=\sum_i^{N_l}\sigma^l(z_i^l)\times W_{ki}^{l+1}+b_k^{l+1}$
+所以，根据[链式法则(例:z为u,v的函数，u和v分别为x,y的函数)](https://zhuanlan.zhihu.com/p/113112455)，有$\frac{\partial C}{\partial z_j^l}=\sum_k\frac{\partial C}{\partial z_k^{l+1}}\frac{\partial z_k^{l+1}}{\partial z_j^l}$
+
+我们先看$\frac{\partial z_k^{l+1}}{\partial z_j^l}$这一项。$z_k^{l+1}$是怎么得到的呢？是上一层所有的$z_i^l$经过一个激活函数，再乘一个权重，最后加上一个偏置得到的，即$z_k^{l+1}=\sum_i^{N_l}\sigma^l(z_i^l)\times W_{ki}^{l+1}+b_k^{l+1}$.(形式同2.3.1图)
 
 所以$\frac{\partial z_k^{l+1}}{\partial z_j^l}=\sigma'^l(z_j^l)\times W_{kj}^{l+1}$(仅当$i=j$时求和项不为0)
 
@@ -126,9 +135,9 @@ $C=Loss(\bm{a^L,y})=\frac{1}{2}\Vert\bm{y-a^L}\Vert^2=\frac{1}{2}\sum_j(y_j-a_j^
 
 很惊讶的发现，上式$=[\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{z^{l+1}}})]_j\times \sigma'^l(z_j^l)$
 
-因为只由下标$j$决定，所以又可以得到一个完美漂亮的向量表达~
+因为只由下标$\bm{j}$决定，所以又可以得到一个完美漂亮的向量表达~
 
-$\frac{\partial C}{\bm{\partial \bm{z^l}}}=\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{z^{l+1}}})\bigodot\sigma'^l(\bm{z^l})$
+> $$\frac{\partial C}{\bm{\partial \bm{z^l}}}=\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{z^{l+1}}})\bigodot\sigma'^l(\bm{z^l})$$
 
 # 参考文献
 1.[Matrix Cookbook - Kaare Brandt Petersen, Michael Syskind Pedersen](https://cdn.jsdelivr.net/gh/hannlp/Books@1.01/Matrix%20Cookbook.pdf)
