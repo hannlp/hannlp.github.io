@@ -64,10 +64,10 @@ $$
 
 $W_{jk}^l$会对$C$有什么影响呢？他只会与第$l-1$层第$\bm{k}$个节点的输出$a_k^{l-1}$相乘，然后作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上。如图所示:
 
-<span><div style="text-align: center;">
+<div style="text-align: center;">
 
 ![W](/imgs/gradient/DNN_W.png)
-</div></span>
+</div>
 
 所以根据链式法则，有$\frac{\partial C}{\partial W_{jk}^l}=\frac{\partial C}{\partial z_j^l}\frac{\partial z_j^l}{\partial W_{jk}^l}$。其中，$z_j^l=\sum_{i=1}^{N_{l-1}}a_i^{l-1}W_{ji}^l+b_j^l$
 
@@ -85,7 +85,7 @@ $b_j^l$会对$C$有什么影响呢？他只会作用在第$l$层的第$\bm{j}$�
 所以，$\frac{\partial C}{\partial b_j^l}=\frac{\partial C}{\partial z_j^l}\times1=\frac{\partial C}{\partial z_j^l}$
 
 ## 2.4 (误差的)反向传播
-通过上2.3节，可以看到如果想求$\bm{W}$和$\bm{b}$中每一个元素的梯度，都需要求$\frac{\partial C}{\partial z_j^l}$这一项。该怎么求呢？接下来就是反向传播的精髓了。
+通过2.3节可以看到：如果想求$\bm{W}$和$\bm{b}$中每一个元素的梯度，都需要求$\frac{\partial C}{\partial z_j^l}$这一项。该怎么求呢？接下来就是反向传播的精髓了。
 
 我小小的总结一下，前向传播是**训练样本**的前向传播，目的是使用$\bm{x}$通过DNN得到$\bm{a^L}$，从而计算$Loss(\bm{a^L,y})$。那么反向传播是**误差**的反向传播，即首先根据$Loss$得到最后一层，即第$L$层的误差，再反向计算每一层的误差。这里的误差，也就是我们刚刚要求的$\frac{\partial C}{\partial \bm{z^l}}$这一项。通过计算该项，我们便可以得到模型中所有参数的梯度，从而使用基于梯度的优化算法进行参数更新，这就是DNN完整的一轮迭代。
 
