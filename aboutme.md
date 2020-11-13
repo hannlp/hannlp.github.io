@@ -11,4 +11,4 @@ A senior in AHU(Anhui University), China. My Major is CS, and I'm being interest
 - *other links :*  
 My [zhihu](https://www.zhihu.com/people/han-yu-chen-3) | [csdn](https://blog.csdn.net/qq_42734797)
 - *friend links :*
-[*OmegaXYZ*](https://www.omegaxyz.com/) | [*ylink's Nest*](http://ylinknest.top/) | [*LoliMay's Blog*](https://www.lolimay.cn) | [*Beauty Of Coding*](https://bofc.tech/) | [*PeterShi's blog*](http://littleblackte.com/) | [*没有胡子的猫*](http://39.96.68.13/)
+[*OhYee*](https://www.oyohyee.com/) | [*OmegaXYZ*](https://www.omegaxyz.com/) | [*ylink's Nest*](http://ylinknest.top/) | [*LoliMay's Blog*](https://www.lolimay.cn) | [*Beauty Of Coding*](https://bofc.tech/) | [*PeterShi's blog*](http://littleblackte.com/) | [*没有胡子的猫*](http://39.96.68.13/)
