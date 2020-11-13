@@ -133,5 +133,23 @@ $$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...
 
 > $$\frac{\partial C}{\bm{\partial \bm{z^l}}}=\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{z^{l+1}}})\bigodot\sigma'^l(\bm{z^l})$$
 
+## 2.5 关于单样本反向传播的最后公式
+为便于简洁表示，令每层的误差$\frac{\partial C}{\partial \bm{z^l}}=\bm{\delta^l}$
+
+有以下公式:
+> $$\begin{aligned}
+    &\frac{\partial C}{\partial W_{jk}^l}=\delta_j^la_k^{l-1}\\
+    &\frac{\partial C}{\partial b_j^l}=\delta_j^l\\
+    &\bm{\delta^L}=(\frac{\partial C}{\partial \bm{a^L}})\bigodot\sigma'^L(\bm{z^L})\\
+    &\bm{\delta^l}=(\bm{(W^{l+1})}^\mathrm{T}\bm{\delta^l})\bigodot\sigma'^l(\bm{z^l}) 
+\end{aligned}$$
+
+也可以按照以下流程编程实现(图片来自Neural Networks and Deep Learning, Michael Nielsen )：
+![method](/imgs/gradient/method.png)
+
+自此，我对于单个样本$\bm{x}$的反向传播推导就告一段落，已经可以凭借以上内容，实现一个使用随机梯度下降算法来优化的DNN啦！
+
+## 2.6 多样本反向传播
+
 # 参考文献
 1.[Matrix Cookbook - Kaare Brandt Petersen, Michael Syskind Pedersen](https://cdn.jsdelivr.net/gh/hannlp/Books@1.01/Matrix%20Cookbook.pdf)
