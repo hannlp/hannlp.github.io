@@ -66,7 +66,6 @@ $$
 $$
 >
 >即使用查询向量$\bm{q_w}$先经过非线性映射，再与每个单词做点乘，最后使用$Softmax$函数归一化，得到每个单词的注意力。
-
 4. 一个新闻最终的表示，就是所有单词的加权平均啦：$\bm{r_i}=\sum_{j=1}^M\alpha_j\bm{c_j}$
 
 ### 1.2.2 用户表示模型
@@ -149,7 +148,7 @@ $$
 1. **长期偏好表示**：
 作者使用用户ID的嵌入$\bm{u_l}$来作为用户的长期偏好。具体的步骤这里也讲了：随机初始化+在模型训练时自动学习得到(这也解释了之前一系列基于用户ID的表示的具体步骤)
 2. **短期兴趣表示**：
-作者使用了GRU(gated recurrent networks)来根据用户的浏览历史(按时间顺序)。若新闻序列为$(\bm{e_1,e_2,...,e_k})$，有如下公式(GRU)：
+作者使用了GRU(gated recurrent networks)来根据用户的浏览历史(按时间顺序)。若新闻序列为$(\bm{e_1,e_2,...,e_k})$，有如下公式(即GRU的几个公式)：
 
 $$\begin{aligned}
     &\bm{r_t}=\sigma(\bm{W_r[\bm{h_{t-1},e_t}]}),\\
@@ -159,7 +158,8 @@ $$\begin{aligned}
     &\bm{u_s=h_k}
 \end{aligned}
 $$
-
 3. **长期表示与短期表示结合**：
+
+![long_and_short](/imgs/newsrec/long_and_short.png)
 
 # 4. NRMS: Neural News Recommendation with Multi-Head Self-Attention
