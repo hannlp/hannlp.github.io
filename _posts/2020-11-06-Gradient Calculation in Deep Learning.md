@@ -152,4 +152,5 @@ $$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...
 ## 2.6 多样本反向传播
 
 # 参考文献
-1.[Matrix Cookbook - Kaare Brandt Petersen, Michael Syskind Pedersen](https://cdn.jsdelivr.net/gh/hannlp/Books@1.01/Matrix%20Cookbook.pdf)
+1. [Matrix Cookbook - Kaare Brandt Petersen, Michael Syskind Pedersen](https://cdn.jsdelivr.net/gh/hannlp/Books@1.01/Matrix%20Cookbook.pdf)
+2. [Neural Network and Deep Learning - Michael Nielsen](https://cdn.jsdelivr.net/gh/hannlp/Books@1.02/(Michael%20Nielsen)Neural%20Network%20and%20Deep%20Learning.pdf)
