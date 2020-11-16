@@ -66,6 +66,7 @@ $$
 $$
 >
 >即使用查询向量$\bm{q_w}$先经过非线性映射，再与每个单词做点乘，最后使用$Softmax$函数归一化，得到每个单词的注意力。
+
 4. 一个新闻最终的表示，就是所有单词的加权平均啦：$\bm{r_i}=\sum_{j=1}^M\alpha_j\bm{c_j}$
 
 ### 1.2.2 用户表示模型
@@ -158,8 +159,11 @@ $$\begin{aligned}
     &\bm{u_s=h_k}
 \end{aligned}
 $$
-3. **长期表示与短期表示结合**：
 
+3. **长期表示与短期表示结合**：
+作者提出了两种方法，一种是使用用户的长期表示来初始化GRU的初始状态，取GRU的最终状态来作为用户表示(LSTUR-ini)，另外一种是直接将用户的长期表示和GRU的最终状态拼接得到用户表示(LSTUR-con)。在实验中，第二种方法效果更好。
 ![long_and_short](/imgs/newsrec/long_and_short.png)
+
+### 3.2.3 一些tricks
 
 # 4. NRMS: Neural News Recommendation with Multi-Head Self-Attention
