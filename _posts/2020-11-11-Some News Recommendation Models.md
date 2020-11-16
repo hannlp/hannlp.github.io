@@ -147,5 +147,19 @@ $$
 
 ### 3.2.2 用户表示模型
 1. **长期偏好表示**：
+作者使用用户ID的嵌入$\bm{u_l}$来作为用户的长期偏好。具体的步骤这里也讲了：随机初始化+在模型训练时自动学习得到(这也解释了之前一系列基于用户ID的表示的具体步骤)
+2. **短期兴趣表示**：
+作者使用了GRU(gated recurrent networks)来根据用户的浏览历史(按时间顺序)。若新闻序列为$(\bm{e_1,e_2,...,e_k})$，有如下公式(GRU)：
+
+$$\begin{aligned}
+    &\bm{r_t}=\sigma(\bm{W_r[\bm{h_{t-1},e_t}]}),\\
+    &\bm{z_t}=\sigma(\bm{W_z[\bm{h_{t-1},e_t}]}),\\
+    &{\bm{\tilde h_t}}=tanh(\bm{W_{\tilde{h}}[r_t\odot h_{t-1},e_t]}),\\
+    &\bm{h_t}=\bm{z_t}\odot\bm{h_t}+(\bm{1-z_t})\odot\bm{\tilde{h_t}}\\
+    &\bm{u_s=h_k}
+\end{aligned}
+$$
+
+3. **长期表示与短期表示结合**：
 
 # 4. NRMS: Neural News Recommendation with Multi-Head Self-Attention
