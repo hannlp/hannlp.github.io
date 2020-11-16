@@ -58,9 +58,10 @@ tags:
 > *3.1* 首先需要将每个用户的ID映射成一个向量$\bm{e_u}$(具体方法文中没有讲，可能是随机初始化最后学习得到的，需要去看代码了解)
 > 
 > *3.2* 再将$\bm{e_u}$经过一个线性映射，得到一个查询向量$\bm{q_w}=ReLU(\bm{V_w}\times\bm{e_u}+\bm{v_w})$，其中$\bm{V_w}$和$\bm{v_m}$都是模型参数(就是会不断被更新的辣种)，下面同理!
+> 
 > *3.3* 最后通过以下两个公式
 >
->$$
+$$
 \begin{aligned}
     &a_i=\bm{c_i}^\mathrm{T}tanh(\bm{W_p}\times\bm{q_w}+\bm{b_p})\\
     &\alpha_i=\frac{exp(a_i)}{\sum_{j=1}^Mexp(a_j)}
