@@ -102,11 +102,11 @@ $$C=Loss(\bm{a^L,y})=\frac{1}{2}\Vert\bm{y-a^L}\Vert^2=\frac{1}{2}\sum_j(y_j-a_j
 
 $$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...+(y_{N_L}-a_{N_L}^L)^2]}{{\partial a_j^L}}=\frac{1}{2}\times2(y_j-a_j^L)\times-1=a_j^L-y_j$$
 
-可以看到$\frac{\partial C}{\partial a_j^L}和\frac{\partial a_j^L}{\partial z_j^L}$都是只与下标$\bm{j}$有关的，所以我们可以直接将其扩展成向量形式，即$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\bigodot\sigma'^L(\bm{z^L})$，其中$\bigodot$是两个向量的按元素乘法
+可以看到$\frac{\partial C}{\partial a_j^L}和\frac{\partial a_j^L}{\partial z_j^L}$都是只与下标$\bm{j}$有关的，所以我们可以直接将其扩展成向量形式，即$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\bigodot\sigma'^L(\bm{z^L})$，其中$\odot$是两个向量的按元素乘法
 
 从平方损失函数扩展到其他各种损失函数，即
 
-> $$\frac{\partial C}{\partial\bm{z^L}}=(\frac{\partial C}{\partial \bm{a^L}})\bigodot\sigma'^L(\bm{z^L})$$
+> $$\frac{\partial C}{\partial\bm{z^L}}=(\frac{\partial C}{\partial \bm{a^L}})\odot\sigma'^L(\bm{z^L})$$
 
 ### 2.4.1 误差从第$l+1$层传播到第$l$层
 为了计算误差在两层之间是怎么流动的，我们首先需要观察一下两层之间$\bm{z}$的关系，很简单，就是$\bm{z^{l+1}}=\bm{W^{l+1}}\sigma^l(\bm{z^l})+\bm{b^{l+1}}$
@@ -131,7 +131,7 @@ $$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...
 
 因为只由下标$\bm{j}$决定，所以又可以得到一个完美漂亮的向量表达~
 
-> $$\frac{\partial C}{\bm{\partial \bm{z^l}}}=\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{z^{l+1}}})\bigodot\sigma'^l(\bm{z^l})$$
+> $$\frac{\partial C}{\bm{\partial \bm{z^l}}}=\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{z^{l+1}}})\odot\sigma'^l(\bm{z^l})$$
 
 ## 2.5 关于单样本反向传播的最后公式
 为便于简洁表示，令每层的误差$\frac{\partial C}{\partial \bm{z^l}}=\bm{\delta^l}$
@@ -140,8 +140,8 @@ $$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...
 > $$\begin{aligned}
     &\frac{\partial C}{\partial W_{jk}^l}=\delta_j^la_k^{l-1}\\
     &\frac{\partial C}{\partial b_j^l}=\delta_j^l\\
-    &\bm{\delta^L}=(\frac{\partial C}{\partial \bm{a^L}})\bigodot\sigma'^L(\bm{z^L})\\
-    &\bm{\delta^l}=(\bm{(W^{l+1})}^\mathrm{T}\bm{\delta^{l+1}})\bigodot\sigma'^l(\bm{z^l}) 
+    &\bm{\delta^L}=(\frac{\partial C}{\partial \bm{a^L}})\odot\sigma'^L(\bm{z^L})\\
+    &\bm{\delta^l}=(\bm{(W^{l+1})}^\mathrm{T}\bm{\delta^{l+1}})\odot\sigma'^l(\bm{z^l}) 
 \end{aligned}$$
 
 也可以按照以下流程编程实现(图片来自Neural Networks and Deep Learning, Michael Nielsen )：
