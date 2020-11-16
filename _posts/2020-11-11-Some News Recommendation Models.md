@@ -165,6 +165,16 @@ $$
 ![long_and_short](/imgs/newsrec/long_and_short.png)
 
 ### 3.2.3 一个trick
-作者考虑到在数据集中并不是所有用户都会有长期的偏好(我理解为推荐系统中的长尾效应)，所以在训练过程中，作者随机遮掩了一些用户的长期偏好表示(直接设为0)，在实验中取得效果的提升
+作者考虑到在数据集中并不是所有用户都会有长期的偏好(我理解为推荐系统中的长尾效应)，所以在训练过程中，作者以一定概率$p$遮掩了一些用户的长期偏好表示(直接设为0)，在实验中取得效果的提升
+
+## 3.3 实验结果及结论
+左图为两种长短期表示结合方法的对比，右图为LSTM和GRU的对比，GRU略胜一筹。
+![lstur_ex1](/imgs/newsrec/lstur_ex1.png)
+
+新闻标题表示中，使用CNN和LSTM的对比，CNN略胜一筹。加attention都会提升。
+![lstur_ex2](/imgs/newsrec/lstur_ex2.png)
+
+训练时的trick中，长期表示的遮掩概率$p$的比较。
+![lstur_ex3](/imgs/newsrec/lstur_ex3.png)
 
 # 4. NRMS: Neural News Recommendation with Multi-Head Self-Attention
