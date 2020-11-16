@@ -178,3 +178,33 @@ $$
 ![lstur_ex3](/imgs/newsrec/lstur_ex3.png)
 
 # 4. NRMS: Neural News Recommendation with Multi-Head Self-Attention
+
+## 4.1 核心思想
+从一个新闻标题中学习新闻的表示，或从一个用户浏览的历史新闻中学习用户的表示，很关键的一点是捕捉单词与单词、新闻与新闻之间的相关性。
+
+我们看一下前几篇是怎么考虑的：前几篇论文中都使用了CNN，其目的很简单，是使用每个单词前后的几个词(也就是局部上下文)来共同表示这个单词。但作者指出，CNN的一个不足是不能捕捉"long distance contexts of words"。
+
+所以作者提出一种self-attention的方法，综合考虑任意两个单词(或新闻)间的关系。我猜这也是从Transformer模型中获得的启发。
+
+## 4.2 模型
+
+![nrms_model](/imgs/newsrec/nrms_model.png)
+
+### 4.2.1 多头自注意力
+作者在学习**每一个单词的表示**的时候，都会用到标题中的所有单词。这就是自注意力机制，具体公式如下：
+
+$$\begin{aligned}
+    &\alpha_{i,j}^k=\frac{\mathrm{exp}(\bm{e_i^\mathrm{T}}\bm{Q_k^we_j})}{\sum_{m=1}^M\mathrm{exp}(\bm{e_i^\mathrm{T}}\bm{Q_k^we_m})}\\
+    &\bm{h_{i,j}^w}=\bm{V_k^w}(\sum_{j=1}^M\alpha_{i,j}^k\bm{e_j})\\
+    &\bm{h_i^w}=[\bm{h_{i,1}^w;h_{i,2}^w;...;h_{i,h}^w}]
+\end{aligned}
+$$
+
+其中，什么是多头呢？就是图中堆叠起来的矩阵。为什么要用多头呢？我个人认为这与计算机视觉中**卷积核**的作用是类似的，不同的卷积核可以学习到不同的特征。同样，每个头也会关注到不同的层次。
+
+其余内容与前几篇论文一样~
+
+## 4.3 改进思路
+这是本篇博客讲述的最后一篇论文，也是在*MIND*数据集中获得最好效果的一篇论文。作者提出了一些改进思路，供我们参考：
+>* 在使用self-attention的同时考虑单词或新闻的位置信息，即引入位置编码
+>* 考虑使用新闻的多种成分，但如果引入像新闻内容这样的长序列，这是对自注意力机制的一种挑战
