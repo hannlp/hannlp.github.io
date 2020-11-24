@@ -14,9 +14,27 @@ tags: 基础知识
 ---
 # 1 极限一（计算）
 
+|          等价无穷小           |                           泰勒展开                           |
+| :---------------------------: | :----------------------------------------------------------: |
+|         $sinx\sim x$          |                   $sinx=x-\frac{1}{3!}x^3$                   |
+|  $1-cosx\sim \frac{1}{2}x^2$  |           $cosx=1-\frac{1}{2}x^2+\frac{1}{4!}x^4$            |
+|         $e^x-1\sim x$         |           $e^x=1+x+\frac{1}{2}x^2+\frac{1}{3!}x^3$           |
+|         $tanx\sim x$          |                   $tanx=x+\frac{1}{3}x^3$                    |
+|   $\mathrm{arctan}x\sim x$    |             $\mathrm{arctan}x=x-\frac{1}{3}x^3$              |
+|        $ln(1+x)\sim x$        | $ln(1+x)=x-\frac{1}{2}x^2+\frac{1}{3}x^3-\frac{1}{4}x^4+...$ |
+| $(1+x)^\alpha-1\sim \alpha x$ | $(1+x)^\alpha=1+\alpha x+\frac{\alpha(\alpha-1)}{2!}x^2+...$ |
+
 $1. 当x\to0时，f(x)=x-sin(ax)与g(x)=x^2ln(1-bx)等价无穷小，求a,b.$
 
-$解:$
+解：
+$$\begin{aligned}
+    sin(ax)&=ax-\frac{1}{6}(ax)^3\\
+    f(x)&=x-sin(ax)=(1-a)x+\frac{1}{6}(ax)^3\\
+    ln(1-bx)&=-bx\\
+    g(x)&=x^2ln(1-bx)=-bx^3\\
+    \lim_{x\rightarrow 0}\frac{f(x)}{g(x)}&=1,故a=1,b=-\frac{1}{6}
+\end{aligned}
+$$
 
 $2. 求lim_{x\to0}\frac{[sinx-sin(sinx)]sinx}{x^4}.$
 
