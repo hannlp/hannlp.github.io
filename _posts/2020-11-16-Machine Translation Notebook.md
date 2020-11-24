@@ -23,7 +23,8 @@ nlp实验室肖桐老师、朱靖波老师主编的《机器翻译-统计建模�
 采用$n$-$gram$匹配+短句惩罚的方式：
 
 $$\begin{aligned}
-    \mathrm{BLEU}&=BP\cdot
+    \mathrm{BLEU}&=\mathrm{BP}\cdot\mathrm{exp}(\sum_{i=1}^Nw_n\cdot\mathrm{logP}_n)\\
+    \mathrm{BP}&=
 \end{aligned}
 $$
 
