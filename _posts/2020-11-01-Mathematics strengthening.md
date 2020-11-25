@@ -23,10 +23,11 @@ tags: 基础知识
 |   $\mathrm{arctan}x\sim x$    |             $\mathrm{arctan}x=x-\frac{1}{3}x^3$              |
 |        $ln(1+x)\sim x$        | $ln(1+x)=x-\frac{1}{2}x^2+\frac{1}{3}x^3-\frac{1}{4}x^4+...$ |
 | $(1+x)^\alpha-1\sim \alpha x$ | $(1+x)^\alpha=1+\alpha x+\frac{\alpha(\alpha-1)}{2!}x^2+...$ |
+* **口诀**：指对连，三角断，三角对数隔一换。对数函数一二三，三角指数有感叹。[知乎:weiyinfu](https://www.zhihu.com/question/25627482/answer/332242473)
 
 $1. 当x\to0时，f(x)=x-sin(ax)与g(x)=x^2ln(1-bx)等价无穷小，求a,b.$
-
 解：
+
 $$\begin{aligned}
     sin(ax)&=ax-\frac{1}{6}(ax)^3\\
     f(x)&=x-sin(ax)=(1-a)x+\frac{1}{6}(ax)^3\\
@@ -43,6 +44,7 @@ $2. 求lim_{x\to0}\frac{[sinx-sin(sinx)]sinx}{x^4}.$
 >- $tip3:整体代换:由tip2得,lim_{f\to0}(f-sinf)=\frac{1}{6}f^3(f为任意函数)$
 
 解：
+
 $$\begin{aligned}
     原式&=lim_{x\to0}\frac{sinx-sin(sinx)}{sin^3x} \\
     &=lim_{f\to0}\frac{f-sinf}{f^3}\\
@@ -54,6 +56,7 @@ $$
 $3.当x\to0时，f(x)=3sinx-sin(3x)与cx^k等价无穷小，求c，k.$
 
 解：
+
 $$\begin{aligned}
     3sinx&=3(x-\frac{1}{6}x^3)=3x-\frac{1}{2}x^3\\
     sin(3x)&=3x-\frac{1}{6}(3x)^3=3x-\frac{9}{2}x^3\\
@@ -62,7 +65,6 @@ $$\begin{aligned}
 $$
 
 > 佐天，有两个年轻人问我，韩老师发生肾么事了？我说怎么回事，塔门说，韩老师你不讲武德，为什么泰勒公式就展了两项就不展了？我说你不懂，你再展一下试试，我一说完他啪的一声就展开来了，很快啊！一个$\frac{1}{120}x^5$，一个$\frac{27}{120}x^{15}$，我全防出去了，全防出去了啊。我说你这没用，你200多斤的$x^5$也折不动我$x^3$的一根手指头(高阶无穷小)。传统泰勒，自然是点到为止，谢谢朋友们！
-
 
 $4.求\lim_{x\to0}\frac{\sqrt{1+2sinx}-x-1}{xln(1+x)}.$
 
