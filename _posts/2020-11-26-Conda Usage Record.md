@@ -14,7 +14,14 @@ tags:
 # 更新conda
 
 # 换国内源
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
+conda config --set show_channel_urls yes
 
+# 查看已经添加的源
+conda config --get channels
 ```
 
 ## 1.2 环境管理
@@ -47,4 +54,4 @@ conda deactivate
 
 # 参考资料
 1. [conda简直神了[conda基本废了]](https://www.jianshu.com/p/47a536e6ee20)
-2. 
+2. [conda的安装与使用](https://www.jianshu.com/p/edaa744ea47d)(目前这篇文章也在持续更新)
