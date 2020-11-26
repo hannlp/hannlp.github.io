@@ -29,7 +29,7 @@ conda config --set show_channel_urls yes
 conda config --get channels
 ```
 
-附链接：[清华源](https://mirrors.tuna.tsinghua.edu.cn/news/restore-anaconda/) | [中科大源](https://mirrors.ustc.edu.cn/) | [上交源](https://mirrors.sjtug.sjtu.edu.cn/#/)
+附链接：[清华源](https://mirrors.tuna.tsinghua.edu.cn/) | [中科大源](https://mirrors.ustc.edu.cn/) | [上交源](https://mirrors.sjtug.sjtu.edu.cn/#/)
 
 ## 1.2 环境管理
 ```python
@@ -65,3 +65,4 @@ conda list
 # 参考资料
 1. [conda简直神了[conda基本废了]](https://www.jianshu.com/p/47a536e6ee20)
 2. [conda的安装与使用](https://www.jianshu.com/p/edaa744ea47d)(目前这篇文章也在持续更新)
+3. [anaconda conda环境管理命令](https://blog.csdn.net/yimingsilence/article/details/79388205)
