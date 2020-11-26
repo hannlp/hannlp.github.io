@@ -29,7 +29,7 @@ conda config --set show_channel_urls yes
 conda config --get channels
 ```
 
-[清华源地址](https://mirrors.tuna.tsinghua.edu.cn/news/restore-anaconda/)
+附链接：[清华源](https://mirrors.tuna.tsinghua.edu.cn/news/restore-anaconda/) | [中科大源](https://mirrors.ustc.edu.cn/) | [上交源](https://mirrors.sjtug.sjtu.edu.cn/#/)
 
 ## 1.2 环境管理
 ```python
@@ -53,8 +53,11 @@ conda deactivate
 ```
 ## 1.3 包管理
 ```python
-# 为当前环境安装包
+# 在指定环境安装包并指定版本,如果不用-n指定环境名称，则被安装在当前活跃环境
+conda install -n test package=x.x
 
+# 查看当前环境的所有包
+conda list
 ```
 
 # 2 常出现的错误
