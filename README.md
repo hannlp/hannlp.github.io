@@ -16,6 +16,7 @@ footer-col: "#F5F5F5"
 footer-text-col: "#777777"
 footer-link-col: "#404040"
 ```
+![my_style](/assets/img/my_style.png)
 
 ## 1.2 My Code Insert Style
 Update your beautiful-jekyll.css like this:
@@ -32,7 +33,8 @@ Update your beautiful-jekyll.css like this:
   background: lightyellow;
 }
 ```
-
+and it will be like this:
+![code_style](/assets/img/code_style.png)
 ## 1.3 A TOC(Article Directory) System ([link](https://github.com/allejo/jekyll-toc))
 > _Usage_: <br/>1.Download the latest toc.html file and add that file in your _includes folder.<br/>2.Update your post.html file like this:
 ```
@@ -41,9 +43,12 @@ Update your beautiful-jekyll.css like this:
         {{ content }}
     </article>
 ```
+and it will be like this:
+![toc_system](/assets/img/toc_system.png)
 
 ## 1.4 Mathematical Formula Supporting
-I use KaTex in my blog to show any mathematical formula. 
+I use KaTex in my blog to show any mathematical formula. Like this: 
+![formula](/assets/img/formula.png)
 > _Usage_: <br/>**Only need to add these code in your 'head.html' file:**
 ```
 <head>
