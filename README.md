@@ -3,8 +3,7 @@ This is a repo of my Blog. It's a simple and fast blog with the help of Github P
 
 # 1 Some personal settings
 
-## 1.1 My Colour Style
-
+## 1.1 My Color Style
 ```
 navbar-col: "#3686EC"
 navbar-text-col: "#FFFFFF"
@@ -18,8 +17,23 @@ footer-text-col: "#777777"
 footer-link-col: "#404040"
 ```
 
-## 1.2 A TOC(Article Directory) System ([link](https://github.com/allejo/jekyll-toc))
+## 1.2 My Code Insert Style
+Update your beautiful-jekyll.css like this:
+```
+.highlight > pre {
+  /*
+  background-image: linear-gradient(
+    rgba(0,0,0,0.03), rgba(0,0,0,0.03) 1.5em, rgba(0,0,0,0.02) 1.5em, rgba(0,0,0,0.02) 3em);
+  */
+  background-size: auto 3em;
+  background-position-y: 0.625rem;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-left: 0.1rem solid #00ff71;
+  background: lightyellow;
+}
+```
 
+## 1.2 A TOC(Article Directory) System ([link](https://github.com/allejo/jekyll-toc))
 > _Usage_: <br/>1.Download the latest toc.html file and add that file in your _includes folder.<br/>2.Update your post.html file like this:
 ```
     <article role="main" class="blog-post">
@@ -27,8 +41,8 @@ footer-link-col: "#404040"
         {{ content }}
     </article>
 ```
-## 1.3 Mathematical Formula Supporting
 
+## 1.4 Mathematical Formula Supporting
 I use KaTex in my blog to show any mathematical formula. 
 > _Usage_: <br/>**Only need to add these code in your 'head.html' file:**
 ```
