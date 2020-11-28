@@ -61,7 +61,7 @@ conda list
 ```
 
 # 2 常出现的错误
-# 2.1 anaconda-navigator 不能正常启动
+## 2.1 anaconda-navigator 不能正常启动
 如果错误提示中明显能够看到pyQt5相关条目，并且anaconda prompt可以运行，则说明核心模块安装正确，是UI(界面插件)的问题
 >1. 直接删除%安装目录%\Lib\site-packages\pyQt5目录，以及所有包含‘pyQt5’的目录
 >2. 进入cmd,输入pip install pyQt5
