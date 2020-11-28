@@ -33,7 +33,7 @@ Update your beautiful-jekyll.css like this:
 }
 ```
 
-## 1.2 A TOC(Article Directory) System ([link](https://github.com/allejo/jekyll-toc))
+## 1.3 A TOC(Article Directory) System ([link](https://github.com/allejo/jekyll-toc))
 > _Usage_: <br/>1.Download the latest toc.html file and add that file in your _includes folder.<br/>2.Update your post.html file like this:
 ```
     <article role="main" class="blog-post">
