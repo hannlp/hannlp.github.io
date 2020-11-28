@@ -24,6 +24,8 @@ tags:
 ```python
 y.add_(x)
 y.copy_(x)
+x.grad.data.zero_()
+x.requires_grad_()
 ```
 
 ## 1.3 tensor在cpu或gpu
