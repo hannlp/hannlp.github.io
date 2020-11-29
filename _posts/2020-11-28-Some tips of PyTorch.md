@@ -20,7 +20,7 @@ tags:
 3. 使用```.numpy()```和```.from_numpy()```将tensor与Numpy中的array相互转换时，产生的tensor和array**共享内存**。如果这个tensor需要一个新的内存，那么可以使用```torch.tensor()```，这将消耗更多的时间和空间。
 
 ## 1.2 inplace操作
-* PyTorch操作inplace版本都有后缀_，代表就地修改，例如：
+PyTorch操作inplace版本都有后缀_，代表就地修改，例如：
 ```python
 y.add_(x)
 y.copy_(x)
@@ -39,4 +39,4 @@ x.requires_grad_()
 
 ### 2.1.2 torch.nn的特性
 1. 可使用```net.parameters()```来查看模型所有的可学习参数，返回一个生成器
-2. ```torch```仅支持**一个batch**样本的输入(不支持单样本)，如果只有单个样本，需要手动添加维度
+2. ```torch.nn```仅支持**一个batch**样本的输入(不支持单样本)，如果只有单个样本，需要手动添加维度
