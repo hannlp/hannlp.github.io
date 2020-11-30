@@ -97,12 +97,12 @@ $$
 
 ## 6.1 求$\frac{\partial C}{\partial W_{jk}^l}$
 来与上一篇文章做一下对比：
->* 在**单样本前向传播**中，$W_{jk}^l$只会与第$l-1$层第$\bm{k}$个节点的输出$a_k^{l-1}$相乘，然后作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上。公式为：$$z_j^l=\sum_{i=1}^{N_{l-1}}a_i^{l-1}W_{ji}^l+b_j^l$$
->* 而在**多样本前向传播**中，$W_{jk}^l$会**分别**与第$l-1$层第$\bm{k}$个节点的输出$A_{k,m}^{l-1}$相乘(共有$M$个)，然后**分别**作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上(共有$M$个)。**每一个样本列**的公式为:$$Z_{j,m}^l=\sum_{i=1}^{N_{l-1}}A_{i,m}^{l-1}W_{ji}^l+b_j^l$$
+>* 在**单样本前向传播**中，$W_{jk}^l$只会与第$l-1$层第$\bm{k}$个节点的输出$a_k^{l-1}$相乘，然后作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上，这可以看作**一对一连接**。公式为：$$z_j^l=\sum_{i=1}^{N_{l-1}}a_i^{l-1}W_{ji}^l+b_j^l$$
+>* 而在**多样本前向传播**中，$W_{jk}^l$会**分别**与第$l-1$层第$\bm{k}$个节点的输出$A_{k,m}^{l-1}$相乘(共有$M$个)，然后**分别**作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上(共有$M$个)，这可以看作是**m次一对一连接**。公式为:$$Z_{j,m}^l=\sum_{i=1}^{N_{l-1}}A_{i,m}^{l-1}W_{ji}^l+b_j^l$$
 
 如下图所示：
 
-所以，根据链式法则：$$\frac{\partial C}{\partial W_{jk}^l}=\sum_m\frac{\partial C}{\partial Z_{j,m}^l}\frac{\partial Z_{j,m}^l}{\partial W_{jk}^l}$$
+所以，根据链式法则，我们要在$m$维度上累加：$$\frac{\partial C}{\partial W_{jk}^l}=\sum_m\frac{\partial C}{\partial Z_{j,m}^l}\frac{\partial Z_{j,m}^l}{\partial W_{jk}^l}$$
 
 其中，$\frac{\partial Z_{j,m}^l}{\partial W_{jk}^l}=A_{k,m}^{l-1}$。代入原式得到$\frac{\partial C}{\partial W_{jk}^l}=\sum_m\frac{\partial C}{\partial Z_{j,m}^l}A_{k,m}^{l-1}$
 
