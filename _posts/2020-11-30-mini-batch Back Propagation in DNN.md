@@ -92,7 +92,7 @@ $$
 
 读过上一篇文章的朋友可能会发现，这个公式其实就是把上篇文章中的$\bm{z}$换成了$\bm{Z}$。没错，正因为**样本(列)与样本(列)之间互不影响**，误差的反向传播成为这篇文章中较为简单的一部分。
 
-# 6 计算$\bm{W^l,b^l}$的梯度
+# 6 求$\bm{W^l,b^l}$的梯度
 在考虑$\bm{W^l,b^l}$的时候总觉得有些奇怪，因为他们总是作用到所有样本上。不过不慌，我们还是先使用我们的法宝：只考虑矩阵或向量中一个元素的梯度$\frac{\partial C}{\partial W_{jk}^l}$和$\frac{\partial C}{\partial b_j^l}$。
 
 ## 6.1 求$\frac{\partial C}{\partial W_{jk}^l}$
@@ -108,6 +108,8 @@ $$
 
 拓展到**矩阵表示**，即：
 > $$\frac{\partial C}{\partial \bm{W^l}}=\frac{\partial C}{\partial \bm{Z^l}}\cdot (\bm{A^{l-1})^\mathrm{T}}$$
+
+使用维度计算验证一下：$(N_l\times M)\cdot(M \times N_{l-1})=(N_l\times N_{l-1})$
 
 ## 6.2 求$\frac{\partial C}{\partial b_j^l}$
 由于$\bm{b^l}$在前向传播时，广播到了$M$个，所以与$\bm{W}$同理，在使用链式法则是同样要在$m$维度上累加：$$\frac{\partial C}{\partial b_j^l}=\sum_m\frac{\partial C}{\partial Z_{j,m}^l}\frac{\partial Z_{j,m}^l}{\partial b_j^l}$$
