@@ -7,7 +7,7 @@ tags:
 ---
 
 # 前言
-在DNN的反向传播算法中，几乎所有教材都只使用**单个样本**(一个特征向量)进行相关公式的推导，而**多个样本**(也叫**mini-batch**，即多个特征向量组成的矩阵)反向传播的**全矩阵方法**对于理解“多样本”这一概念是非常重要的。所以花了一点时间推导了一下并记录在此，便于记忆，同时希望能对别人有所帮助。
+在DNN的反向传播算法中，几乎所有教材都只使用**单个样本**(一个特征向量)进行相关公式的推导，而**多个样本**(也就是**mini-batch**，即多个特征向量组成的矩阵)反向传播的**全矩阵方法**对于理解“多样本”这一概念是非常重要的。所以花了一点时间推导了一下并记录在此，便于记忆，同时希望能对别人有所帮助。
 
 # 0 几点说明
 1. 该文章是我上一篇博客[Back Propagation and Gradient Calculation in Deep Learning](https://hannlp.github.io/2020-11-06-Back-Propagation-and-Gradient-Calculation-in-Deep-Learning/)(单样本反向传播)的后续版本，写作风格、符号表示与上篇类似，请按顺序阅读
@@ -15,6 +15,7 @@ tags:
 3. 多样本在DNN的前向传播和反向传播中，**样本与样本**之间是毫无影响的。这一点**符合直觉**，也属于**矩阵的特性**，具体会在之后的推导过程中详细解释
 
 # 1 变量定义
+
 |    符号     |                               含义                               |
 | :---------: | :--------------------------------------------------------------: |
 |  $\bm{X}$   |                M个输入样本，维度为($N_0\times M$)                |
@@ -30,12 +31,19 @@ tags:
 
 ## 2.1 什么变了
 1. 输入变了，一个列向量变成一个矩阵($M$个列向量)：$\bm{x}\in \bm{\mathrm{R^{N_0}}}\rightarrow\bm{X}\in \bm{\mathrm{R^{N_0\times M}}}$
-2. 每一层的加权输入和输出变了，均由一个列向量变为一个矩阵($M$个列向量)：$\bm{z}\in \bm{\mathrm{R^{N_l}}}\rightarrow\bm{Z}\in \bm{\mathrm{R^{N_l\times M}}}，\bm{a}\in \bm{\mathrm{R^{N_l}}}\rightarrow\bm{A}\in \bm{\mathrm{R^{N_l\times M}}}$
+2. 每一层的带权输入和输出变了，均由一个列向量变为一个矩阵($M$个列向量)：$\bm{z^l}\in \bm{\mathrm{R^{N_l}}}\rightarrow\bm{Z^l}\in \bm{\mathrm{R^{N_l\times M}}}，\bm{a^l}\in \bm{\mathrm{R^{N_l}}}\rightarrow\bm{A^l}\in \bm{\mathrm{R^{N_l\times M}}}$
 3. 损失函数$Loss$变了，需要对所有样本的误差取平均了
 
 ## 2.2 什么没变
-1. 不变的永远都是模型参数$\bm{W,b}$，与之前一样，每一层$l=1,2,...,L$都只有一个对应的$\bm{W^l}$和$\bm{b^l}$
+1. 不变的永远都是模型参数$\bm{W,b}$，与之前一样，每一层$l=1,2,...,L$都分别只有一个对应的$\bm{W^l}$和$\bm{b^l}$
 2. 我们的目标依然不变，最终目的仍然是求得$\bm{W^l}$和$\bm{b^l}$的梯度
 
 # 3 前向传播
+$$
+\begin{aligned}
+&\bm{Z^l}=\bm{W^lA^{l-1}+b^l}\\
+&\bm{A^l}=\sigma^l(\bm{Z^l})     
+\end{aligned}
+$$
 
+其中，$\bm{A^0}=\bm{X}$，$\bm{W^l}$的维度为$(N_{l}\times N_{l-1})$,$\bm{A^{l-1}}$的维度为$(N_{l-1}\times M)$,$\bm{b^l,z^l,a^l}$的维度均为$(N_l\times1)$，$\bm{a^L}$是DNN的输出
