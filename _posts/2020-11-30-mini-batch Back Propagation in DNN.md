@@ -81,7 +81,7 @@ $$\begin{aligned}
     &\frac{\partial C}{\partial Z_{j,m}^l}=\sum_k\frac{\partial C}{\partial Z_{k,m}^{l+1}}\frac{\partial Z_{k,m}^{l+1}}{\partial Z_{j,m}^l}\\
     其中，&Z_{k,m}^{l+1}=\sum_{i=1}^{N_l}\sigma^l(Z_{i,m}^l)\times W_{ki}^{l+1}+b_k^{l+1}\\
     所以，&\frac{\partial Z_{k,m}^{l+1}}{\partial Z_{j,m}^l}=\sigma'^l(Z_{j,m}^l)\times W_{kj}^{l+1}\\
-    所以，\frac{\partial C}{\partial Z_{j,m}^l}&=\sum_k\frac{\partial C}{\partial Z_{k,m}^{l+1}}\times W_{kj}^{l+1}\times\sigma'^l(Z_{j,m}^l)\\
+    将其带回原式，\frac{\partial C}{\partial Z_{j,m}^l}&=\sum_k\frac{\partial C}{\partial Z_{k,m}^{l+1}}\times W_{kj}^{l+1}\times\sigma'^l(Z_{j,m}^l)\\
     &=[\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{Z^{l+1}}})]_{j,m}\times \sigma'^l(Z_{j,m}^l)
 \end{aligned}
 $$
