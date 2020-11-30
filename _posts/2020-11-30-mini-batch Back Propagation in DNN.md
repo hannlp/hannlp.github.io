@@ -32,8 +32,8 @@ tags:
 变量定义已经给出，先说明一下**多样本**相对于**单样本**发生的变化
 
 ## 2.1 什么变了
-1. 输入变了，一个列向量变成一个矩阵($M$个列向量)：$\bm{x}\in \bm{\mathrm{R^{N_0}}}\rightarrow\bm{X}\in \bm{\mathrm{R^{N_0\times M}}}$
-2. 每一层的带权输入和输出变了，均由一个列向量变为一个矩阵($M$个列向量)：$\bm{z^l}\in \bm{\mathrm{R^{N_l}}}\rightarrow\bm{Z^l}\in \bm{\mathrm{R^{N_l\times M}}}，\bm{a^l}\in \bm{\mathrm{R^{N_l}}}\rightarrow\bm{A^l}\in \bm{\mathrm{R^{N_l\times M}}}$
+1. 输入和标签变了，均由一个列向量变成一个矩阵($M$个列向量)：$$\bm{x}\in \bm{\mathrm{R^{N_0}}}\rightarrow\bm{X}\in \bm{\mathrm{R^{N_0\times M}}}，\bm{y}\in \bm{\mathrm{R^{N_L}}}\rightarrow\bm{Y}\in \bm{\mathrm{R^{N_L\times M}}}$$
+2. 每一层的带权输入和输出变了，均由一个列向量变为一个矩阵($M$个列向量)：$$\bm{z^l}\in \bm{\mathrm{R^{N_l}}}\rightarrow\bm{Z^l}\in \bm{\mathrm{R^{N_l\times M}}}，\bm{a^l}\in \bm{\mathrm{R^{N_l}}}\rightarrow\bm{A^l}\in \bm{\mathrm{R^{N_l\times M}}}$$
 3. 损失函数$Loss$变了，需要对所有样本的误差取平均了
 
 ## 2.2 什么没变
@@ -55,5 +55,16 @@ $$
 
 $\bm{A^L}$是DNN的输出，维度为$(N_L\times M)$
 
-# 4 计算损失
+# 4 计算损失并求输出层误差
+同样以**平方损失**为例：
+
+$$C=Loss(\bm{A^L,Y})=\frac{1}{m}\cdot\frac{1}{2}\Vert\bm{Y-A^L}\Vert^2=\frac{1}{m}\sum_m\frac{1}{2}\sum_j(Y_{j,m}-A_{j,m}^L)^2$$
+
+第一步，需要求$\frac{\partial C}{\partial \bm{A^L}}$，我们同样先求矩阵的一个元素的梯度$\frac{\partial C}{\partial A_{j,m}^L}$
+
+显而易见，$$\frac{\partial C}{\partial A_{j,m}^L}=\frac{1}{2m}\times2(Y_{j,m}-A_{j,m}^L)\times-1=\frac{1}{m}\cdot(A_{j,m}^L-Y_{j,m})$$
+因为在$C$的展开式中，**仅此一项的导数不为0**(可以回顾前一篇文章的这个部分)。
+
+拓展到**矩阵表示**，即
+> $$\frac{\partial C}{\partial \bm{A^L}}=\frac{1}{m}\cdot(\bm{A^L}-\bm{Y})$$
 
