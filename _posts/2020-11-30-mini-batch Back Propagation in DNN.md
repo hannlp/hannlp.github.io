@@ -41,9 +41,13 @@ tags:
 # 3 前向传播
 $$
 \begin{aligned}
-&\bm{Z^l}=\bm{W^lA^{l-1}+b^l}\\
+&\bm{Z^l}=\bm{W^lA^{l-1}+\hat{b}^l}\\
 &\bm{A^l}=\sigma^l(\bm{Z^l})     
 \end{aligned}
 $$
 
-其中，$\bm{A^0}=\bm{X}$，$\bm{W^l}$的维度为$(N_{l}\times N_{l-1})$,$\bm{A^{l-1}}$的维度为$(N_{l-1}\times M)$,$\bm{b^l,z^l,a^l}$的维度均为$(N_l\times1)$，$\bm{a^L}$是DNN的输出
+其中，$\bm{A^0}=\bm{X}$，$\bm{W^l}$的维度为$(N_{l}\times N_{l-1})$，$\bm{A^{l-1}}$的维度为$(N_{l-1}\times M)$
+
+尤其注意$\bm{\hat{b}^l}$比$\bm{b^l}$多了个**帽子**，表示$\bm{b^l}$的**广播**(即由$M$个$\bm{b^l}$组成的矩阵，维度与$\bm{Z^l,A^l}$相同，均为$(N_l\times M)$。这种广播是在两个维度不同的张量之间加减运算时产生的，在Numpy或PyTorch中是自动发生的)
+
+$\bm{A^L}$是DNN的输出，维度为$(N_L\times M)$
