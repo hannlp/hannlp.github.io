@@ -151,6 +151,7 @@ $$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...
 自此，我对于单个样本$\bm{x}$的反向传播推导就告一段落，已经可以凭借以上内容，实现一个使用随机梯度下降算法来优化的DNN啦！
 
 ## 2.6 多样本反向传播
+已更新：[mini-batch-Back-Propagation-in-DNN](https://hannlp.github.io/2020-11-30-mini-batch-Back-Propagation-in-DNN/), hannlp
 
 # 参考文献
 1. [Matrix Cookbook - Kaare Brandt Petersen, Michael Syskind Pedersen](https://cdn.jsdelivr.net/gh/hannlp/Books@1.01/Matrix%20Cookbook.pdf)
