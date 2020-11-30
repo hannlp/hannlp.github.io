@@ -68,3 +68,9 @@ $$C=Loss(\bm{A^L,Y})=\frac{1}{m}\cdot\frac{1}{2}\Vert\bm{Y-A^L}\Vert^2=\frac{1}{
 拓展到**矩阵表示**，即
 > $$\frac{\partial C}{\partial \bm{A^L}}=\frac{1}{m}\cdot(\bm{A^L}-\bm{Y})$$
 
+第二步，需要求输出层误差$\frac{\partial C}{\partial \bm{Z^L}}$。由链式法则，$\frac{\partial C}{\partial \bm{Z^L}}=\frac{\partial C}{\partial \bm{A^L}}\cdot\frac{\partial \bm{A^L}}{\partial \bm{Z^L}}$.其中$\frac{\partial \bm{A^L}}{\partial \bm{Z^L}}$这一项等于$\sigma'^L(\bm{Z^L})$。因为$\bm{A^L}=\sigma^L(\bm{Z^L})$
+
+所以，输出层误差为：
+> $$\frac{\partial C}{\partial \bm{Z^L}}=\frac{\partial C}{\partial \bm{A^L}}\odot\sigma'^L(\bm{Z^L})$$
+
+# 5 反向传播误差
