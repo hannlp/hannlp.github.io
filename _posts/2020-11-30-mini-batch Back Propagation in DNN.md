@@ -65,12 +65,31 @@ $$C=Loss(\bm{A^L,Y})=\frac{1}{m}\cdot\frac{1}{2}\Vert\bm{Y-A^L}\Vert^2=\frac{1}{
 显而易见，$$\frac{\partial C}{\partial A_{j,m}^L}=\frac{1}{2m}\times2(Y_{j,m}-A_{j,m}^L)\times-1=\frac{1}{m}\cdot(A_{j,m}^L-Y_{j,m})$$
 因为在$C$的展开式中，**仅此一项的导数不为0**(可以回顾前一篇文章的这个部分)。
 
-拓展到**矩阵表示**，即
+拓展到**矩阵表示**，即：
 > $$\frac{\partial C}{\partial \bm{A^L}}=\frac{1}{m}\cdot(\bm{A^L}-\bm{Y})$$
 
 第二步，需要求输出层误差$\frac{\partial C}{\partial \bm{Z^L}}$。由链式法则，$\frac{\partial C}{\partial \bm{Z^L}}=\frac{\partial C}{\partial \bm{A^L}}\cdot\frac{\partial \bm{A^L}}{\partial \bm{Z^L}}$.其中$\frac{\partial \bm{A^L}}{\partial \bm{Z^L}}$这一项等于$\sigma'^L(\bm{Z^L})$。因为$\bm{A^L}=\sigma^L(\bm{Z^L})$
 
-所以，输出层误差为：
+所以，拓展到**任意损失函数**，输出层误差为：
 > $$\frac{\partial C}{\partial \bm{Z^L}}=\frac{\partial C}{\partial \bm{A^L}}\odot\sigma'^L(\bm{Z^L})$$
 
 # 5 反向传播误差
+与上一篇文章相同，误差的反向传播，即已知$\frac{\partial C}{\partial \bm{Z^{l+1}}}$，希望求得$\frac{\partial C}{\partial \bm{Z^l}}$。我们还是先求矩阵中的一个元素的梯度$\frac{\partial C}{\partial Z_{j,m}^L}$。
+
+在这之前，希望大家想起文章开头说过，**样本与样本之间是互不影响的**，怎么理解呢？也就是**每个样本在每一层流动的过程中，永远都只在属于自己的那一列**。这也是为什么多样本反向传播误差时的公式可以和单样本的基本相似，只是多了一个下标$m$
+$$\begin{aligned}
+    &\frac{\partial C}{\partial Z_{j,m}^l}=\sum_k\frac{\partial C}{\partial Z_{k,m}^{l+1}}\frac{\partial Z_{k,m}^{l+1}}{\partial Z_{j,m}^l}\\
+    其中，&Z_{k,m}^{l+1}=\sum_{i=1}^{N_l}\sigma^l(Z_{i,m}^l)\times W_{ki}^{l+1}+b_k^{l+1}\\
+    所以，&\frac{\partial Z_{k,m}^{l+1}}{\partial Z_{j,m}^l}=\sigma'^l(Z_{j,m}^l)\times W_{kj}^{l+1}\\
+    所以，\frac{\partial C}{\partial Z_{j,m}^l}&=\sum_k\frac{\partial C}{\partial Z_{k,m}^{l+1}}\times W_{kj}^{l+1}\times\sigma'^l(Z_{j,m}^l)\\
+    &=[\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{Z^{l+1}}})]_{j,m}\times \sigma'^l(Z_{j,m}^l)
+\end{aligned}
+$$
+
+拓展到**矩阵表示**，即：
+> $$\frac{\partial C}{\bm{\partial \bm{Z^l}}}=\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{Z^{l+1}}})\odot\sigma'^l(\bm{Z^l})$$
+> 
+读过上一篇文章的朋友可能会发现，这个公式其实就是把上篇文章中的$\bm{z}$换成了$\bm{Z}$。没错，正因为**样本与样本之间互不影响**，误差的反向传播成为这篇文章中较为简单的一部分。
+
+# 6 计算$\bm{W^l,b^l}$的梯度
+

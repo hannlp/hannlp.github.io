@@ -118,7 +118,7 @@ $$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...
 
 所以，根据[链式法则(例:z为u,v的函数，u和v分别为x,y的函数)](https://zhuanlan.zhihu.com/p/113112455)，有$\frac{\partial C}{\partial z_j^l}=\sum_k\frac{\partial C}{\partial z_k^{l+1}}\frac{\partial z_k^{l+1}}{\partial z_j^l}$
 
-我们先看$\frac{\partial z_k^{l+1}}{\partial z_j^l}$这一项。$z_k^{l+1}$是怎么得到的呢？是上一层所有的$z_i^l$经过一个激活函数，再乘一个权重，最后加上一个偏置得到的，即$z_k^{l+1}=\sum_i^{N_l}\sigma^l(z_i^l)\times W_{ki}^{l+1}+b_k^{l+1}$.(形式同2.3.1图)
+我们先看$\frac{\partial z_k^{l+1}}{\partial z_j^l}$这一项。$z_k^{l+1}$是怎么得到的呢？是上一层所有的$z_i^l$经过一个激活函数，再乘一个权重，最后加上一个偏置得到的，即$z_k^{l+1}=\sum_{i=1}^{N_l}\sigma^l(z_i^l)\times W_{ki}^{l+1}+b_k^{l+1}$.(形式同2.3.1图)
 
 所以$\frac{\partial z_k^{l+1}}{\partial z_j^l}=\sigma'^l(z_j^l)\times W_{kj}^{l+1}$(仅当$i=j$时求和项不为0)
 
