@@ -96,11 +96,11 @@ $$
 在考虑$\bm{W^l,b^l}$的时候总觉得有些奇怪，因为他们总是作用到所有样本上。不过不慌，我们还是先使用我们的法宝：只考虑矩阵或向量中一个元素的梯度$\frac{\partial C}{\partial W_{jk}^l}$和$\frac{\partial C}{\partial b_j^l}$。
 
 ## 6.1 求$\frac{\partial C}{\partial W_{jk}^l}$
-来与上一篇文章做一下对比：
+先来与上一篇文章做一下对比：
 >* 在**单样本前向传播**中，$W_{jk}^l$只会与第$l-1$层第$\bm{k}$个节点的输出$a_k^{l-1}$相乘，然后作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上，这可以看作**一对一连接**。公式为：$$z_j^l=\sum_{i=1}^{N_{l-1}}a_i^{l-1}W_{ji}^l+b_j^l$$
->* 而在**多样本前向传播**中，$W_{jk}^l$会**分别**与第$l-1$层第$\bm{k}$个节点的输出$A_{k,m}^{l-1}$相乘(共有$M$个)，然后**分别**作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上(共有$M$个)，这可以看作是**m次一对一连接**。公式为:$$Z_{j,m}^l=\sum_{i=1}^{N_{l-1}}A_{i,m}^{l-1}W_{ji}^l+b_j^l$$
+>* 而在**多样本前向传播**中，$W_{jk}^l$会**分别**与第$l-1$层第$\bm{k}$个节点的输出$A_{k,m}^{l-1}$相乘(共有$M$个)，然后**分别**作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上(共有$M$个)，这可以看作是**m个一对一连接**。公式为:$$Z_{j,m}^l=\sum_{i=1}^{N_{l-1}}A_{i,m}^{l-1}W_{ji}^l+b_j^l$$
 
-如下图所示：
+如下图所示(还没画)：
 
 所以，根据链式法则，我们要在$m$维度上累加：$$\frac{\partial C}{\partial W_{jk}^l}=\sum_m\frac{\partial C}{\partial Z_{j,m}^l}\frac{\partial Z_{j,m}^l}{\partial W_{jk}^l}$$
 
@@ -110,3 +110,27 @@ $$
 > $$\frac{\partial C}{\partial \bm{W^l}}=\frac{\partial C}{\partial \bm{Z^l}}\cdot (\bm{A^{l-1})^\mathrm{T}}$$
 
 ## 6.2 求$\frac{\partial C}{\partial b_j^l}$
+由于$\bm{b^l}$在前向传播时，广播到了$M$个，所以与$\bm{W}$同理，在使用链式法则是同样要在$m$维度上累加：$$\frac{\partial C}{\partial b_j^l}=\sum_m\frac{\partial C}{\partial Z_{j,m}^l}\frac{\partial Z_{j,m}^l}{\partial b_j^l}$$
+
+其中，$\frac{\partial Z_{j,m}^l}{\partial b_j^l}=1$。带入原式得到$\frac{\partial C}{\partial b_j^l}=\sum_m\frac{\partial C}{\partial Z_{j,m}^l}$
+
+在扩展到**矩阵表示**时，我们需要引入一个全1的$M$维列向量：
+> $$\frac{\partial C}{\partial \bm{b^l}}=\frac{\partial C}{\partial \bm{Z^l}}\cdot \mathrm{ones(M,1)}$$
+
+使用维度计算验证一下:$(N_l\times M)\cdot(m,1)=(N_l\times 1)$
+
+# 7 多样本反向传播全矩阵方法的最后公式
+赏心悦目的公式们：
+> $$\begin{aligned}
+    \frac{\partial C}{\partial \bm{Z^L}}&=\frac{\partial C}{\partial \bm{A^L}}\odot\sigma'^L(\bm{Z^L})\\
+    \frac{\partial C}{\bm{\partial \bm{Z^l}}}&=\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{Z^{l+1}}})\odot\sigma'^l(\bm{Z^l})\\
+    \frac{\partial C}{\partial \bm{W^l}}&=\frac{\partial C}{\partial \bm{Z^l}}\cdot (\bm{A^{l-1})^\mathrm{T}}\\
+    \frac{\partial C}{\partial \bm{b^l}}&=\frac{\partial C}{\partial \bm{Z^l}}\cdot \mathrm{ones(M,1)}
+\end{aligned}$$
+
+# 8 与基于单样本累加的mini-batch更新方法的比较
+Michael Nielsen在书中给出了计算mini-batch梯度的一种方法。
+
+![method_muti](/imgs/gradient_new/method_muti.png)
+
+这个方法是在单样本基础上实现的，总体的思路是先进行**mini-batch个样本**的前向传播和误差计算，然后再依次传播到每一层中，才能进一步计算$\bm{W^l,b^l}$的梯度。而全矩阵方法是**并行化**的，也就是一次前向传播就可以同时计算**mini-batch个样本**，反向传播误差时亦如此。并行化也在当今的算法中大量推崇，比如序列建模中，Transformer相对于(RNN家族)的一个巨大优势，就是可以并行计算。
