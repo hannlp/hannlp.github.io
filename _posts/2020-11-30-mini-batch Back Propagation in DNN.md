@@ -119,7 +119,7 @@ $$
 在扩展到**矩阵表示**时，我们需要引入一个全1的$M$维列向量：
 > $$\frac{\partial C}{\partial \bm{b^l}}=\frac{\partial C}{\partial \bm{Z^l}}\cdot \mathrm{ones(M,1)}$$
 
-使用维度计算验证一下:$(N_l\times M)\cdot(m,1)=(N_l\times 1)$
+使用维度计算验证一下:$(N_l\times M)\cdot(M,1)=(N_l\times 1)$
 
 # 7 多样本反向传播全矩阵方法的最后公式
 赏心悦目的公式们：
