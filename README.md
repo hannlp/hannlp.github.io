@@ -1,4 +1,4 @@
-# Hello World! I'm hans
+# Hello World! I'm Hans
 This is a repo of my Blog. It's a simple and fast blog with the help of Github Pages and [beautiful-jekyll](https://github.com/daattali/beautiful-jekyll) by daattali.
 
 # 1 Some personal settings
@@ -19,7 +19,7 @@ footer-link-col: "#404040"
 ![my_style](/assets/img/my_style.png)
 
 ## 1.2 My Code Insert Style
-Update your beautiful-jekyll.css like this:
+Update your 'beautiful-jekyll.css' like this:
 ```
 .highlight > pre {
   /*
@@ -74,6 +74,24 @@ I use KaTex in my blog to show any mathematical formula. Like this:
 ```
 Thanks to my friend [LoliMay](https://www.lolimay.cn) and This article [JS配置KaTeX渲染LaTeX公式](https://blog.csdn.net/qq_43491040/article/details/104174730?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param), and you can get more in the [KaTex Official Documents](https://katex.org/docs/api.html)
 
+## 1.5 Center display Tables and Pictures
+Update your 'beautiful-jekyll.css' like this:
+```
+...
+table {
+  padding: 0;
+  margin: 0 auto;
+}
+...
+.blog-post img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+```
+and it will be like this:
+![center_pic](/assets/img/center_pic.png)
+![center_table](/assets/img/center_table.png)
 # 2 To do list
 * Add a commit system base on github issues
 * Use some method to accelerate image loading
