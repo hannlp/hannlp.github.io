@@ -14,7 +14,7 @@ tags:
 > 注: 在本博客中，所有向量<span>$\bm{v}$</span>默认都为列向量
 
 ## 1.1 深度学习中几种常见的梯度计算
-在神经网络中，很常见的求梯度类型求**一个向量$\bm{v}$**(如网络某一层的输出)或**一个矩阵$\bm{W}$**(如网络中的参数)的梯度，他们的实质其实都是多元函数求偏导。其中这个多元函数$f$(如损失函数)是以$\bm{v}$或者$\bm{W}$为自变量的多元函数。
+在神经网络中，很常见的求梯度类型求**一个向量$\bm{v}$**(如网络某一层的输出)或**一个矩阵$\bm{W}$**(如网络中的参数)的梯度，他们的实质其实都是多元函数求偏导。其中这个多元函数$f$(如损失函数)是以$\bm{v}$或者$\bm{W}$为自变量的实值函数。
 
 ### 1.1.1 求向量的梯度
 
@@ -24,7 +24,12 @@ $$
 
 ### 1.1.2 求矩阵的梯度
 同1.1.1，即使用$f$依次对矩阵的每一个元素求偏导，最后的结果仍然为一个矩阵。
+
 # 2 深度神经网络(DNN)中反向传播的推导
+由于网络上很多教程都是**标量**直接对**向量或矩阵**求导，非常难以理解。而一种很好的方式就是先求一个向量或矩阵的**最小单元**的导数，然后泛化到整个向量或矩阵。这在[cs231n](https://cs231n.github.io/optimization-2/)中也有提到：
+> **Work with small, explicit examples.** Some people may find it difficult at first to derive the gradient updates for some vectorized expressions. Our recommendation is to explicitly write out a minimal vectorized example, derive the gradient on paper and then generalize the pattern to its efficient, vectorized form
+
+所以我整篇文章都是只考虑对最小单元求导，这对于整个算法的深刻理解是有很大帮助的。
 
 ## 2.1 变量定义
 
