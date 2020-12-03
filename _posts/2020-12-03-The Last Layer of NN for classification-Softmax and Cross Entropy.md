@@ -53,7 +53,7 @@ $$
 ## 3.3 求$\frac{\partial C}{\partial \bm{z}}$
 要想反向传播梯度，首先需要先计算最后一层的误差$\frac{\partial C}{\partial \bm{z}}$。
 
-首先计算$\frac{\partial C}{\partial z_i}$。因为$z_i$会作用到每一个$a_j$当中，所以根据链式法则，有$$\frac{\partial C}{\partial z_i}=\sum_j^N\frac{\partial C}{\partial a_j}\frac{\partial a_j}{\partial z_i}$$
+遵循从单个到整体的求梯度原则，我们仍然只计算$\frac{\partial C}{\partial z_i}$。因为$z_i$会作用到每一个$a_j$当中，所以根据链式法则，有$$\frac{\partial C}{\partial z_i}=\sum_j^N\frac{\partial C}{\partial a_j}\frac{\partial a_j}{\partial z_i}$$
 
 我们先计算$\frac{\partial a_j}{\partial z_i}$这一项：
 
@@ -63,16 +63,21 @@ $$\begin{aligned}
 \end{aligned}$$
 
 1) 当$i=j$时，有：
+
 $$\begin{aligned}
     式（1）&=\frac{e^z_{i(j)}\cdot\sum_k^N e^{z_k}-e^z_{i(j)}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\\
     &=a_{i(j)}-a_{i(j)}\cdot a_j
 \end{aligned}
 $$
-(下标有$i(j)$，意为在这时他们是等效的)
+
+(这里有下标$i(j)$，意为在这时不论取$i$或取$j$都是一样的)
 
 2) 当$i\not ={}j$时，有：
+ 
 $$\begin{aligned}
     式（1）&=\frac{0-e^{z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\\
     &=-a_i\cdot a_j
 \end{aligned}
 $$
+
+所以，$$$$
