@@ -38,6 +38,7 @@ $$
 # 3 分类问题的梯度计算
 ## 3.1 变量定义
 我们设有一个$L$层的神经网络。$\mathrm{Softmax}$函数只作用在最后一层，所以只需要考虑第$L$层即可(注：本篇文章中直接省略**表示层数的上标$L$**)：
+
 |   符号   |                含义                 |
 | :------: | :---------------------------------: |
 |   $N$    |     第$L$层(最后一层)神经元数量     |
@@ -61,6 +62,6 @@ $$
 
 当$i=j$时，有：
 $$\begin{aligned}
-    
+    &=\frac{\frac{\partial e^{z_j}}{\partial z_i}\cdot\sum_k^N e^{z_k}-\frac{\partial \sum_k^N e^{z_k}}{\partial z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}
 \end{aligned}
 $$
