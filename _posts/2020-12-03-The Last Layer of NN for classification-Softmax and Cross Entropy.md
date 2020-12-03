@@ -55,13 +55,24 @@ $$
 
 首先计算$\frac{\partial C}{\partial z_i}$。因为$z_i$会作用到每一个$a_j$当中，所以根据链式法则，有$$\frac{\partial C}{\partial z_i}=\sum_j^N\frac{\partial C}{\partial a_j}\frac{\partial a_j}{\partial z_i}$$
 
-我们先计算$\frac{\partial a_j}{\partial z_i}$这一项：$$\begin{aligned}
+我们先计算$\frac{\partial a_j}{\partial z_i}$这一项：
+
+$$\begin{aligned}
     \frac{\partial a_j}{\partial z_i}&=\frac{\partial \frac{e^{z_j}}{\sum_k^N e^{z_k}}}{\partial z_i}\\
-    &=\frac{\frac{\partial e^{z_j}}{\partial z_i}\cdot\sum_k^N e^{z_k}-\frac{\partial \sum_k^N e^{z_k}}{\partial z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}(除法求导法则)
+    &=\frac{\frac{\partial e^{z_j}}{\partial z_i}\cdot\sum_k^N e^{z_k}-\frac{\partial \sum_k^N e^{z_k}}{\partial z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}(除法求导法则)（1）
 \end{aligned}$$
 
-当$i=j$时，有：
+1) 当$i=j$时，有：
 $$\begin{aligned}
-    &=\frac{\frac{\partial e^{z_j}}{\partial z_i}\cdot\sum_k^N e^{z_k}-\frac{\partial \sum_k^N e^{z_k}}{\partial z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}
+    式（1）&=\frac{e^z_{i(j)}\cdot\sum_k^N e^{z_k}-e^z_{i(j)}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\\
+    &=a_{i(j)}-a_{i(j)}\cdot a_j
+\end{aligned}
+$$
+(下标有$i(j)$，意为在这时他们是等效的)
+
+2) 当$i\not ={}j$时，有：
+$$\begin{aligned}
+    式（1）&=\frac{0-e^{z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\\
+    &=-a_i\cdot a_j
 \end{aligned}
 $$
