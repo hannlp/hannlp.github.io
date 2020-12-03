@@ -39,16 +39,16 @@ $$
 ## 3.1 变量定义
 我们设有一个$L$层的神经网络。$\mathrm{Softmax}$函数只作用在最后一层，所以只需要考虑第$L$层即可(注：本篇文章中直接省略**表示层数的上标$L$**)：
 
-|   符号   |                含义                 |
-| :------: | :---------------------------------: |
-|   $N$    |     第$L$层(最后一层)神经元数量     |
-| $\bm{z}$ |     第$L$层(最后一层)的带权输入     |
-| $\bm{a}$ |       第$L$层(最后一层)的输出       |
-| $\bm{y}$ | 类别标签，是一个$one$-$hot$类型向量 |
+|   符号   |                含义                 |      维度      |
+| :------: | :---------------------------------: | :------------: |
+|   $N$    |     第$L$层(最后一层)神经元数量     |                |
+| $\bm{z}$ |     第$L$层(最后一层)的带权输入     | $(N\times 1)$  |
+| $\bm{a}$ |       第$L$层(最后一层)的输出       | $(N \times 1)$ |
+| $\bm{y}$ | 类别标签，是一个$one$-$hot$类型向量 | $(N\times 1)$  |
 
 ## 3.2 各变量之间的关系
 使用交叉熵损失函数，有$$C=Loss(\bm{a,y})=-\sum_i^Ny_i\cdot \mathrm{log}a_i$$
-其中，y为$\begin{bmatrix}0&0&...&1&...&0\end{bmatrix}^\mathrm{T}$形式的向量，即仅在正确的类别处为1，其余位置处均为0。而$a_i=\frac{e^{z_i}}{\sum_k^N e^{z_k}}$
+其中，$a_i=\frac{e^{z_i}}{\sum_k^N e^{z_k}}$。而$\bm{y}$的形式如同：$\begin{bmatrix}0&0&...&1&...&0\end{bmatrix}^\mathrm{T}$，即$y_i$仅在正确的类别处为1，其余位置处均为0。
 
 ## 3.3 求$\frac{\partial C}{\partial \bm{z}}$
 要想反向传播梯度，首先需要先计算最后一层的误差$\frac{\partial C}{\partial \bm{z}}$。
@@ -59,13 +59,13 @@ $$
 
 $$\begin{aligned}
     \frac{\partial a_j}{\partial z_i}&=\frac{\partial \frac{e^{z_j}}{\sum_k^N e^{z_k}}}{\partial z_i}\\
-    &=\frac{\frac{\partial e^{z_j}}{\partial z_i}\cdot\sum_k^N e^{z_k}-\frac{\partial \sum_k^N e^{z_k}}{\partial z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}(除法求导法则)（1）
+    &=\frac{\frac{\partial e^{z_j}}{\partial z_i}\cdot\sum_k^N e^{z_k}-\frac{\partial \sum_k^N e^{z_k}}{\partial z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\ (除法求导法则)\qquad(1)
 \end{aligned}$$
 
 1) 当$i=j$时，有：
 
 $$\begin{aligned}
-    式（1）&=\frac{e^z_{i(j)}\cdot\sum_k^N e^{z_k}-e^z_{i(j)}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\\
+    式(1)&=\frac{e^z_{i(j)}\cdot\sum_k^N e^{z_k}-e^z_{i(j)}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\\
     &=a_{i(j)}-a_{i(j)}\cdot a_j
 \end{aligned}
 $$
@@ -75,9 +75,14 @@ $$
 2) 当$i\not ={}j$时，有：
  
 $$\begin{aligned}
-    式（1）&=\frac{0-e^{z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\\
+    式(1)&=\frac{0-e^{z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\\
     &=-a_i\cdot a_j
 \end{aligned}
 $$
 
-所以，$$$$
+所以，
+
+$$\frac{\partial a_j}{\partial z_i}=\left\{\begin{aligned}
+    a_i-a_i\cdot a_j\qquad(i=j)\\
+    -a_i\cdot a_j\qquad(i\not ={j})
+\end{aligned} \right.$$
