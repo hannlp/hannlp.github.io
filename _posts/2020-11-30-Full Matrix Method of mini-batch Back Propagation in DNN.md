@@ -1,5 +1,5 @@
 ---
-title: mini-batch Back Propagation in DNN
+title: Full Matrix Method of mini-batch Back Propagation in DNN
 date: 2020-11-30
 tags:
 - 基础知识
