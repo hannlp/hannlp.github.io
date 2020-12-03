@@ -18,11 +18,11 @@ $$\begin{aligned}
         ...\\
         x_n\\
     \end{bmatrix},那么\mathrm{Softmax}(\bm{x})=\begin{bmatrix}
-        \frac{e^{x_1}}{\sum_je^{x_j}}\\
+        \frac{e^{x_1}}{\sum_ke^{x_k}}\\
         ...\\
-        \frac{e^{x_i}}{\sum_je^{x_j}}\\
+        \frac{e^{x_i}}{\sum_ke^{x_k}}\\
         ...\\
-        \frac{e^{x_n}}{\sum_je^{x_j}}\\
+        \frac{e^{x_n}}{\sum_ke^{x_k}}\\
     \end{bmatrix}
 \end{aligned}
 $$
@@ -30,12 +30,31 @@ $$
 1. $y_i\in[0,1]$，且$\sum_iy_i=1$，所以可以$y_i$当成属于类$i$的概率
 2. 在计算任意一个$y_i$时，都会用到所有$x_i$
 
-## 1.2 文档中的Softmax
-在PyTorch或Tensorflow里，是这样描述Softmax的：
-> take logits and produce probabilities
-
+## 1.2 
 
 
 # 2 关于CrossEntropy
 
 # 3 分类问题的梯度计算
+## 3.1 变量定义
+我们设有一个$L$层的神经网络。$\mathrm{Softmax}$函数只作用在最后一层，所以只需要考虑第$L$层即可(注：本篇文章中直接省略**表示层数的上标$L$**)：
+|   符号   |                含义                 |
+| :------: | :---------------------------------: |
+|   $N$    |     第$L$层(最后一层)神经元数量     |
+| $\bm{z}$ |     第$L$层(最后一层)的带权输入     |
+| $\bm{a}$ |       第$L$层(最后一层)的输出       |
+| $\bm{y}$ | 类别标签，是一个$one$-$hot$类型向量 |
+
+## 3.2 各变量之间的关系
+使用交叉熵损失函数，有$$C=Loss(\bm{a,y})=-\sum_i^Ny_i\cdot \mathrm{log}a_i$$
+其中，y为$\begin{bmatrix}0&0&...&1&...&0\end{bmatrix}^\mathrm{T}$形式的向量，即仅在正确的类别处为1，其余位置处均为0。而$a_i=\frac{e^{z_i}}{\sum_k^N e^{z_k}}$
+
+## 3.3 求$\frac{\partial C}{\partial \bm{z}}$
+要想反向传播梯度，首先需要先计算最后一层的误差$\frac{\partial C}{\partial \bm{z}}$。
+
+首先计算$\frac{\partial C}{\partial z_i}$。因为$z_i$会作用到每一个$a_j$当中，所以根据链式法则，有$$\frac{\partial C}{\partial z_i}=\sum_j^N\frac{\partial C}{\partial a_j}\frac{\partial a_j}{\partial z_i}$$
+
+我们先计算$\frac{\partial a_j}{\partial z_i}$这一项：$$\begin{aligned}
+    \frac{\partial a_j}{\partial z_i}&=\frac{\partial \frac{e^{z_j}}{\sum_k^N e^{z_k}}}{\partial z_i}\\
+    \frac{\frac{\partial e^{z_j}}{\partial z_i}\cdot\sum_k^N e^{z_k}-\frac{\partial \sum_k^N e^{z_k}}{\partial z_i}\cdot e^{z_j}}{}
+\end{aligned}$$
