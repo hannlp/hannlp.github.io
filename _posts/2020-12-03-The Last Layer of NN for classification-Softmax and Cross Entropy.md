@@ -53,9 +53,9 @@ $$
 ## 3.3 求$\frac{\partial C}{\partial \bm{z}}$
 要想反向传播梯度，首先需要先计算最后一层的误差$\frac{\partial C}{\partial \bm{z}}$。
 
-遵循从单个到整体的求梯度原则，我们仍然只计算$\frac{\partial C}{\partial z_i}$。因为$z_i$会作用到每一个$a_j$当中，所以根据链式法则，有$$\frac{\partial C}{\partial z_i}=\sum_j^N\frac{\partial C}{\partial a_j}\frac{\partial a_j}{\partial z_i}$$
+遵循从单个到整体的求梯度原则，我们仍然只计算$\frac{\partial C}{\partial z_i}$。因为$z_i$会作用到每一个$a_j$当中，所以根据链式法则，有$$\frac{\partial C}{\partial z_i}=\sum_j^N\frac{\partial C}{\partial a_j}\cdot\frac{\partial a_j}{\partial z_i}$$
 
-我们先计算$\frac{\partial a_j}{\partial z_i}$这一项：
+**我们先计算$\frac{\partial a_j}{\partial z_i}$这一项：**
 
 $$\begin{aligned}
     \frac{\partial a_j}{\partial z_i}&=\frac{\partial \frac{e^{z_j}}{\sum_k^N e^{z_k}}}{\partial z_i}\\
@@ -86,3 +86,9 @@ $$\frac{\partial a_j}{\partial z_i}=\left\{\begin{aligned}
     a_i-a_i\cdot a_j\qquad(i=j)\\
     -a_i\cdot a_j\qquad(i\not ={j})
 \end{aligned} \right.$$
+
+**再计算$\frac{\partial C}{\partial a_j}$这一项：**
+因为$\bm{y}$为$one$-$hot$向量，假设仅$y_k=1$，那么：
+
+$$
+$$
