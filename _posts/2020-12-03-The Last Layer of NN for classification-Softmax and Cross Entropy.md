@@ -11,15 +11,30 @@ tags:
 # 1 关于Softmax
 ## 1.1 Softmax的形式
 $$\begin{aligned}
-    \mathrm{Softmax}(\bm{x})=\begin{bmatrix}
+    若\bm{x}=\begin{bmatrix}
+        x_1\\
+        ...\\
+        x_i\\
+        ...\\
+        x_n\\
+    \end{bmatrix},那么\mathrm{Softmax}(\bm{x})=\begin{bmatrix}
+        \frac{e^{x_1}}{\sum_je^{x_j}}\\
         ...\\
         \frac{e^{x_i}}{\sum_je^{x_j}}\\
-        c\\
-        d\\
+        ...\\
+        \frac{e^{x_n}}{\sum_je^{x_j}}\\
     \end{bmatrix}
 \end{aligned}
 $$
-## 1.2 Softmax
+若$\bm{y}=\mathrm{softmax}(\bm{x})$，那么对于任意$y_i$有以下特点：
+1. $y_i\in[0,1]$，且$\sum_iy_i=1$，所以可以$y_i$当成属于类$i$的概率
+2. 在计算任意一个$y_i$时，都会用到所有$x_i$
+
+## 1.2 文档中的Softmax
+在PyTorch或Tensorflow里，是这样描述Softmax的：
+> take logits and produce probabilities
+
+
 
 # 2 关于CrossEntropy
 
