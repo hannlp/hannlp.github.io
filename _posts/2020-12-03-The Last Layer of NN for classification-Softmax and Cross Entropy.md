@@ -56,5 +56,11 @@ $$
 
 我们先计算$\frac{\partial a_j}{\partial z_i}$这一项：$$\begin{aligned}
     \frac{\partial a_j}{\partial z_i}&=\frac{\partial \frac{e^{z_j}}{\sum_k^N e^{z_k}}}{\partial z_i}\\
-    \frac{\frac{\partial e^{z_j}}{\partial z_i}\cdot\sum_k^N e^{z_k}-\frac{\partial \sum_k^N e^{z_k}}{\partial z_i}\cdot e^{z_j}}{}
+    &=\frac{\frac{\partial e^{z_j}}{\partial z_i}\cdot\sum_k^N e^{z_k}-\frac{\partial \sum_k^N e^{z_k}}{\partial z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}(除法求导法则)
 \end{aligned}$$
+
+当$i=j$时，有：
+$$\begin{aligned}
+    
+\end{aligned}
+$$
