@@ -32,7 +32,7 @@ $$
 3. 在计算任意一个$y_i$时，都会以$e$为底数，我们知道$e^x$会随着$x$的增大而急剧增大，这就会产生一种“大的更大，小的更小”的**马太效应**
 
 ## 1.2 一些其他细节
-1. **为什么叫这个名字？** 其实$\mathrm{Softmax}$就是$\mathrm{soft}$版本的$\mathrm{max}$。我们平时所说的$\mathrm{max}$，就是从**多个值中选出一个最大的**，这其实是$\mathrm{Hardmax}$。而$\mathrm{Softmax}$是**分别给这些值一个相应的概率**。
+1. **为什么叫这个名字？** 其实$\mathrm{Softmax}$就是$\mathrm{soft}$版本的$\mathrm{max}$。我们平时所说的$\mathrm{max}$，就是从**多个值中选出一个最大的**，这其实是$\mathrm{Hardmax}$。而$\mathrm{Softmax}$是**分别给这些值一个相应的概率**，另外由于其有马太效应，数值相差越大，概率相差也越大。如果给其前面加一个$\mathrm{log}$，那么就是$\mathrm{max}$的一个可微的近似
 2. 关于$\mathrm{Softmax}$其实还有很多细节，比如数值稳定性问题，本文就不一一展开讲了，可以参考[Softmax vs. Softmax-Loss: Numerical Stability](https://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/) 这篇文章，是一篇不错的延伸
 
 # 2 关于CrossEntropy Loss
