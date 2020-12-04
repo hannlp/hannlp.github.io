@@ -123,4 +123,4 @@ $$\begin{aligned}
 > $$\frac{\partial C}{\partial \bm{z^L}}=\bm{a^L}-\bm{y}$$
 
 ## 3.4 对比分析
-在回归问题中，若采用$\mathrm{MSE}$作为损失函数，使用除了$\mathrm{Softmax}$以外的其他激活函数$\sigma^L$作为最后一层的激活函数的话，很容易得到$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\odot\sigma'^L(\bm{z^L})$，惊讶的发现最后一层的损失竟然如此一致!
+在回归问题中，若采用$\mathrm{MSE}$作为损失函数，使用除$\mathrm{Softmax}$外的其他激活函数$\sigma^L$作为最后一层的激活函数的话，很容易得到$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\odot\sigma'^L(\bm{z^L})$，惊讶的发现他们竟如此的一致！不得不佩服发现这些规律的学者、前辈。
