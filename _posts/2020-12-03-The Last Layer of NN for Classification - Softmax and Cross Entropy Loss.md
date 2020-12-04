@@ -1,12 +1,12 @@
 ---
-title: The Last Layer of NN for classification-Softmax and Cross Entropy
+title: The Last Layer of NN for Classification - Softmax and Cross Entropy Loss
 date: 2020-12-03
 tags:
 - 深度学习
 ---
 
 # 前言
-传统机器学习中两大经典任务就是**回归**与**分类**。分类在深度学习中也很常见，令我印象最深的是图像分类。当然，在NLP中，分类也无处不在。从RNN与其变体，到Transformer、Bert等预训练模型，只要涉及到在**词表**中**挑选单词**，就可以使用分类任务的思路来解决。在深度学习模型中，区分回归还是分类，往往只需要看**最后一层的激活函数**以及**损失函数**。这里有一个定式：凡是采用$\mathrm{Softmax+CrossEntropy}$就一定是分类任务。本文主要对这个组合的梯度进行计算，证明其巧妙之处，以加深自己对分类问题及其方法的理解。
+传统机器学习中两大经典任务就是**回归**与**分类**。分类在深度学习中也很常见，令我印象最深的是图像分类。当然，在NLP中，分类也无处不在。从RNN与其变体，到Transformer、Bert等预训练模型，只要涉及到在**词表**中**挑选单词**，就可以使用分类任务的思路来解决。在深度学习模型中，区分回归还是分类，往往只需要看**最后一层的激活函数**以及**损失函数**。这里有一个定式：凡是采用$\mathrm{Softmax+CrossEntropy Loss}$就一定是在分类。本文主要对这个组合的梯度进行计算，证明其巧妙之处，以加深自己对分类问题及其方法的理解。
 
 # 1 关于Softmax
 ## 1.1 Softmax的形式
@@ -29,11 +29,34 @@ $$
 若$\bm{y}=\mathrm{softmax}(\bm{x})$，那么对于任意$y_i$有以下特点：
 1. $y_i\in(0,1)$，且$\sum_iy_i=1$，所以可以$y_i$当成属于类$i$的概率
 2. 在计算任意一个$y_i$时，都会用到所有$x_i$
+3. 在计算任意一个$y_i$时，都会以$e$为底数，我们知道$e^x$会随着$x$的增大而急剧增大，这就会产生一种“大的更大，小的更小”的**马太效应**
 
-## 1.2 
+## 1.2 一些其他细节
+1. **为什么叫这个名字？** 其实$\mathrm{Softmax}$就是$\mathrm{soft}$版本的$\mathrm{max}$。我们平时所说的$\mathrm{max}$，就是从**多个值中选出一个最大的**，这其实是$\mathrm{Hardmax}$。而$\mathrm{Softmax}$是**分别给这些值一个相应的概率**。
+2. 关于$\mathrm{Softmax}$其实还有很多细节，比如数值稳定性问题，本文就不一一展开讲了，可以参考[Softmax vs. Softmax-Loss: Numerical Stability](https://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/) 这篇文章，是一篇不错的延伸
 
+# 2 关于CrossEntropy Loss
+## 2.1 CrossEntropy
+给定两个概率分布$p,q$，其交叉熵为：
 
-# 2 关于CrossEntropy
+$$H(p,q)=-\sum_xp(x)\mathrm{log}q(x)$$
+
+它刻画了两个概率分布之间的距离。其中$p$代表正确分布，$q$代表的是预测分布。交叉熵越小，两个概率的分布越接近
+
+## 2.2 CrossEntropy Loss
+在分类问题中，提出了交叉熵损失。形式如同：
+
+$$C=-\sum_iy_i\mathrm{log}\hat{y_i}$$
+
+其中，$y_i$为真实标签，$\hat{y_i}$为预测结果中对应的分布。在本篇文章中，$\hat{y_i}$就对应了网络最后一层第$i$个位置的输出$a_i$，也就是$\frac{e^{z_i}}{\sum_k^N e^{z_k}}$。
+
+另外，当类别数仅为$2$时，$\mathrm{CrossEntropy Loss}$就变为：
+
+$$\begin{aligned}
+    C&=-\sum_{i=0}^1y_i\mathrm{log}\hat{y_i}\\
+    &=-[y_0\mathrm{log}\hat{y_0}+y_1\mathrm{log}\hat{y_1}]\quad(y_0+y_1=1,且y_0,y_1 \in \{0,1\})\\
+    &=-[y\mathrm{log}\hat{y}+(1-y)\mathrm{log}(1-\hat{y})]
+\end{aligned}$$
 
 # 3 分类问题的梯度计算
 ## 3.1 变量定义
@@ -117,16 +140,19 @@ $$\begin{aligned}
 \end{aligned}$$
 
 注：
-1. 在公式$(1)$中，$1\{\cdot\}$为**示性函数**，括号内表达式为真时函数值为$1$，否则为$0$
-2. 在公式$(2)$中，其实是把公式$(1)$的求和项分成了两个部分，左半部分是$(i=j)$时的情况，所以这里加上了下标$i(j)$，代表可以任意替换，而右半部分是$(i\not ={j})$的情况，就必须严格遵守原始下标
+1. 在公式$(1)$中，$1\{\cdot\}$为**示性函数**，大括号内表达式为真时函数值为$1$，否则为$0$
+2. 在公式$(2)$中，其实是把公式$(1)$的求和项分成了两个部分，左半部分是$i=j$时的情况，所以这里加上了下标$i(j)$，代表可以任意替换，而右半部分是$i\not ={j}$的情况，就必须严格遵守原始下标
 3. 在公式$(3)$中，括号中的表达式恒等于$1$(因为$\bm{y}$为$one$-$hot$向量)
 
 因为$\frac{\partial C}{\partial z_i}$只与下标$i$有关，所以可以扩展到向量形式，这里我再顺便加上层数$L$:
 > $$\frac{\partial C}{\partial \bm{z^L}}=\bm{a^L}-\bm{y}$$
 
-## 3.4 对比分析
-在回归问题中，若采用$\mathrm{MSE}$作为损失函数，使用除$\mathrm{Softmax}$外的其他激活函数$\sigma^L$作为最后一层的激活函数的话，很容易得到$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\odot\sigma'^L(\bm{z^L})$，惊讶的发现他们竟如此的一致！不得不佩服发现这些规律的学者、前辈。
+## 3.4 分析与对比
+这个组合的梯度意味着，如果我的分类网络中采用$\mathrm{Softmax+CrossEntropy Loss}$，在计算最后一层误差的时候，我只需要**记录最后一层的输出**，然后再在**正确的类别**的那个位置**减去1**就可以了！
+
+再对比一下**回归问题**，若采用$\mathrm{MSE}$作为损失函数，使用除$\mathrm{Softmax}$外的其他激活函数$\sigma^L$作为最后一层的激活函数的话，很容易得到$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\odot\sigma'^L(\bm{z^L})$，惊讶的发现他们竟如此的一致！
 
 # 4 参考资料
 1. [你 真的 懂 Softmax 吗？](https://zhuanlan.zhihu.com/p/90771255)
 2. [softmax激活+crossEntropy损失求导公式推导](https://fengzhe.blog.csdn.net/article/details/99707296)
+3. [深度学习之反向传播算法(2)——全连接神经网络的BP算法推导](https://zhuanlan.zhihu.com/p/61531989)
