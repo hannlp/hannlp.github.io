@@ -121,3 +121,6 @@ $$\begin{aligned}
 
 因为$\frac{\partial C}{\partial z_i}$只与下标$i$有关，所以可以扩展到向量形式，这里我再顺便加上层数$L$:
 > $$\frac{\partial C}{\partial \bm{z^L}}=\bm{a^L}-\bm{y}$$
+
+## 3.4 对比分析
+在回归问题中，若采用$\mathrm{MSE}$作为损失函数，使用除了$\mathrm{Softmax}$以外的其他激活函数$\sigma^L$作为最后一层的激活函数的话，很容易得到$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\odot\sigma'^L(\bm{z^L})$，惊讶的发现最后一层的损失竟然如此一致!
