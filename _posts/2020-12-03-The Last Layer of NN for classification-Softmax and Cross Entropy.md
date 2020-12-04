@@ -47,7 +47,10 @@ $$
 | $\bm{y}$ | 类别标签，是一个$one$-$hot$类型向量 | $(N\times 1)$  |
 
 ## 3.2 各变量之间的关系
-使用交叉熵损失函数，有$$C=Loss(\bm{a,y})=-\sum_i^Ny_i\cdot \mathrm{log}a_i$$
+使用交叉熵损失函数，有：
+
+$$C=Loss(\bm{a,y})=-\sum_i^Ny_i\cdot \mathrm{log}a_i$$
+
 其中，$a_i=\frac{e^{z_i}}{\sum_k^N e^{z_k}}$。而$\bm{y}$的形式如同：$\begin{bmatrix}0&0&...&1&...&0\end{bmatrix}^\mathrm{T}$，即$y_i$仅在正确的类别处为1，其余位置处均为0。
 
 ## 3.3 求$\frac{\partial C}{\partial \bm{z}}$
@@ -107,11 +110,14 @@ $$\begin{aligned}
     &=-\sum_{j=1}^N\frac{y_j}{a_j}\cdot[a_i\cdot1\{i=j\}-a_ia_j]\qquad(1)\\
     &=-\frac{y_{i(j)}}{a_{i(j)}}(a_i-a_ia_{i(j)})+\sum_{j=1,j\not ={i}}^N\frac{y_j}{a_j}(a_ia_j)\qquad(2)\\
     &=-y_i+y_ia_i+\sum_{j=1,j\not ={i}}^Ny_ja_i\\
-    &=-y_i+a_i(y_i+\sum_{j=1,j\not ={i}}^Ny_j)\\
+    &=-y_i+a_i(y_i+\sum_{j=1,j\not ={i}}^Ny_j)\qquad(3)\\
     &=a_i-y_i
 \end{aligned}$$
 
-注：在公式$(1)$中，$1\{\}$为示性函数，括号内表达式为真即$1$，为假即$0$。在公式$(2)$中，其实是把公式$(1)$的求和项分成了两个部分，左半部分是$(i=j)$时的情况，所以这里加上了下标$i(j)$，代表可以任意替换，而右半部分是$(i\not ={j})$的情况，就必须严格遵守原始下标。
+注：
+1. 在公式$(1)$中，$1\{\}$为示性函数，括号内表达式为真即$1$，为假即$0$。
+2. 在公式$(2)$中，其实是把公式$(1)$的求和项分成了两个部分，左半部分是$(i=j)$时的情况，所以这里加上了下标$i(j)$，代表可以任意替换，而右半部分是$(i\not ={j})$的情况，就必须严格遵守原始下标。
+3. 在公式$(3)$中，括号中的表达式恒等于$1$(因为$\bm{y}$为$one$-$hot$向量)
 
-因为$\frac{\partial C}{\partial z_i}$只与下标$i$有关，所以可以扩展到向量形式:
-> $$\frac{\partial C}{\partial \bm{z}}=\bm{a}-\bm{y}$$
+因为$\frac{\partial C}{\partial z_i}$只与下标$i$有关，所以可以扩展到向量形式，这里我再顺便加上层数$L$:
+> $$\frac{\partial C}{\partial \bm{z^L}}=\bm{a^L}-\bm{y}$$
