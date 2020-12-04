@@ -58,27 +58,27 @@ $$C=Loss(\bm{a,y})=-\sum_i^Ny_i\cdot \mathrm{log}a_i$$
 
 遵循从单个到整体的求梯度原则，我们仍然只计算$\frac{\partial C}{\partial z_i}$。因为$z_i$会作用到每一个$a_j$当中，所以根据链式法则，有$$\frac{\partial C}{\partial z_i}=\sum_j^N\frac{\partial C}{\partial a_j}\cdot\frac{\partial a_j}{\partial z_i}$$
 
-**我们先计算$\frac{\partial a_j}{\partial z_i}$这一项：**
+### 3.3.1 先计算$\frac{\partial a_j}{\partial z_i}$这一项
 
 $$\begin{aligned}
     \frac{\partial a_j}{\partial z_i}&=\frac{\partial \frac{e^{z_j}}{\sum_k^N e^{z_k}}}{\partial z_i}\\
-    &=\frac{\frac{\partial e^{z_j}}{\partial z_i}\cdot\sum_k^N e^{z_k}-\frac{\partial \sum_k^N e^{z_k}}{\partial z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\ (除法求导法则)\qquad(1)
+    &=\frac{\frac{\partial e^{z_j}}{\partial z_i}\cdot\sum_k^N e^{z_k}-\frac{\partial \sum_k^N e^{z_k}}{\partial z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\ \qquad(1)
 \end{aligned}$$
 
-1) 当$i=j$时，有：
+1. 当$i=j$时，有：
 
 $$\begin{aligned}
-    式(1)&=\frac{e^z_{i(j)}\cdot\sum_k^N e^{z_k}-e^z_{i(j)}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\\
-    &=a_{i(j)}-a_{i(j)}\cdot a_j
+    (1)式&=\frac{e^z_{i(j)}\cdot\sum_k^N e^{z_k}-e^z_{i(j)}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\\
+    &=a_{i(j)}-a_{i(j)}\cdot a_j\quad(\mathrm{Softmax}定义)
 \end{aligned}
 $$
 
-(这里有下标$i(j)$，意为在这时不论取$i$或取$j$都是一样的)
+注：这里的**下标$i(j)$**，意为在这时不论取$i$或取$j$都是一样的。下文同理
 
-2) 当$i\not ={}j$时，有：
+2. 当$i\not ={}j$时，有：
  
 $$\begin{aligned}
-    式(1)&=\frac{0-e^{z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\\
+    (1)式&=\frac{0-e^{z_i}\cdot e^{z_j}}{(\sum_k^N e^{z_k})^2}\\
     &=-a_i\cdot a_j
 \end{aligned}
 $$
@@ -90,7 +90,7 @@ $$\frac{\partial a_j}{\partial z_i}=\left\{\begin{aligned}
     -a_i\cdot a_j\qquad(i\not ={j})
 \end{aligned} \right.$$
 
-**再计算$\frac{\partial C}{\partial a_j}$这一项：**
+### 3.3.2 再计算$\frac{\partial C}{\partial a_j}$这一项
 因为$\bm{y}$为$one$-$hot$向量，假设仅$y_k=1$，那么：
 
 $$\begin{aligned}
@@ -103,7 +103,9 @@ $$\begin{aligned}
 \end{aligned}
 $$
 
-**将$\frac{\partial a_j}{\partial z_i}$和$\frac{\partial C}{\partial a_j}$带入$\frac{\partial C}{\partial z_i}$：**
+注：因为当$j\not ={k}$时$y_j=0$，所以可以很直接的将两种情况合并
+
+### 3.3.3 将$\frac{\partial a_j}{\partial z_i}$和$\frac{\partial C}{\partial a_j}$带入$\frac{\partial C}{\partial z_i}$
 
 $$\begin{aligned}
     \frac{\partial C}{\partial z_i}&=\sum_j^N\frac{\partial C}{\partial a_j}\cdot\frac{\partial a_j}{\partial z_i}\\
@@ -115,8 +117,8 @@ $$\begin{aligned}
 \end{aligned}$$
 
 注：
-1. 在公式$(1)$中，$1\{\}$为示性函数，括号内表达式为真即$1$，为假即$0$。
-2. 在公式$(2)$中，其实是把公式$(1)$的求和项分成了两个部分，左半部分是$(i=j)$时的情况，所以这里加上了下标$i(j)$，代表可以任意替换，而右半部分是$(i\not ={j})$的情况，就必须严格遵守原始下标。
+1. 在公式$(1)$中，$1\{\cdot\}$为**示性函数**，括号内表达式为真时函数值为$1$，否则为$0$
+2. 在公式$(2)$中，其实是把公式$(1)$的求和项分成了两个部分，左半部分是$(i=j)$时的情况，所以这里加上了下标$i(j)$，代表可以任意替换，而右半部分是$(i\not ={j})$的情况，就必须严格遵守原始下标
 3. 在公式$(3)$中，括号中的表达式恒等于$1$(因为$\bm{y}$为$one$-$hot$向量)
 
 因为$\frac{\partial C}{\partial z_i}$只与下标$i$有关，所以可以扩展到向量形式，这里我再顺便加上层数$L$:
@@ -124,3 +126,7 @@ $$\begin{aligned}
 
 ## 3.4 对比分析
 在回归问题中，若采用$\mathrm{MSE}$作为损失函数，使用除$\mathrm{Softmax}$外的其他激活函数$\sigma^L$作为最后一层的激活函数的话，很容易得到$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\odot\sigma'^L(\bm{z^L})$，惊讶的发现他们竟如此的一致！不得不佩服发现这些规律的学者、前辈。
+
+# 4 参考资料
+1. [你 真的 懂 Softmax 吗？](https://zhuanlan.zhihu.com/p/90771255)
+2. [softmax激活+crossEntropy损失求导公式推导](https://fengzhe.blog.csdn.net/article/details/99707296)
