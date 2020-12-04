@@ -90,5 +90,28 @@ $$\frac{\partial a_j}{\partial z_i}=\left\{\begin{aligned}
 **再计算$\frac{\partial C}{\partial a_j}$这一项：**
 因为$\bm{y}$为$one$-$hot$向量，假设仅$y_k=1$，那么：
 
+$$\begin{aligned}
+    C&=-\sum_i^N y_i\mathrm{log}a_i=-y_k\mathrm{log}a_k\\
+    \frac{\partial C}{\partial a_j}&=\left\{\begin{aligned}
+    0\qquad(j\not ={k})\\
+    -\frac{y_{j(k)}}{a_{j(k)}}\quad(j=k)
+\end{aligned} \right.\\
+    &=-\frac{y_j}{a_j}
+\end{aligned}
 $$
-$$
+
+**将$\frac{\partial a_j}{\partial z_i}$和$\frac{\partial C}{\partial a_j}$带入$\frac{\partial C}{\partial z_i}$：**
+
+$$\begin{aligned}
+    \frac{\partial C}{\partial z_i}&=\sum_j^N\frac{\partial C}{\partial a_j}\cdot\frac{\partial a_j}{\partial z_i}\\
+    &=-\sum_{j=1}^N\frac{y_j}{a_j}\cdot[a_i\cdot1\{i=j\}-a_ia_j]\qquad(1)\\
+    &=-\frac{y_{i(j)}}{a_{i(j)}}(a_i-a_ia_{i(j)})+\sum_{j=1,j\not ={i}}^N\frac{y_j}{a_j}(a_ia_j)\qquad(2)\\
+    &=-y_i+y_ia_i+\sum_{j=1,j\not ={i}}^Ny_ja_i\\
+    &=-y_i+a_i(y_i+\sum_{j=1,j\not ={i}}^Ny_j)\\
+    &=a_i-y_i
+\end{aligned}$$
+
+注：在公式$(1)$中，$1\{\}$为示性函数，括号内表达式为真即$1$，为假即$0$。在公式$(2)$中，其实是把公式$(1)$的求和项分成了两个部分，左半部分是$(i=j)$时的情况，所以这里加上了下标$i(j)$，代表可以任意替换，而右半部分是$(i\not ={j})$的情况，就必须严格遵守原始下标。
+
+因为$\frac{\partial C}{\partial z_i}$只与下标$i$有关，所以可以扩展到向量形式:
+> $$\frac{\partial C}{\partial \bm{z}}=\bm{a}-\bm{y}$$
