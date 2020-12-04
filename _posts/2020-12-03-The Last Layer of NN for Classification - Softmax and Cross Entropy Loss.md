@@ -54,9 +54,11 @@ $$C=-\sum_iy_i\mathrm{log}\hat{y_i}$$
 
 $$\begin{aligned}
     C&=-\sum_{i=0}^1y_i\mathrm{log}\hat{y_i}\\
-    &=-[y_0\mathrm{log}\hat{y_0}+y_1\mathrm{log}\hat{y_1}]\quad(y_0+y_1=1,且y_0,y_1 \in \{0,1\})\\
+    &=-[y_0\mathrm{log}\hat{y_0}+y_1\mathrm{log}\hat{y_1}]\\
     &=-[y\mathrm{log}\hat{y}+(1-y)\mathrm{log}(1-\hat{y})]
 \end{aligned}$$
+
+注：这里$y_1=1-y_0,\hat{y_1}=1-\hat{y_0}$，且省略下标
 
 # 3 分类问题的梯度计算
 ## 3.1 变量定义
@@ -72,7 +74,10 @@ $$\begin{aligned}
 ## 3.2 各变量之间的关系
 使用交叉熵损失函数，有：
 
-$$C=Loss(\bm{a,y})=-\sum_i^Ny_i\cdot \mathrm{log}a_i$$
+$$\begin{aligned}
+\bm{a}&=\mathrm{Softmax}(\bm{z})\\
+    C&=Loss(\bm{a,y})=-\sum_i^Ny_i\cdot \mathrm{log}a_i
+\end{aligned}$$
 
 其中，$a_i=\frac{e^{z_i}}{\sum_k^N e^{z_k}}$。而$\bm{y}$的形式如同：$\begin{bmatrix}0&0&...&1&...&0\end{bmatrix}^\mathrm{T}$，即$y_i$仅在正确的类别处为1，其余位置处均为0。
 
@@ -81,7 +86,7 @@ $$C=Loss(\bm{a,y})=-\sum_i^Ny_i\cdot \mathrm{log}a_i$$
 
 遵循从单个到整体的求梯度原则，我们仍然只计算$\frac{\partial C}{\partial z_i}$。因为$z_i$会作用到每一个$a_j$当中，所以根据链式法则，有$$\frac{\partial C}{\partial z_i}=\sum_j^N\frac{\partial C}{\partial a_j}\cdot\frac{\partial a_j}{\partial z_i}$$
 
-### 3.3.1 先计算$\frac{\partial a_j}{\partial z_i}$这一项
+### 3.3.1 计算$\frac{\partial a_j}{\partial z_i}$
 
 $$\begin{aligned}
     \frac{\partial a_j}{\partial z_i}&=\frac{\partial \frac{e^{z_j}}{\sum_k^N e^{z_k}}}{\partial z_i}\\
@@ -113,7 +118,7 @@ $$\frac{\partial a_j}{\partial z_i}=\left\{\begin{aligned}
     -a_i\cdot a_j\qquad(i\not ={j})
 \end{aligned} \right.$$
 
-### 3.3.2 再计算$\frac{\partial C}{\partial a_j}$这一项
+### 3.3.2 计算$\frac{\partial C}{\partial a_j}$
 因为$\bm{y}$为$one$-$hot$向量，假设仅$y_k=1$，那么：
 
 $$\begin{aligned}
