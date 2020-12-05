@@ -10,7 +10,7 @@ tags:
 
 # 1 关于Softmax
 ## 1.1 Softmax的形式
-$$\begin{aligned}
+$$
     若\bm{x}=\begin{bmatrix}
         x_1\\
         ...\\
@@ -24,7 +24,6 @@ $$\begin{aligned}
         ...\\
         \frac{e^{x_n}}{\sum_ke^{x_k}}\\
     \end{bmatrix}
-\end{aligned}
 $$
 
 若$\bm{y}=\mathrm{softmax}(\bm{x})$，那么对于任意$y_i$有以下特点：
