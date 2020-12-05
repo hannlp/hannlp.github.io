@@ -10,8 +10,7 @@ tags:
 
 # 1 关于Softmax
 ## 1.1 Softmax的形式
-$$
-    若\bm{x}=\begin{bmatrix}
+$$若\bm{x}=\begin{bmatrix}
         x_1\\
         ...\\
         x_i\\
@@ -23,8 +22,7 @@ $$
         \frac{e^{x_i}}{\sum_ke^{x_k}}\\
         ...\\
         \frac{e^{x_n}}{\sum_ke^{x_k}}\\
-    \end{bmatrix}
-$$
+    \end{bmatrix}$$
 
 若$\bm{y}=\mathrm{softmax}(\bm{x})$，那么对于任意$y_i$有以下特点：
 1. $y_i\in(0,1)$，且$\sum_iy_i=1$，所以可以$y_i$当成属于类$i$的概率
