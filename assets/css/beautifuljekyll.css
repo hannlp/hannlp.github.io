@@ -444,7 +444,7 @@ footer .footer-custom-content {
 .post-preview a {
   text-decoration: none;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: {{ site.text-col | default: "#2059b9d1" }};
+  color: {{ site.text-col | default: "#404040" }};
 }
 
 .post-preview a:focus,
