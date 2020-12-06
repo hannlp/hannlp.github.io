@@ -54,6 +54,7 @@ a:focus {
 }
 blockquote {
   color: #dc4e64;
+  
 }
 blockquote p:first-child {
   margin-top: 0;
