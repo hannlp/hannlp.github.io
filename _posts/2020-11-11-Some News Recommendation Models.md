@@ -13,7 +13,7 @@ tags:
 
 于是乎，我立马自己去找了这个[MIND数据集](https://msnews.github.io/)，数据格式等就暂不介绍，有兴趣的可以自己去官网查看。在其论文中，微软官方实现了几个新闻推荐的算法，如下图:
 
-![rec_models](/imgs/newsrec/rec_models.png)
+![](https://i.loli.net/2020/12/06/7iXPsSIZU8nH2oN.png)
 
 其中，DKN这篇论文我在去年已经读过并研究过代码了，现在效果比它好的有四个，NPA，NAML，LSTUR和NRMS。我去找来并阅读了这四篇论文，发现第1，2，4篇是同一个人([Chuhan Wu,THU](https://wuch15.github.io/))发的...而且他也是第3篇的参与者。
 
@@ -40,7 +40,7 @@ tags:
 
 ## 1.2 模型
 
-![npa_model](/imgs/newsrec/npa_model.png)
+![](https://i.loli.net/2020/12/06/8HzsSMyepD1uo9t.png)
 
 ### 1.2.1 新闻表示模型
 新闻表示模型在总模型图中用绿色虚线圈着。
@@ -50,7 +50,7 @@ tags:
 * 词嵌入。即使用词向量(word2vec/glove)技术，将标题中每个单词映射成其对应的向量表示，这样，新闻标题就变成了一个词向量序列$E=(\bm{e_1},...,\bm{e_M})$
 * 卷积神经网络。使用卷积神经网络的目的是想学习每个单词的**局部上下文信息**，也就是使用一个单词和其前后$k$个单词的表示，通过卷积操作来共同学习这个单词的表示。这样，得到一个新的单词表示序列$C=(\bm{c_1},...,\bm{c_M})$
 * **单词级别的注意力机制**，是本篇论文的核心之一。其目的是：为标题中的每个单词，通过注意力机制得到一个权重。这些权重就可以体现用户对每个单词的**关注度**，再将所有单词加权平均，得到新闻标题，也就是新闻的最终表示
-![npa_model](/imgs/newsrec/npa_model2.png)
+![](https://i.loli.net/2020/12/06/GLYCgn3facZhj8S.png)
 
 > 1. 首先需要将每个用户的ID映射成一个向量$\bm{e_u}$(具体方法文中没有讲，可能是随机初始化最后学习得到的，需要去看代码了解)
 > 
@@ -97,10 +97,10 @@ $$
 
 ## 1.3 实验结果和其他有价值的东东
 
-![npa_ex](/imgs/newsrec/npa_ex.png)
+![](https://i.loli.net/2020/12/06/2XQfJZsoTK4xbNq.png)
 
 下图是一种很好的直观表示注意力的方法：
-![npa_visual_attention](/imgs/newsrec/npa_visual_attention.png)
+![](https://i.loli.net/2020/12/06/ivVGnxUoy5DCeE6.png)
 
 # 2. NAML: Neural News Recommendation with Attentive Multi-View Learning
 ## 2.1 核心思想
@@ -113,7 +113,7 @@ $$
 ## 2.2 模型
 该模型基本与npa相同，只有在**news model**中，除新闻标题外又考虑了另外两个成分(新闻类别和新闻内容)，作为多个**view**，并使用了一个**view-level**的attention机制。此外，**user model**和**点击预测模型**与npa完全一致。
 
-![naml_model](/imgs/newsrec/naml_model.png)
+![](https://i.loli.net/2020/12/06/Tognq1aV3GBRlSM.png)
 
 ### 2.2.1 新闻表示模型
 其中，新闻标题和新闻内容(与新闻标题相同，都是单词序列，只不过可能会更长)与npa模型中的表示学习方式相同，直接略过，最后的表示分别为$\bm{r^t}$和$\bm{r^b}$。只简单看一下对于**新闻类别**的表示是怎么得到的：
@@ -126,8 +126,8 @@ $$
 
 ## 2.3 实验结果和一些重要结论
 
-![naml_ex](/imgs/newsrec/naml_ex.png)
-![naml_attention](/imgs/newsrec/naml_attention.png)
+![](https://i.loli.net/2020/12/06/7IEVMgdJ23nx9YW.png)
+![](https://i.loli.net/2020/12/06/mMY4djLc6in97sV.png)
 
 虽然这篇论文与npa基本差不多，但是它的实验给了我们不少的启示：可以看到*view-attention*的时候，**新闻类别**所获得的注意力竟然是最高的！
 
@@ -141,7 +141,7 @@ $$
 ### 3.2.1 新闻表示模型
 可以看到，在新闻表示的时候，它吸收了前两篇论文的优点。首先依旧采用了单词级别的**注意力机制**，并且依然使用了**新闻类别**这一成分(在上一论文的实验中验证过，新闻类别获得了最多的注意力)
 
-![lstur_model](/imgs/newsrec/lstur_model.png)
+![](https://i.loli.net/2020/12/06/1DjzmBQ7qn9ybR2.png)
 
 但由于方法与前两篇论文一样，就不多费笔墨了，需要注意最后的新闻表示是由三个表示**直接连接**得到的。
 
@@ -164,20 +164,20 @@ $$
 
 * **长期表示与短期表示结合**：
 作者提出了两种方法，一种是使用用户的长期表示来初始化GRU的初始状态，取GRU的最终状态来作为用户表示(**LSTUR-ini**)，另外一种是直接将用户的长期表示和GRU的最终状态拼接得到用户表示(**LSTUR-con**)。在实验中，两种方法的得分基本一致，但con方法更稳定。
-![long_and_short](/imgs/newsrec/long_and_short.png)
+![](https://i.loli.net/2020/12/06/7FZY5WwoGRmOeNj.png)
 
 ### 3.2.3 一个trick
 作者考虑到在数据集中并不是所有用户都会有长期的偏好(我理解为推荐系统中的长尾效应)，所以在训练过程中，作者以一定概率$p$遮掩了一些用户的长期偏好表示(直接设为0)，在实验中取得效果的提升
 
 ## 3.3 实验结果及结论
 左图为两种长短期表示结合方法的对比，右图为LSTM和GRU的对比，GRU略胜一筹。
-![lstur_ex1](/imgs/newsrec/lstur_ex1.png)
+![](https://i.loli.net/2020/12/06/dQBXWYSeFljV7oM.png)
 
 新闻标题表示中，使用CNN和LSTM的对比，CNN略胜一筹。另外，使用attention均会提升。
-![lstur_ex2](/imgs/newsrec/lstur_ex2.png)
+![](https://i.loli.net/2020/12/06/MoJdSzA6yTtlL2U.png)
 
 训练时的trick中，长期表示的遮掩概率$p$取值不同时的比较。
-![lstur_ex3](/imgs/newsrec/lstur_ex3.png)
+![](https://i.loli.net/2020/12/06/KMLpgmTRH2SBcCQ.png)
 
 # 4. NRMS: Neural News Recommendation with Multi-Head Self-Attention
 
@@ -190,7 +190,7 @@ $$
 
 ## 4.2 模型
 
-![nrms_model](/imgs/newsrec/nrms_model.png)
+![](https://i.loli.net/2020/12/06/oDBr1aHYmIkQn3T.png)
 
 ### 4.2.1 多头自注意力
 作者在学习**每一个单词的表示**的时候，都会用到标题中的所有单词。这就是自注意力机制，具体公式如下：

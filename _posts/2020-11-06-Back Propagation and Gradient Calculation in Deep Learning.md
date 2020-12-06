@@ -70,7 +70,7 @@ $$
 
 $W_{jk}^l$会对$C$有什么影响呢？他只会与第$l-1$层第$\bm{k}$个节点的输出$a_k^{l-1}$相乘，然后作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上。如图所示:
 
-![W](/imgs/gradient/DNN_W.png)
+![](https://i.loli.net/2020/12/06/6DokVTiKaUZuLpM.png)
 
 所以根据链式法则，有$\frac{\partial C}{\partial W_{jk}^l}=\frac{\partial C}{\partial z_j^l}\frac{\partial z_j^l}{\partial W_{jk}^l}$。其中，$z_j^l=\sum_{i=1}^{N_{l-1}}a_i^{l-1}W_{ji}^l+b_j^l$
 
@@ -119,7 +119,7 @@ $$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...
 
 我们可以从上面的式子观察一下第$l$层的第$\bm{j}$个神经元的$z_j^l$是怎么作用到下一层的。同样很简单，$z_j^l$会先经过一个激活函数$\sigma$得到$a_j^l$，再乘上不同的权重，作用在下一层的每一个神经元上。
 
-![z](/imgs/gradient/DNN_z.png)
+![](https://i.loli.net/2020/12/06/vmaVYp6ZyFsfROq.png)
 
 所以，根据[链式法则(例:z为u,v的函数，u和v分别为x,y的函数)](https://zhuanlan.zhihu.com/p/113112455)，有$\frac{\partial C}{\partial z_j^l}=\sum_k\frac{\partial C}{\partial z_k^{l+1}}\frac{\partial z_k^{l+1}}{\partial z_j^l}$
 
@@ -151,8 +151,7 @@ $$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...
 \end{aligned}$$
 
 也可以按照以下流程编程实现(图片来自Neural Networks and Deep Learning, Michael Nielsen )：
-![method](/imgs/gradient/method.png)
-
+![](https://i.loli.net/2020/12/06/7KWeFtwTryMjxEN.png)
 自此，我对于单个样本$\bm{x}$的反向传播推导就告一段落，已经可以凭借以上内容，实现一个使用随机梯度下降算法来优化的DNN啦！
 
 ## 2.6 多样本反向传播

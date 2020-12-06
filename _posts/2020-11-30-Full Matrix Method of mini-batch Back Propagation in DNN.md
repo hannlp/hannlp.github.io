@@ -132,6 +132,6 @@ $$
 # 8 与基于单样本累加的mini-batch更新方法的比较
 Michael Nielsen在书中给出了计算mini-batch梯度的一种方法。
 
-![method_muti](/imgs/gradient_new/method_muti.png)
+![](https://i.loli.net/2020/12/06/JFGIKhDXSU61fs7.png)
 
 这个方法是在单样本基础上实现的，总体的思路是先依次进行**mini-batch个样本**的前向传播和误差计算，再依次传播误差到每一层中，最后进一步计算$\bm{W^l,b^l}$的梯度。而全矩阵方法是**并行化**的，也就是一次前向传播就可以同时完成**mini-batch个样本**的相应计算，反向传播误差时亦如此。并行化也在当今的算法中大受推崇，比如序列建模中，Transformer相对于(RNN家族)的一个巨大优势，就是可以并行计算。
