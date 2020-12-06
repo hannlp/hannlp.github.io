@@ -18,7 +18,7 @@ tags:
 
 # 3 算法思路
 
-![dkn](/imgs/dkn_framework.jpg)
+![](https://i.loli.net/2020/12/06/IoJmjEuCbSzrlM1.jpg)
 
 ## 3.1 算法性质
 基于内容的推荐，目的是评估点选率
@@ -72,6 +72,3 @@ $ python kg_preprocess.py
 $ cd ../../src
 $ python main.py (note: use -h to check optional arguments)
 ```
-
-## 5.2 源码开跑
-跑到“g++ transE.cpp -o transE -pthread -O3 -march=native”这一步，死活跑不动了，这个g++编译真的有毒。可能之后还要遇到许多这样的问题，因为表示学习算法大多数都是基于C++的。等搞出来再来更新。
