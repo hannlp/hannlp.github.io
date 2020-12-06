@@ -94,7 +94,7 @@ and it will be like this:
 ![center_table](/docs/readme_img/center_table.png)
 
 ## 1.6 A Commit and Analysis System
-I add a commit system with the help of [Valine](https://valine.js.org/) and [LeanCloud](https://leancloud.cn/). It can also do count the view num for every blogs. [Here](https://valine.js.org/quickstart.html) is a quick tutorial!
+I add a commit system with the help of [Valine](https://valine.js.org/) and [LeanCloud](https://leancloud.cn/). It can also counts the view num of every blog. [Here](https://valine.js.org/quickstart.html) is a quick tutorial!
 ![commit](/docs/readme_img/commit.png)
 
 # 2 To do list
