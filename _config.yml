@@ -186,7 +186,6 @@ exclude:
   - LICENSE
   - README.md
   - docs/
-  - imgs/
 
 plugins:
   - jekyll-paginate
