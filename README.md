@@ -16,7 +16,7 @@ footer-col: "#F5F5F5"
 footer-text-col: "#777777"
 footer-link-col: "#404040"
 ```
-![my_style](/assets/img/my_style.png)
+![my_style](/docs/readme_img/my_style.png)
 
 ## 1.2 My Code Insert Style
 Update your 'beautiful-jekyll.css' like this:
@@ -34,7 +34,7 @@ Update your 'beautiful-jekyll.css' like this:
 }
 ```
 and it will be like this:
-![code_style](/assets/img/code_style.png)
+![code_style](/docs/readme_img/code_style.png)
 ## 1.3 A TOC(Article Directory) System ([link](https://github.com/allejo/jekyll-toc))
 > _Usage_: <br/>1.Download the latest toc.html file and add that file in your _includes folder.<br/>2.Update your post.html file like this:
 ```
@@ -44,11 +44,11 @@ and it will be like this:
     </article>
 ```
 and it will be like this:
-![toc_system](/assets/img/toc_system.png)
+![toc_system](/docs/readme_img/toc_system.png)
 
 ## 1.4 Mathematical Formula Supporting
 I use KaTex in my blog to show any mathematical formula. Like this: 
-![formula](/assets/img/formula.png)
+![formula](/docs/readme_img/formula.png)
 > _Usage_: <br/>**Only need to add these code in your 'head.html' file:**
 ```
 <head>
@@ -90,9 +90,13 @@ table {
 }
 ```
 and it will be like this:
-![center_pic](/assets/img/center_pic.png)
-![center_table](/assets/img/center_table.png)
+![center_pic](/docs/readme_img/center_pic.png)
+![center_table](/docs/readme_img/center_table.png)
+
+## 1.6 A Commit and Analysis System
+I add a commit system with the help of [Valine](https://valine.js.org/) and [LeanCloud](https://leancloud.cn/). It can also do count the view num for every blogs. [Here](https://valine.js.org/quickstart.html) is a quick tutorial!
+![commit](/docs/readme_img/commit.png)
+
 # 2 To do list
-* Add a commit system base on github issues
 * Use some method to accelerate image loading
 * Use cdn to accelerate my Github pages

@@ -170,7 +170,6 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      comments: false  # add comments to all blog posts
       social-share: false # add social media sharing buttons to all blog posts
   -
     scope:
@@ -186,7 +185,6 @@ exclude:
   - Gemfile.lock
   - LICENSE
   - README.md
-  - screenshot.png
   - docs/
 
 plugins:
