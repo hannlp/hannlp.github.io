@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  font-family: 'Microsoft YaHei', 'Lora', 'Times New Roman';
+  font-family: 'Microsoft YaHei', 'Times New Roman';
   font-size: 1.125rem;
   color: {{ site.text-col | default: "#404040" }};
   position: relative;
