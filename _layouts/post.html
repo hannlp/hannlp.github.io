@@ -5,7 +5,7 @@ layout: base
 {% include header.html type="post" %}
 
 <div class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
-  <div class="row"> 
+  <div class="row">
     <div class="{% if page.full-width %} col {% else %} col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 {% endif %}">
 
       {% if page.gh-repo %}
@@ -85,6 +85,14 @@ layout: base
         {% endif %}
       </ul>
       {% include comments.html %}
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: 'myJOX6ABbOaHB4AmlGXzYOrp-gzGzoHsz',
+          appKey: 'QEk6z2savwzuODjYQaTIn2Oa'
+        })
+      </script>
     </div>
   </div>
 </div>
