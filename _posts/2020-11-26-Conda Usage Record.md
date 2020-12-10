@@ -72,7 +72,22 @@ conda list
 * 参考：[anaconda navigator 突然打不开有可能是什么原因？](https://www.zhihu.com/question/52136894)
 
 ## 2.2 tensorflow-gpu安装相关
-### 2.2.1 tensorflow 1.14.0版本不匹配系列
+### 2.2.1 依赖的gpu环境
+例：```tensorflow_gpu-1.14.0```需要安装```cuDNN:7.4，CUDA:10```。这是[经过测试的构建配置](https://tensorflow.google.cn/install/source_windows)
+
+**查看CUDA版本：** 命令行输入```nvcc --version```  
+**查看cuDNN版本：** 全局搜索'cudnn.h'，在最上方的几个宏定义处即显示其版本，例如下面所展示的就是7.6.5：  
+```c
+...
+#if !defined(CUDNN_H_)
+#define CUDNN_H_
+
+#define CUDNN_MAJOR 7
+#define CUDNN_MINOR 6
+#define CUDNN_PATCHLEVEL 5
+```
+
+### 2.2.2 tf-1.14.0与其他库版本不匹配系列
 直接```conda install tensorflow-gpu=1.14```，然后进入Python环境尝试导入，发现以下警告:
 ```
 FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecate
