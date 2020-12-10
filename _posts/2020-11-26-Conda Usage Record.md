@@ -64,10 +64,8 @@ conda list
 ## 2.1 anaconda-navigator 不能正常启动
 如果错误提示中明显能够看到pyQt5相关条目，并且anaconda prompt可以运行，则说明核心模块安装正确，是UI(界面插件)的问题
 
-**原因：** 界面插件损坏
-
-**解决方案：**
-
+**原因：** 界面插件损坏  
+**解决方案：**  
 >1. 直接删除%安装目录%\Lib\site-packages\pyQt5目录，以及所有包含‘pyQt5’的目录
 >2. 进入cmd,输入pip install pyQt5
 
@@ -80,10 +78,8 @@ conda list
 FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecate
 ```
 
-**原因：** numpy版本不适应
-
-**解决方案：** numpy降级即可。参考：tf-1.14.0、np-1.17.1时出现报错，就将numpy改为```pip install numpy==1.16.0```即无Warning
-
+**原因：** numpy版本不适应  
+**解决方案：** numpy降级即可。参考：tf-1.14.0、np-1.17.1时出现报错，就将numpy改为```pip install numpy==1.16.0```即无Warning  
 * 参考：[解决python调用TensorFlow时出现FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecate](https://blog.csdn.net/BigDream123/article/details/99467316)
 
 另有以下报错：
@@ -91,10 +87,8 @@ FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecate
 'h5py.h5r.Reference' has no attribute '__reduce_cython__' 
 ```
 
-**原因：** 预计是h5py版本不匹配
-
-**解决方案：** 降低h5py版本即可。```pip install h5py==2.8.0``` // in Windows 10
-
+**原因：** 预计是h5py版本不匹配  
+**解决方案：** 降低h5py版本即可。```pip install h5py==2.8.0``` // in Windows 10  
 * 参考：[Error using h5r>init h5py.h5r (line 145) AttributeError: type object 'h5py.h5r.Reference' has no attribute 'reduce_cython'](https://github.com/h5py/h5py/issues/1151)
 
 # 参考资料
