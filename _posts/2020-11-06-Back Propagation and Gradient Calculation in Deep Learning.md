@@ -19,14 +19,14 @@ tags:
 ### 1.1.1 求向量的梯度
 
 $$
-若\bm{v}=\begin{pmatrix} v_1 \\ v_2 \\ ... \\v_n \end{pmatrix}，则\frac{\partial f}{\bm{v}}等价于\begin{pmatrix} \frac{\partial f}{v_1} \\ \frac{\partial f}{v_2} \\ ... \\\frac{\partial f}{v_n} \end{pmatrix}
+若\bm{v}=\begin{pmatrix} v_1 \\ v_2 \\ ... \\v_n \end{pmatrix}，则\frac{\partial f}{\partial \bm{v}}=\begin{pmatrix} \frac{\partial f}{\partial v_1} \\ \frac{\partial f}{\partial v_2} \\ ... \\\frac{\partial f}{\partial v_n} \end{pmatrix}
 $$
 
 ### 1.1.2 求矩阵的梯度
 同1.1.1，即使用$f$依次对矩阵的每一个元素求偏导，最后的结果仍然为一个矩阵。
 
 # 2 深度神经网络(DNN)中反向传播的推导
-由于网络上很多教程都是**标量**直接对**向量或矩阵**求导，非常难以理解。而一种很好的方式就是先求一个向量或矩阵的**最小单元**的导数，然后泛化到整个向量或矩阵。这在[cs231n](https://cs231n.github.io/optimization-2/)中也有提到：
+由于网络上很多教程都是**标量**直接对**向量或矩阵**求导，非常难以理解。而一种很好的方式就是先对向量或矩阵的**最小单元(元素)** 求导，然后泛化到整个向量或矩阵。这在[cs231n](https://cs231n.github.io/optimization-2/)中也有提到：
 > **Work with small, explicit examples.** Some people may find it difficult at first to derive the gradient updates for some vectorized expressions. Our recommendation is to explicitly write out a minimal vectorized example, derive the gradient on paper and then generalize the pattern to its efficient, vectorized form
 
 所以我整篇文章都是只考虑对最小单元求导，这对于整个算法的深刻理解是有很大帮助的。
