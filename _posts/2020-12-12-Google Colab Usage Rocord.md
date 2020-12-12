@@ -25,7 +25,7 @@ drive.mount('/content/drive')
 **例：** Colab默认的tensorflow版本是2.x的，如果需要使用1.x版本就需要手动切换，即在cell中输入以下代码：  
 ```
 %tensorflow_version 1.x
-```  
+```
 运行后重启Colab即可
 
 ## 1.4 切换到当前工作路径
