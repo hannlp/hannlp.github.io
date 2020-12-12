@@ -10,11 +10,11 @@ tags:
 
 # 1 初次使用Colab的配置
 ## 1.1 挂载Google云端硬盘
-在cell中输入：  
+在cell中输入：
 ```python
 from google.colab import drive
 drive.mount('/content/drive')
-```  
+```
 运行后按提示操作即可
 
 ## 1.2 选择gpu
@@ -29,7 +29,7 @@ drive.mount('/content/drive')
 运行后重启Colab即可
 
 ## 1.4 切换到当前工作路径
-**法1：** 使用```%cd```命令
+**法1：** 使用```%cd```命令  
 **法2：** 使用```os.chdir()```方法
 
 # 2 一些不同
