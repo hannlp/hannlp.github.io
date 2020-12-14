@@ -160,9 +160,24 @@ $$\begin{aligned}
     \bm{\delta_h^{(t)}}&=(\bm{V}^\mathrm{T}\bm{\delta_y^{(t)}}+\bm{W}^\mathrm{T}\bm{\delta_h^{(t+1)}})\odot f'(\bm{z^{(t)}})
 \end{aligned}$$
 
-当然，如果使用$\mathrm{Softmax+CrossEntropy Loss}$这个组合，那么$\bm{\delta_y^{(t)}}$的形式会更为简洁。另外，我们可以看到$\bm{\delta_h^{(t)}}$这一项是可以**递推**计算的。这与DNN反向传播中的$\bm{\delta^l}$类似。
+当然，如果使用$\mathrm{Softmax+CrossEntropy Loss}$这个组合，那么$\bm{\delta_y^{(t)}}$的形式会更为简洁。另外，我们可以看到$\bm{\delta_h^{(t)}}$这一项是可以**递推**计算的,这与DNN反向传播中的$\bm{\delta^l}$类似。所以，我们还需要计算最后一个时刻$L$的$\bm{\delta_h^{(L)}}$。因为他没有后一个递推项$\bm{\delta_h^{(L+1)}}$了，所以可以直接简化为：
 
-所以，我们还需要计算最后一个时刻$L$的$\bm{\delta_y^{(L)}}$与$\bm{\delta_h^{(L)}}$。这里只有$\bm{\delta_h^{(L)}}$会有所区别，因为他没有后一个递推项$\bm{\delta_h^{(L+1)}}$了，所以可以直接简化为：$\bm{\delta_h^{(L)}}=(\bm{V}^\mathrm{T}\bm{\delta_y^{(L)}})\odot f'(\bm{z^{(L)}})$
+$$\bm{\delta_h^{(L)}}=(\bm{V}^\mathrm{T}\bm{\delta_y^{(L)}})\odot f'(\bm{z^{(L)}})$$
+
+在最后，再补上$\frac{\partial E}{\partial \bm{b}}$ 和 $\frac{\partial E}{\partial \bm{c}}$ 的推导：
+
+> $$\begin{aligned}
+    \frac{\partial E}{\partial \bm{b}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{b}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}\frac{\partial \bm{z^{(t)}}}{\partial \bm{b}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}=\sum_t\bm{\delta_h^{(t)}}\\
+    \frac{\partial E}{\partial \bm{c}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{c}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}\frac{\partial \bm{s^{(t)}}}{\partial \bm{c}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}=\sum_t\bm{\delta_y^{(t)}}
+\end{aligned}$$
+
+## 2.5 总结
+总结下模型参数梯度的计算和更新流程，深刻感受下BPTT的魅力。  
+1. 固定所有模型参数
+2. 依次走过$L$个时刻，记录每一时刻的$\bm{x^{(t)}}$和$\bm{h^{(t)}}$，并得到每一时刻的损失$E^{(1)},E^{(2)},...E^{(L)}$，进而得到每一时刻的$\bm{\delta_y^{(1)}},\bm{\delta_y^{(2)}},...,\bm{\delta_y^{(L)}}$
+3. 得到$\bm{\delta_y^{(L)}}$后，便可计算$\bm{\delta_h^{(L)}}$，进而递推向前计算每一时刻的$\bm{\delta_h^{(t)}}$
+4. 得到所有$\bm{\delta_h^{(t)}}$后，便可计算所有模型参数的梯度
+5. 更新所有模型参数
 
 # 参考资料
 1. [循环神经网络(RNN)模型与前向反向传播算法 - 刘建平Pinard](https://www.cnblogs.com/pinard/p/6509630.html)
