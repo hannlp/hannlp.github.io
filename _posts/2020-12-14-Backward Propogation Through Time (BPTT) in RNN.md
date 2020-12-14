@@ -67,3 +67,7 @@ $$\begin{aligned}
 > $$\frac{\partial E}{\partial \bm{V}}=\sum_t[\frac{\partial E^{(t)}}{\partial \bm{y}}\odot g'(\bm{s^{(t)}})](\bm{h^{(t)}})^\mathrm{T}$$
 
 ## 2.3 求$\frac{\partial E}{\partial \bm{U}}$
+
+$$\frac{\partial E}{\partial \bm{U}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{U}}$$
+
+观察公式 $\bm{z^{(t)}}=\bm{Ux^{(t)}}+\bm{Wh^{(t-1)}}+\bm{b}$ 和 $\bm{h^{(t)}}=f(\bm{z^{(t)}})$，会发现
