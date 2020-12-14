@@ -48,3 +48,8 @@ $$\begin{aligned}
 2. 每一时刻$\bm{t}$的**输入$\bm{x^{(t)}}$** 都是一个向量(比如：在NLP中，可以使用词向量)，在经过模型后会得到**这一时刻的状态$\bm{h^{(t)}}$** 和**输出$\bm{y^{(t)}}$**。
 3. 在NLP中，$\bm{y^{(t)}}$是由$\bm{s^{(t)}}$经过$g$ (通常为Softmax) 激活得到的，搭配Cross Entropy Loss (比如：在词表中挑选下一个单词，这是一个多分类问题) ，就能计算出此刻的损失$\bm{E^{(t)}}$。
 4. 计算出$\bm{E^{(t)}}$后，并不能立即对模型参数进行更新。需要沿着时间$t$不断给出输入，计算出所有时刻的损失。模型总损失为$\bm{E}=\sum_t\bm{E^{(t)}}$
+5. 我们需要根据总损失$\bm{E}$计算所有参数的梯度$\frac{\partial \bm{E}}{\partial \bm{U}},\frac{\partial \bm{E}}{\partial \bm{W}},\frac{\partial \bm{E}}{\partial \bm{V}},\frac{\partial \bm{E}}{\partial \bm{b}},\frac{\partial \bm{E}}{\partial \bm{c}}$，再使用基于梯度的优化方法进行参数更新。
+
+这就是完整的一轮流程。本文要讨论的就是：如何计算RNN模型参数的梯度。
+
+## 2.2 
