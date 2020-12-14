@@ -78,12 +78,12 @@ $$\begin{aligned}
     &=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}x_j^{(t)}
 \end{aligned}$$
 
-计算$\frac{\partial E^{(t)}}{\partial z_i^{(t)}}$这一项时，就需要仔细观察一下了。需要注意，由于RNN的特性：$\bm{h^{(t)}}$ 的计算同时需要 $\bm{x^{(t)}}$ 和 $\bm{h^{(t-1)}}$。所以 $\bm{z{(t)}}$ 不仅会对当前时刻的输出造成影响，也会影响到下一时刻的输出，变量间具体的依赖关系如下图所示：
+计算$\frac{\partial E^{(t)}}{\partial z_i^{(t)}}$这一项时，就需要仔细观察一下了。由于RNN的特性：$\bm{h^{(t)}}$ 的计算同时需要 $\bm{x^{(t)}}$ 和 $\bm{h^{(t-1)}}$。所以 $\bm{z{(t)}}$ 不仅会对当前时刻的输出造成影响，也会影响到下一时刻的输出，变量间具体的依赖关系如下图所示：
 
-![](https://i.loli.net/2020/12/14/bZltD4OY6Kjx8BI.png)
+![](https://i.loli.net/2020/12/14/2tmzYTIeS8MycC1.png)
 
 所以，$\frac{\partial E^{(t)}}{\partial z_i^{(t)}}$ 应该包含两部分：
 
 $$\begin{aligned}
-    
+    \frac{\partial E^{(t)}}{\partial z_i^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}\frac{\partial \bm{s^{(t)}}}{\partial z_i^{(t)}}+\frac{\partial E^{(t)}}{\partial \bm{z^{(t+1)}}}\frac{\partial \bm{z^{(t+1)}}}{\partial z_i^{(t)}}
 \end{aligned}$$
