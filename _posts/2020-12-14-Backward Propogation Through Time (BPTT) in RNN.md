@@ -101,5 +101,19 @@ $$\begin{aligned}
     &=\frac{\partial E^{(t+1)}}{\partial \bm{z^{(t+1)}}}\frac{\partial \bm{z^{(t+1)}}}{\partial z_i^{(t)}}\\
     &=\sum_k \frac{\partial E^{(t+1)}}{\partial z_k^{(t+1)}}\frac{\partial z_k^{(t+1)}}{\partial z_i^{(t)}}\\
     &=\sum_k \frac{\partial E^{(t+1)}}{\partial z_k^{(t+1)}}\frac{\partial z_k^{(t+1)}}{\partial h_i^{(t)}}\frac{\partial h_i^{(t)}}{\partial z_i^{(t)}}\\
-    &=\sum_k \frac{\partial E^{(t)}}{\partial s_k^{(t)}}W_{ki}f'(z_i^{(t)})
+    &=\sum_k \frac{\partial E^{(t+1)}}{\partial z_k^{(t+1)}}W_{ki}f'(z_i^{(t)})
 \end{aligned}$$
+
+带入原式，得到：
+
+$$\frac{\partial E^{(t)}}{\partial U_{ij}}=[\sum_k^M \frac{\partial E^{(t)}}{\partial s_k^{(t)}}V_{ki}+\sum_k^N \frac{\partial E^{(t+1)}}{\partial z_k^{(t+1)}}W_{ki}]\cdot f'(z_i^{(t)})\cdot x_j^{(t)}$$
+
+引入误差记号，记$\bm{\delta_y^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}},\bm{\delta_h^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}$
+
+上式可改写为：
+
+$$\frac{\partial E^{(t)}}{\partial U_{ij}}=[\sum_k^M \delta_{y,k}^{(t)}V_{ki}+\sum_k^N \delta_{h,k}^{(t+1)}W_{ki}]\cdot f'(z_i^{(t)})\cdot x_j^{(t)}$$
+
+推广到矩阵形式，即：
+
+> $$\frac{\partial E}{\partial \bm{U}}=\sum_t [(\bm{V}^\mathrm{T}\bm{\delta_y^{(t)}}+\bm{W}^\mathrm{T}\bm{\delta_h^{(t)}})\odot f'(\bm{z^{(t)}})]\cdot \bm{x^{(t)}}$$
