@@ -32,7 +32,7 @@ $$\begin{aligned}
 | $\bm{h^{(t)}}$ |      第$t$时刻的隐含状态       | $(N\times 1)$  |
 | $\bm{s^{(t)}}$ |   第$t$时刻输出层的带权输入    | $(M \times 1)$ |
 | $\bm{y^{(t)}}$ |        第$t$时刻的输出         | $(M\times 1)$  |
-| $\bm{E^{(t)}}$ |        第$t$时刻的损失         |      标量      |
+|   $E^{(t)}$    |        第$t$时刻的损失         |      标量      |
 |    $\bm{U}$    | 隐层对输入的参数，整个模型共享 | $(N\times K)$  |
 |    $\bm{W}$    | 隐层对状态的参数，整个模型共享 | $(N\times N)$  |
 |    $\bm{V}$    |    输出层参数，整个模型共享    | $(M\times N)$  |
@@ -46,10 +46,26 @@ $$\begin{aligned}
 首先快速总览一下RNN的全部流程。
 1. 首先令模型的隐含状态$\bm{h^{(0)}=0}$。
 2. 每一时刻$\bm{t}$的**输入$\bm{x^{(t)}}$** 都是一个向量(比如：在NLP中，可以使用词向量)，在经过模型后会得到**这一时刻的状态$\bm{h^{(t)}}$** 和**输出$\bm{y^{(t)}}$**。
-3. 在NLP中，$\bm{y^{(t)}}$是由$\bm{s^{(t)}}$经过$g$ (通常为Softmax) 激活得到的，搭配Cross Entropy Loss (比如：在词表中挑选下一个单词，这是一个多分类问题) ，就能计算出此刻的损失$\bm{E^{(t)}}$。
-4. 计算出$\bm{E^{(t)}}$后，并不能立即对模型参数进行更新。需要沿着时间$t$不断给出输入，计算出所有时刻的损失。模型总损失为$\bm{E}=\sum_t\bm{E^{(t)}}$
-5. 我们需要根据总损失$\bm{E}$计算所有参数的梯度$\frac{\partial \bm{E}}{\partial \bm{U}},\frac{\partial \bm{E}}{\partial \bm{W}},\frac{\partial \bm{E}}{\partial \bm{V}},\frac{\partial \bm{E}}{\partial \bm{b}},\frac{\partial \bm{E}}{\partial \bm{c}}$，再使用基于梯度的优化方法进行参数更新。
+3. 在NLP中，$\bm{y^{(t)}}$是由$\bm{s^{(t)}}$经过$g$ (通常为Softmax) 激活得到的，搭配Cross Entropy Loss (比如：在词表中挑选下一个单词，这是一个多分类问题) ，就能计算出此刻的损失$E^{(t)}$。
+4. 计算出$E^{(t)}$后，并不能立即对模型参数进行更新。需要沿着时间$t$不断给出输入，计算出所有时刻的损失。模型总损失为$E=\sum_tE^{(t)}$
+5. 我们需要根据总损失$E$计算所有参数的梯度$\frac{\partial E}{\partial \bm{U}},\frac{\partial E}{\partial \bm{W}},\frac{\partial E}{\partial \bm{V}},\frac{\partial E}{\partial \bm{b}},\frac{\partial E}{\partial \bm{c}}$，再使用基于梯度的优化方法进行参数更新。
 
-这就是完整的一轮流程。本文要讨论的就是：如何计算RNN模型参数的梯度。
+这就是一轮完整的流程，本文要讨论的就是：如何计算RNN模型参数的梯度。
 
-## 2.2 
+## 2.2 求$\frac{\partial E}{\partial \bm{V}}$
+
+$$\frac{\partial E}{\partial \bm{V}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{V}}$$
+
+其中，有：
+$$\begin{aligned}
+    \frac{\partial E^{(t)}}{\partial V_{ij}}&=\frac{\partial E^{(t)}}{\partial s_i^{(t)}}\frac{\partial s_i^{(t)}}{\partial V_{ij}}\\
+    &=\frac{\partial E^{(t)}}{\partial y_i^{(t)}}\frac{\partial y_i^{(t)}}{\partial s_i^{(t)}}\frac{\partial s_i^{(t)}}{\partial V_{ij}}\\
+    &=\frac{\partial E^{(t)}}{\partial y_i^{(t)}}g'(s_i^{(t)})h_j^{(t)}
+\end{aligned}$$
+
+推广到矩阵形式，即：
+> $$\begin{aligned}
+\frac{\partial E^{(t)}}{\partial \bm{V}}&=[\frac{\partial E^{(t)}}{\partial \bm{y}}\odot g'(\bm{s^{(t)}})](h^{(t)})^\mathrm{T}\\
+\frac{\partial E}{\partial \bm{V}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{V}}
+\end{aligned}$$
+
