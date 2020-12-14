@@ -56,13 +56,14 @@ $$\begin{aligned}
 
 $$\frac{\partial E}{\partial \bm{V}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{V}}$$
 
-其中，有：
+其中，有:  
 $$\begin{aligned}
     \frac{\partial E^{(t)}}{\partial V_{ij}}&=\frac{\partial E^{(t)}}{\partial s_i^{(t)}}\frac{\partial s_i^{(t)}}{\partial V_{ij}}\\
     &=\frac{\partial E^{(t)}}{\partial y_i^{(t)}}\frac{\partial y_i^{(t)}}{\partial s_i^{(t)}}\frac{\partial s_i^{(t)}}{\partial V_{ij}}\\
     &=\frac{\partial E^{(t)}}{\partial y_i^{(t)}}g'(s_i^{(t)})h_j^{(t)}
 \end{aligned}$$
 
-推广到矩阵形式，即：
+推广到矩阵形式，即:  
 > $$\frac{\partial E}{\partial \bm{V}}=\sum_t[\frac{\partial E^{(t)}}{\partial \bm{y}}\odot g'(\bm{s^{(t)}})](\bm{h^{(t)}})^\mathrm{T}$$
 
+## 2.3 求$\frac{\partial E}{\partial \bm{U}}$
