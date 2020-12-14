@@ -56,7 +56,8 @@ $$\begin{aligned}
 
 $$\frac{\partial E}{\partial \bm{V}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{V}}$$
 
-由公式 $\bm{s^{(t)}}=\bm{Vh^{(t)}}+\bm{c}$ 和 $\bm{y^{(t)}}=g(\bm{s^{(t)}})$，很容易有:  
+由公式 $\bm{s^{(t)}}=\bm{Vh^{(t)}}+\bm{c}$ 和 $\bm{y^{(t)}}=g(\bm{s^{(t)}})$，很容易有:
+
 $$\begin{aligned}
     \frac{\partial E^{(t)}}{\partial V_{ij}}&=\frac{\partial E^{(t)}}{\partial s_i^{(t)}}\frac{\partial s_i^{(t)}}{\partial V_{ij}}\\
     &=\frac{\partial E^{(t)}}{\partial y_i^{(t)}}\frac{\partial y_i^{(t)}}{\partial s_i^{(t)}}\frac{\partial s_i^{(t)}}{\partial V_{ij}}\\
@@ -70,4 +71,11 @@ $$\begin{aligned}
 
 $$\frac{\partial E}{\partial \bm{U}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{U}}$$
 
-观察公式 $\bm{z^{(t)}}=\bm{Ux^{(t)}}+\bm{Wh^{(t-1)}}+\bm{b}$ 和 $\bm{h^{(t)}}=f(\bm{z^{(t)}})$，会发现
+观察公式 $\bm{z^{(t)}}=\bm{Ux^{(t)}}+\bm{Wh^{(t-1)}}+\bm{b}$ 和 $\bm{h^{(t)}}=f(\bm{z^{(t)}})$，有：
+
+$$\begin{aligned}
+    \frac{\partial E^{(t)}}{\partial U_{ij}}&=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}\frac{\partial z_i^{(t)}}{\partial U_{ij}}\\
+    &=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}x_j^{(t)}
+\end{aligned}$$
+
+做到这里，我们就要好好看看
