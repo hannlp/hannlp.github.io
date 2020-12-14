@@ -84,6 +84,22 @@ $$\begin{aligned}
 
 所以，$\frac{\partial E^{(t)}}{\partial z_i^{(t)}}$ 应该包含两部分：
 
+$$\frac{\partial E^{(t)}}{\partial z_i^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}\frac{\partial \bm{s^{(t)}}}{\partial z_i^{(t)}}+\frac{\partial E^{(t+1)}}{\partial \bm{z^{(t+1)}}}\frac{\partial \bm{z^{(t+1)}}}{\partial z_i^{(t)}}$$
+
+前半部分：
+
 $$\begin{aligned}
-    \frac{\partial E^{(t)}}{\partial z_i^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}\frac{\partial \bm{s^{(t)}}}{\partial z_i^{(t)}}+\frac{\partial E^{(t)}}{\partial \bm{z^{(t+1)}}}\frac{\partial \bm{z^{(t+1)}}}{\partial z_i^{(t)}}
+    &=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}\frac{\partial \bm{s^{(t)}}}{\partial z_i^{(t)}}\\
+    &=\sum_k \frac{\partial E^{(t)}}{\partial s_k^{(t)}}\frac{\partial s_k^{(t)}}{\partial z_i^{(t)}}\\
+    &=\sum_k \frac{\partial E^{(t)}}{\partial s_k^{(t)}}\frac{\partial s_k^{(t)}}{\partial h_i^{(t)}}\frac{\partial h_i^{(t)}}{\partial z_i^{(t)}}\\
+    &=\sum_k \frac{\partial E^{(t)}}{\partial s_k^{(t)}}V_{ki}f'(z_i^{(t)})
+\end{aligned}$$
+
+后半部分：
+
+$$\begin{aligned}
+    &=\frac{\partial E^{(t+1)}}{\partial \bm{z^{(t+1)}}}\frac{\partial \bm{z^{(t+1)}}}{\partial z_i^{(t)}}\\
+    &=\sum_k \frac{\partial E^{(t+1)}}{\partial z_k^{(t+1)}}\frac{\partial z_k^{(t+1)}}{\partial z_i^{(t)}}\\
+    &=\sum_k \frac{\partial E^{(t+1)}}{\partial z_k^{(t+1)}}\frac{\partial z_k^{(t+1)}}{\partial h_i^{(t)}}\frac{\partial h_i^{(t)}}{\partial z_i^{(t)}}\\
+    &=\sum_k \frac{\partial E^{(t)}}{\partial s_k^{(t)}}W_{ki}f'(z_i^{(t)})
 \end{aligned}$$
