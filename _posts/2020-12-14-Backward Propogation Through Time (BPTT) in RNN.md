@@ -64,8 +64,5 @@ $$\begin{aligned}
 \end{aligned}$$
 
 推广到矩阵形式，即：
-> $$\begin{aligned}
-\frac{\partial E^{(t)}}{\partial \bm{V}}&=[\frac{\partial E^{(t)}}{\partial \bm{y}}\odot g'(\bm{s^{(t)}})](h^{(t)})^\mathrm{T}\\
-\frac{\partial E}{\partial \bm{V}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{V}}
-\end{aligned}$$
+> $$\frac{\partial E}{\partial \bm{V}}=\sum_t[\frac{\partial E^{(t)}}{\partial \bm{y}}\odot g'(\bm{s^{(t)}})](\bm{h^{(t)}})^\mathrm{T}$$
 
