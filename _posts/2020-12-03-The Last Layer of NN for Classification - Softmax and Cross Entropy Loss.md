@@ -10,6 +10,7 @@ tags:
 
 # 1 关于Softmax
 ## 1.1 Softmax的形式
+
 $$若\bm{x}=\begin{bmatrix}
         x_1\\
         ...\\
