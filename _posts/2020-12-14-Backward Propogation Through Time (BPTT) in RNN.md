@@ -59,7 +59,7 @@ $$\frac{\partial E}{\partial \bm{V}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{
 由公式 $\bm{s^{(t)}}=\bm{Vh^{(t)}}+\bm{c}$ 和 $\bm{y^{(t)}}=g(\bm{s^{(t)}})$，很容易有:
 
 $$\begin{aligned}
-    \frac{\partial E^{(t)}}{\partial V_{ij}}&=\frac{\partial E^{(t)}}{\partial s_i^{(t)}}\frac{\partial s_i^{(t)}}{\partial V_{ij}}\\
+    \frac{\partial E^{(t)}}{\partial V_{ij}}&=\frac{\partial E^{(t)}}{\partial s_i^{(t)}}\frac{\partial s_i^{(t)}}{\partial V_{ij}}\tag{a}\\
     &=\frac{\partial E^{(t)}}{\partial y_i^{(t)}}\frac{\partial y_i^{(t)}}{\partial s_i^{(t)}}\frac{\partial s_i^{(t)}}{\partial V_{ij}}\\
     &=\frac{\partial E^{(t)}}{\partial y_i^{(t)}}g'(s_i^{(t)})h_j^{(t)}
 \end{aligned}$$
@@ -74,7 +74,7 @@ $$\frac{\partial E}{\partial \bm{U}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{
 观察公式 $\bm{z^{(t)}}=\bm{Ux^{(t)}}+\bm{Wh^{(t-1)}}+\bm{b}$ 和 $\bm{h^{(t)}}=f(\bm{z^{(t)}})$，有：
 
 $$\begin{aligned}
-    \frac{\partial E^{(t)}}{\partial U_{ij}}&=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}\frac{\partial z_i^{(t)}}{\partial U_{ij}}\\
+    \frac{\partial E^{(t)}}{\partial U_{ij}}&=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}\frac{\partial z_i^{(t)}}{\partial U_{ij}}\tag{b}\\
     &=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}x_j^{(t)}
 \end{aligned}$$
 
@@ -116,4 +116,38 @@ $$\frac{\partial E^{(t)}}{\partial U_{ij}}=[\sum_k^M \delta_{y,k}^{(t)}V_{ki}+\s
 
 推广到矩阵形式，即：
 
-> $$\frac{\partial E}{\partial \bm{U}}=\sum_t [(\bm{V}^\mathrm{T}\bm{\delta_y^{(t)}}+\bm{W}^\mathrm{T}\bm{\delta_h^{(t)}})\odot f'(\bm{z^{(t)}})]\cdot \bm{x^{(t)}}$$
+> $$\frac{\partial E}{\partial \bm{U}}=\sum_t [(\bm{V}^\mathrm{T}\bm{\delta_y^{(t)}}+\bm{W}^\mathrm{T}\bm{\delta_h^{(t+1)}})\odot f'(\bm{z^{(t)}})]\cdot \bm{x^{(t)}}$$
+
+## 2.4 求$\frac{\partial E}{\partial \bm{W}}$
+$$\frac{\partial E}{\partial \bm{W}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{W}}$$
+
+观察公式 $\bm{z^{(t)}}=\bm{Ux^{(t)}}+\bm{Wh^{(t-1)}}+\bm{b}$ ，有：
+
+$$\begin{aligned}
+    \frac{\partial E^{(t)}}{\partial W_{ij}}&=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}\frac{\partial z_i^{(t)}}{\partial W_{ij}}\tag{c}\\
+    &=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}h_j^{(t-1)}
+\end{aligned}$$
+
+可以发现公式$c$与公式$b$形式基本相同。所以很容易直接得出$\frac{\partial E}{\partial \bm{W}}$的矩阵形式：
+
+> $$\frac{\partial E}{\partial \bm{W}}=\sum_t [(\bm{V}^\mathrm{T}\bm{\delta_y^{(t)}}+\bm{W}^\mathrm{T}\bm{\delta_h^{(t+1)}})\odot f'(\bm{z^{(t)}})]\cdot \bm{h^{(t-1)}}$$
+
+## 2.4 引入$\bm{\delta_y^{(t)}}$与$\bm{\delta_h^{(t)}}$后发生了什么
+
+之前我们一直在老老实实、循规蹈矩的计算参数的梯度。但回过头来重新审视一下公式$(a),(b),(c)$，会有一个惊人的发现： 
+
+**其实我们并不需要推导到最后。**  
+
+因为在$(a),(b),(c)$的第一行，早已经有了$\bm{\delta_y^{(t)}}$与$\bm{\delta_h^{(t)}}$的形式！我们只需要直接将其转化为矩阵表示就可以了。
+
+所以，我们重写$\frac{\partial E}{\partial \bm{U}},\frac{\partial E}{\partial \bm{W}},\frac{\partial E}{\partial \bm{V}}$：
+
+> $$\begin{aligned}
+    \frac{\partial E}{\partial \bm{V}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{s}}(\bm{h^{(t)}})^\mathrm{T}=\sum_t\bm{\delta_y^{(t)}}(\bm{h^{(t)}})^\mathrm{T}\\
+    \frac{\partial E}{\partial \bm{U}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z}}(\bm{x^{(t)}})^\mathrm{T}=\sum_t\bm{\delta_h^{(t)}}(\bm{x^{(t)}})^\mathrm{T}\\
+    \frac{\partial E}{\partial \bm{W}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z}}(\bm{h^{(t-1)}})^\mathrm{T}=\sum_t\bm{\delta_h^{(t)}}(\bm{h^{(t-1)}})^\mathrm{T}
+\end{aligned}$$
+
+# 参考资料
+1. [循环神经网络(RNN)模型与前向反向传播算法 - 刘建平Pinard](https://www.cnblogs.com/pinard/p/6509630.html)
+2. [学习笔记-循环神经网络(RNN)及沿时反向传播BPTT - 观海云远](https://zhuanlan.zhihu.com/p/61472450)
