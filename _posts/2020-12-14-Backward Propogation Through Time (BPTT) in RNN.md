@@ -65,7 +65,7 @@ $$\begin{aligned}
 \end{aligned}$$
 
 推广到矩阵形式，即:  
-> $$\frac{\partial E}{\partial \bm{V}}=\sum_t[\frac{\partial E^{(t)}}{\partial \bm{y}}\odot g'(\bm{s^{(t)}})](\bm{h^{(t)}})^\mathrm{T}$$
+> $$\frac{\partial E}{\partial \bm{V}}=\sum_t[\frac{\partial E^{(t)}}{\partial \bm{y}}\odot g'(\bm{s^{(t)}})](\bm{h^{(t)}})^\mathrm{T}\tag{1}$$
 
 ## 2.3 求$\frac{\partial E}{\partial \bm{U}}$
 
@@ -116,9 +116,10 @@ $$\frac{\partial E^{(t)}}{\partial U_{ij}}=[\sum_k^M \delta_{y,k}^{(t)}V_{ki}+\s
 
 推广到矩阵形式，即：
 
-> $$\frac{\partial E}{\partial \bm{U}}=\sum_t [(\bm{V}^\mathrm{T}\bm{\delta_y^{(t)}}+\bm{W}^\mathrm{T}\bm{\delta_h^{(t+1)}})\odot f'(\bm{z^{(t)}})]\cdot \bm{x^{(t)}}$$
+> $$\frac{\partial E}{\partial \bm{U}}=\sum_t [(\bm{V}^\mathrm{T}\bm{\delta_y^{(t)}}+\bm{W}^\mathrm{T}\bm{\delta_h^{(t+1)}})\odot f'(\bm{z^{(t)}})]\cdot \bm{x^{(t)}}\tag{2}$$
 
 ## 2.4 求$\frac{\partial E}{\partial \bm{W}}$
+
 $$\frac{\partial E}{\partial \bm{W}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{W}}$$
 
 观察公式 $\bm{z^{(t)}}=\bm{Ux^{(t)}}+\bm{Wh^{(t-1)}}+\bm{b}$ ，有：
@@ -130,7 +131,7 @@ $$\begin{aligned}
 
 可以发现公式$c$与公式$b$形式基本相同。所以很容易直接得出$\frac{\partial E}{\partial \bm{W}}$的矩阵形式：
 
-> $$\frac{\partial E}{\partial \bm{W}}=\sum_t [(\bm{V}^\mathrm{T}\bm{\delta_y^{(t)}}+\bm{W}^\mathrm{T}\bm{\delta_h^{(t+1)}})\odot f'(\bm{z^{(t)}})]\cdot \bm{h^{(t-1)}}$$
+> $$\frac{\partial E}{\partial \bm{W}}=\sum_t [(\bm{V}^\mathrm{T}\bm{\delta_y^{(t)}}+\bm{W}^\mathrm{T}\bm{\delta_h^{(t+1)}})\odot f'(\bm{z^{(t)}})]\cdot \bm{h^{(t-1)}}\tag{3}$$
 
 ## 2.4 引入$\bm{\delta_y^{(t)}}$与$\bm{\delta_h^{(t)}}$后发生了什么
 
@@ -147,6 +148,21 @@ $$\begin{aligned}
     \frac{\partial E}{\partial \bm{U}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z}}(\bm{x^{(t)}})^\mathrm{T}=\sum_t\bm{\delta_h^{(t)}}(\bm{x^{(t)}})^\mathrm{T}\\
     \frac{\partial E}{\partial \bm{W}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z}}(\bm{h^{(t-1)}})^\mathrm{T}=\sum_t\bm{\delta_h^{(t)}}(\bm{h^{(t-1)}})^\mathrm{T}
 \end{aligned}$$
+
+所以说推导到最后，我们一切都白干了吗？
+
+**当然不是。**
+
+对比上式和$(1),(2),(3)$，我们可以找出$\bm{\delta_y^{(t)}}$与$\bm{\delta_h^{(t)}}$的计算方法：
+
+$$\begin{aligned}
+    \bm{\delta_y^{(t)}}&=\frac{\partial E^{(t)}}{\partial \bm{y}}\odot g'(\bm{s^{(t)}})\\
+    \bm{\delta_h^{(t)}}&=(\bm{V}^\mathrm{T}\bm{\delta_y^{(t)}}+\bm{W}^\mathrm{T}\bm{\delta_h^{(t+1)}})\odot f'(\bm{z^{(t)}})
+\end{aligned}$$
+
+当然，如果使用$\mathrm{Softmax+CrossEntropy Loss}$这个组合，那么$\bm{\delta_y^{(t)}}$的形式会更为简洁。另外，我们可以看到$\bm{\delta_h^{(t)}}$这一项是可以**递推**计算的。这与DNN反向传播中的$\bm{\delta^l}$类似。
+
+所以，我们还需要计算最后一个时刻$L$的$\bm{\delta_y^{(L)}}$与$\bm{\delta_h^{(L)}}$。这里只有$\bm{\delta_h^{(L)}}$会有所区别，因为他没有后一个递推项$\bm{\delta_h^{(L+1)}}$了，所以可以直接简化为：$\bm{\delta_h^{(L)}}=(\bm{V}^\mathrm{T}\bm{\delta_y^{(L)}})\odot f'(\bm{z^{(L)}})$
 
 # 参考资料
 1. [循环神经网络(RNN)模型与前向反向传播算法 - 刘建平Pinard](https://www.cnblogs.com/pinard/p/6509630.html)
