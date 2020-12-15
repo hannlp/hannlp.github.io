@@ -118,7 +118,7 @@ $$(\frac{\partial E}{\partial U_{ij}})^{(t)}=[\sum_k^M \frac{\partial E^{(t)}}{\
 
 上式可改写为：
 
-$$\frac{\partial E^{(t)}}{\partial U_{ij}}=[\sum_k^M \delta_{y,k}^{(t)}V_{ki}+\sum_k^N \delta_{h,k}^{(t+1)}W_{ki}]\cdot f'(z_i^{(t)})\cdot x_j^{(t)}$$
+$$(\frac{\partial E}{\partial U_{ij}})^{(t)}=[\sum_k^M \delta_{y,k}^{(t)}V_{ki}+\sum_k^N \delta_{h,k}^{(t+1)}W_{ki}]\cdot f'(z_i^{(t)})\cdot x_j^{(t)}$$
 
 推广到矩阵形式，即：
 
@@ -126,13 +126,13 @@ $$\frac{\partial E^{(t)}}{\partial U_{ij}}=[\sum_k^M \delta_{y,k}^{(t)}V_{ki}+\s
 
 ## 2.4 求$\frac{\partial E}{\partial \bm{W}}$
 
-$$\frac{\partial E}{\partial \bm{W}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{W}}$$
+$$\frac{\partial E}{\partial \bm{W}}=\sum_t(\frac{\partial E}{\partial \bm{W}})^{(t)}$$
 
 观察公式 $\bm{z^{(t)}}=\bm{Ux^{(t)}}+\bm{Wh^{(t-1)}}+\bm{b}$ ，有：
 
 $$\begin{aligned}
-    \frac{\partial E^{(t)}}{\partial W_{ij}}&=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}\frac{\partial z_i^{(t)}}{\partial W_{ij}}\tag{c}\\
-    &=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}h_j^{(t-1)}
+    (\frac{\partial E}{\partial W_{ij}})^{(t)}&=\frac{\partial E}{\partial z_i^{(t)}}\frac{\partial z_i^{(t)}}{\partial W_{ij}}\tag{c}\\
+    &=\frac{\partial E}{\partial z_i^{(t)}}h_j^{(t-1)}
 \end{aligned}$$
 
 可以发现公式$c$与公式$b$形式基本相同。所以很容易直接得出$\frac{\partial E}{\partial \bm{W}}$的矩阵形式：
