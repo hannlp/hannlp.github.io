@@ -119,7 +119,7 @@ $$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...
 
 我们可以从上面的式子观察一下第$l$层的第$\bm{j}$个神经元的$z_j^l$是怎么作用到下一层的。同样很简单，$z_j^l$会先经过一个激活函数$\sigma$得到$a_j^l$，再乘上不同的权重，作用在下一层的每一个神经元上。
 
-![](https://i.loli.net/2020/12/06/vmaVYp6ZyFsfROq.png)
+![](https://i.loli.net/2020/12/15/XSWU8wp7TJxf1Mq.png)
 
 所以，根据[链式法则(例:z为u,v的函数，u和v分别为x,y的函数)](https://zhuanlan.zhihu.com/p/113112455)，有$\frac{\partial C}{\partial z_j^l}=\sum_k\frac{\partial C}{\partial z_k^{l+1}}\frac{\partial z_k^{l+1}}{\partial z_j^l}$
 
