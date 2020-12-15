@@ -25,8 +25,9 @@ tags:
 ### 2.1.3 优质文章索引
 1. [Attention? Attention! - Lilian Weng](https://lilianweng.github.io/lil-log/2018/06/24/attention-attention.html)
 2. [The Illustrated Transformer - jalammar](https://jalammar.github.io/illustrated-transformer/)
-3. [《Attention is All You Need》浅读（简介+代码）- 苏剑林](https://kexue.fm/archives/4765)
-4. [深入理解Transformer及其源码 - ZingpLiu](https://www.cnblogs.com/zingp/p/11696111.html)
+3. [Dissecting BERT Part 1: The Encoder - Miguel Romero Calvo](https://medium.com/dissecting-bert/dissecting-bert-part-1-d3c3d495cdb3)
+4. [《Attention is All You Need》浅读（简介+代码）- 苏剑林](https://kexue.fm/archives/4765)
+5. [深入理解Transformer及其源码 - ZingpLiu](https://www.cnblogs.com/zingp/p/11696111.html)
 
 ## 2.2 Bert
 ![](https://i.loli.net/2020/12/15/18wZPMjQp5COuT2.png)
@@ -37,9 +38,7 @@ tags:
 2. [bert - google-research](https://github.com/google-research/bert) (tensorflow版本，**官方实现**，附[源码解析 - 梁源](https://www.cnblogs.com/Milburn/p/12031521.html))
 ### 2.1.3 优质文章索引
 1. [The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning) - Jay Alammar](https://jalammar.github.io/illustrated-bert/)
-2. [一文读懂BERT(原理篇) - 忧郁得茄子
-](https://blog.csdn.net/jiaowoshouzi/article/details/89073944)
-3. [谷歌BERT预训练源码解析 - 保持一份率性
-](https://blog.csdn.net/weixin_39470744)
-4. [关于BERT的若干问题整理记录 - Adherer
-](https://zhuanlan.zhihu.com/p/95594311)
+2. [Understanding BERT Part 2: BERT Specifics - Francisco Ingham](https://medium.com/dissecting-bert/dissecting-bert-part2-335ff2ed9c73)
+3. [一文读懂BERT(原理篇) - 忧郁得茄子](https://blog.csdn.net/jiaowoshouzi/article/details/89073944)
+4. [谷歌BERT预训练源码解析 - 保持一份率性](https://blog.csdn.net/weixin_39470744)
+5. [关于BERT的若干问题整理记录 - Adherer](https://zhuanlan.zhihu.com/p/95594311)
