@@ -14,6 +14,7 @@ tags:
 
 # 2 预训练(语言)模型
 ## 2.1 Transformer
+![](https://i.loli.net/2020/12/15/xYmWtFRQnkJcGv8.png)
 ### 2.1.1 一段话总结
 ### 2.1.2 模型源码
 1. [attention-is-all-you-need-pytorch - jadore801120](https://github.com/jadore801120/attention-is-all-you-need-pytorch) (pytorch版本，**首推**，无其他冗余代码)
@@ -24,4 +25,4 @@ tags:
 1. [Attention? Attention! - Lilian Weng](https://lilianweng.github.io/lil-log/2018/06/24/attention-attention.html)
 2. [The Illustrated Transformer - jalammar](https://jalammar.github.io/illustrated-transformer/)
 3. [《Attention is All You Need》浅读（简介+代码）- 苏剑林](https://kexue.fm/archives/4765)
-4.  
+4. [深入理解Transformer及其源码 - ZingpLiu](https://www.cnblogs.com/zingp/p/11696111.html)
