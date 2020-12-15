@@ -110,8 +110,8 @@ $$\begin{aligned}
 
 $$(\frac{\partial E}{\partial U_{ij}})^{(t)}=[\sum_k^M \frac{\partial E^{(t)}}{\partial s_k^{(t)}}V_{ki}+\sum_k^N \frac{\partial E}{\partial z_k^{(t+1)}}W_{ki}]\cdot f'(z_i^{(t)})\cdot x_j^{(t)}$$
 
-> 引入**误差记号**，记 $\bm{\delta_y^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}},\bm{\delta_h^{(t)}}=\frac{\partial E}{\partial \bm{z^{(t)}}}$ 。再次提醒：某一时刻关于$\bm{s}$的误差只与当前时刻的损失有关，而关于$\bm{z}$的误差与后面的所有损失都有关。  
-> 所以，还有以下关系：$$\begin{aligned}
+> 引入**误差记号**，记 $\bm{\delta_y^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}},\bm{\delta_h^{(t)}}=\frac{\partial E}{\partial \bm{z^{(t)}}}$ 。再次提醒：某一时刻关于$\bm{s}$的误差只与当前时刻的损失有关，而关于$\bm{z}$的误差与后面的所有损失都有关。所以，还有以下关系：  
+> $$\begin{aligned}
     \bm{\delta_y^{(t)}}&=\frac{\partial E}{\partial \bm{s^{(t)}}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}\\
     \bm{\delta_h^{(t)}}&=\frac{\partial E}{\partial \bm{z^{(t)}}}\not ={}\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}
 \end{aligned}$$
@@ -151,8 +151,8 @@ $$\begin{aligned}
 
 > $$\begin{aligned}
     \frac{\partial E}{\partial \bm{V}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}(\bm{h^{(t)}})^\mathrm{T}=\sum_t\bm{\delta_y^{(t)}}(\bm{h^{(t)}})^\mathrm{T}\\
-    \frac{\partial E}{\partial \bm{U}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}(\bm{x^{(t)}})^\mathrm{T}=\sum_t\bm{\delta_h^{(t)}}(\bm{x^{(t)}})^\mathrm{T}\\
-    \frac{\partial E}{\partial \bm{W}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}(\bm{h^{(t-1)}})^\mathrm{T}=\sum_t\bm{\delta_h^{(t)}}(\bm{h^{(t-1)}})^\mathrm{T}
+    \frac{\partial E}{\partial \bm{U}}&=\sum_t\frac{\partial E}{\partial \bm{z^{(t)}}}(\bm{x^{(t)}})^\mathrm{T}=\sum_t\bm{\delta_h^{(t)}}(\bm{x^{(t)}})^\mathrm{T}\\
+    \frac{\partial E}{\partial \bm{W}}&=\sum_t\frac{\partial E}{\partial \bm{z^{(t)}}}(\bm{h^{(t-1)}})^\mathrm{T}=\sum_t\bm{\delta_h^{(t)}}(\bm{h^{(t-1)}})^\mathrm{T}
 \end{aligned}$$
 
 所以说推导到最后，我们一切都白干了吗？
@@ -173,7 +173,7 @@ $$\bm{\delta_h^{(L)}}=(\bm{V}^\mathrm{T}\bm{\delta_y^{(L)}})\odot f'(\bm{z^{(L)}
 在最后，再补上$\frac{\partial E}{\partial \bm{b}}$ 和 $\frac{\partial E}{\partial \bm{c}}$ 的推导：
 
 > $$\begin{aligned}
-    \frac{\partial E}{\partial \bm{b}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{b}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}\frac{\partial \bm{z^{(t)}}}{\partial \bm{b}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}=\sum_t\bm{\delta_h^{(t)}}\\
+    \frac{\partial E}{\partial \bm{b}}=\sum_t(\frac{\partial E}{\partial \bm{b}})^{(t)}=\sum_t\frac{\partial E}{\partial \bm{z^{(t)}}}\frac{\partial \bm{z^{(t)}}}{\partial \bm{b}}=\sum_t\frac{\partial E}{\partial \bm{z^{(t)}}}=\sum_t\bm{\delta_h^{(t)}}\\
     \frac{\partial E}{\partial \bm{c}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{c}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}\frac{\partial \bm{s^{(t)}}}{\partial \bm{c}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}=\sum_t\bm{\delta_y^{(t)}}
 \end{aligned}$$
 
@@ -187,4 +187,5 @@ $$\bm{\delta_h^{(L)}}=(\bm{V}^\mathrm{T}\bm{\delta_y^{(L)}})\odot f'(\bm{z^{(L)}
 
 # 参考资料
 1. [循环神经网络(RNN)模型与前向反向传播算法 - 刘建平Pinard](https://www.cnblogs.com/pinard/p/6509630.html)
-2. [学习笔记-循环神经网络(RNN)及沿时反向传播BPTT - 观海云远](https://zhuanlan.zhihu.com/p/61472450)
+2. [零基础入门深度学习(5) - 循环神经网络 - hanbingtao](https://zybuluo.com/hanbingtao/note/541458)
+3. [学习笔记-循环神经网络(RNN)及沿时反向传播BPTT - 观海云远](https://zhuanlan.zhihu.com/p/61472450)
