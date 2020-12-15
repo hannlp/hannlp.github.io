@@ -41,3 +41,5 @@ tags:
 ](https://blog.csdn.net/jiaowoshouzi/article/details/89073944)
 3. [谷歌BERT预训练源码解析 - 保持一份率性
 ](https://blog.csdn.net/weixin_39470744)
+4. [关于BERT的若干问题整理记录 - Adherer
+](https://zhuanlan.zhihu.com/p/95594311)
