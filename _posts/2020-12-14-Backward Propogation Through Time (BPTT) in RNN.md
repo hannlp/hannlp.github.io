@@ -82,7 +82,7 @@ $$\begin{aligned}
 
 计算$\frac{\partial E}{\partial z_i^{(t)}}$这一项时，就需要仔细观察一下了。由于RNN的特性：计算$\bm{h^{(t)}}$时，同时需要 $\bm{x^{(t)}}$ 和 $\bm{h^{(t-1)}}$。所以 $\bm{z^{(t)}}$ 不仅会对当前时刻的输出造成影响，也会影响到下一时刻的输出，变量间具体的依赖关系如下图所示：
 
-![](https://i.loli.net/2020/12/15/a4QqrVoKAhd57ln.png)
+![](https://i.loli.net/2020/12/15/wMcLpmj7ZOqVSQh.png)
 
 所以，$\frac{\partial E}{\partial z_i^{(t)}}$ 应该包含两部分：
 
@@ -110,7 +110,8 @@ $$\begin{aligned}
 
 $$(\frac{\partial E}{\partial U_{ij}})^{(t)}=[\sum_k^M \frac{\partial E^{(t)}}{\partial s_k^{(t)}}V_{ki}+\sum_k^N \frac{\partial E}{\partial z_k^{(t+1)}}W_{ki}]\cdot f'(z_i^{(t)})\cdot x_j^{(t)}$$
 
-> 引入**误差记号**，记 $\bm{\delta_y^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}},\bm{\delta_h^{(t)}}=\frac{\partial E}{\partial \bm{z^{(t)}}}$ 。再次提醒：某一时刻关于$\bm{s}$的误差只与当前时刻的损失有关，而关于$\bm{z}$的误差与后面的所有损失都有关。所以，还有以下关系：    
+> 引入**误差记号**，记 $\bm{\delta_y^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}},\bm{\delta_h^{(t)}}=\frac{\partial E}{\partial \bm{z^{(t)}}}$ 。再次提醒：某一时刻关于$\bm{s}$的误差只与当前时刻的损失有关，而关于$\bm{z}$的误差与后面的所有损失都有关。所以，还有以下关系：
+> 
 > $$\begin{aligned}
     \bm{\delta_y^{(t)}}&=\frac{\partial E}{\partial \bm{s^{(t)}}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}\\
     \bm{\delta_h^{(t)}}&=\frac{\partial E}{\partial \bm{z^{(t)}}}\not ={}\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}
