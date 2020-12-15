@@ -33,4 +33,11 @@ tags:
 ![](https://i.loli.net/2020/12/15/U4htoOYcn1kLTAy.png)
 ### 2.2.1 一段话总结
 ### 2.2.2 模型源码
+1. [BERT-pytorch - codertimo](https://github.com/codertimo/BERT-pytorch) (pytorch版本，**首推**)
+2. [bert - google-research](https://github.com/google-research/bert) (tensorflow版本，**官方实现**，附[源码解析 - 梁源](https://www.cnblogs.com/Milburn/p/12031521.html))
 ### 2.1.3 优质文章索引
+1. [The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning) - Jay Alammar](https://jalammar.github.io/illustrated-bert/)
+2. [一文读懂BERT(原理篇) - 忧郁得茄子
+](https://blog.csdn.net/jiaowoshouzi/article/details/89073944)
+3. [谷歌BERT预训练源码解析 - 保持一份率性
+](https://blog.csdn.net/weixin_39470744)
