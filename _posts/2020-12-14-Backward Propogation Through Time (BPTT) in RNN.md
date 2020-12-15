@@ -69,22 +69,24 @@ $$\begin{aligned}
 
 ## 2.3 求$\frac{\partial E}{\partial \bm{U}}$
 
-$$\frac{\partial E}{\partial \bm{U}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{U}}$$
+$$\frac{\partial E}{\partial \bm{U}}=\sum_t(\frac{\partial E}{\partial \bm{U}})^{(t)}$$
+
+> 细心的人会发现，与之前 ($\frac{\partial E}{\partial \bm{V}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{V}}$) 不同，这次的 **时间上标$^{(t)}$** 加在了括号外面。简单说一下原因：由于$\bm{V}$在输出层，所以它在每一时刻的梯度只与当前时刻的损失($E^{(t)}$)有关。但$\bm{U}$和$\bm{W}$在隐藏层，参与到了下一时刻的运算。在求它们每一时刻的梯度时，要使用总损失($E$)来表示。
 
 观察公式 $\bm{z^{(t)}}=\bm{Ux^{(t)}}+\bm{Wh^{(t-1)}}+\bm{b}$ 和 $\bm{h^{(t)}}=f(\bm{z^{(t)}})$，有：
 
 $$\begin{aligned}
-    \frac{\partial E^{(t)}}{\partial U_{ij}}&=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}\frac{\partial z_i^{(t)}}{\partial U_{ij}}\tag{b}\\
-    &=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}x_j^{(t)}
+    (\frac{\partial E}{\partial U_{ij}})^{(t)}&=\frac{\partial E}{\partial z_i^{(t)}}\frac{\partial z_i^{(t)}}{\partial U_{ij}}\tag{b}\\
+    &=\frac{\partial E}{\partial z_i^{(t)}}x_j^{(t)}
 \end{aligned}$$
 
-计算$\frac{\partial E^{(t)}}{\partial z_i^{(t)}}$这一项时，就需要仔细观察一下了。由于RNN的特性：计算$\bm{h^{(t)}}$时，同时需要 $\bm{x^{(t)}}$ 和 $\bm{h^{(t-1)}}$。所以 $\bm{z^{(t)}}$ 不仅会对当前时刻的输出造成影响，也会影响到下一时刻的输出，变量间具体的依赖关系如下图所示：
+计算$\frac{\partial E}{\partial z_i^{(t)}}$这一项时，就需要仔细观察一下了。由于RNN的特性：计算$\bm{h^{(t)}}$时，同时需要 $\bm{x^{(t)}}$ 和 $\bm{h^{(t-1)}}$。所以 $\bm{z^{(t)}}$ 不仅会对当前时刻的输出造成影响，也会影响到下一时刻的输出，变量间具体的依赖关系如下图所示：
 
 ![](https://i.loli.net/2020/12/14/2tmzYTIeS8MycC1.png)
 
-所以，$\frac{\partial E^{(t)}}{\partial z_i^{(t)}}$ 应该包含两部分：
+所以，$\frac{\partial E}{\partial z_i^{(t)}}$ 应该包含两部分：
 
-$$\frac{\partial E^{(t)}}{\partial z_i^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}\frac{\partial \bm{s^{(t)}}}{\partial z_i^{(t)}}+\frac{\partial E^{(t+1)}}{\partial \bm{z^{(t+1)}}}\frac{\partial \bm{z^{(t+1)}}}{\partial z_i^{(t)}}$$
+$$\frac{\partial E}{\partial z_i^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}\frac{\partial \bm{s^{(t)}}}{\partial z_i^{(t)}}+\frac{\partial E}{\partial \bm{z^{(t+1)}}}\frac{\partial \bm{z^{(t+1)}}}{\partial z_i^{(t)}}$$
 
 前半部分：
 
@@ -98,17 +100,21 @@ $$\begin{aligned}
 后半部分：
 
 $$\begin{aligned}
-    &=\frac{\partial E^{(t+1)}}{\partial \bm{z^{(t+1)}}}\frac{\partial \bm{z^{(t+1)}}}{\partial z_i^{(t)}}\\
-    &=\sum_k \frac{\partial E^{(t+1)}}{\partial z_k^{(t+1)}}\frac{\partial z_k^{(t+1)}}{\partial z_i^{(t)}}\\
-    &=\sum_k \frac{\partial E^{(t+1)}}{\partial z_k^{(t+1)}}\frac{\partial z_k^{(t+1)}}{\partial h_i^{(t)}}\frac{\partial h_i^{(t)}}{\partial z_i^{(t)}}\\
-    &=\sum_k \frac{\partial E^{(t+1)}}{\partial z_k^{(t+1)}}W_{ki}f'(z_i^{(t)})
+    &=\frac{\partial E}{\partial \bm{z^{(t+1)}}}\frac{\partial \bm{z^{(t+1)}}}{\partial z_i^{(t)}}\\
+    &=\sum_k \frac{\partial E}{\partial z_k^{(t+1)}}\frac{\partial z_k^{(t+1)}}{\partial z_i^{(t)}}\\
+    &=\sum_k \frac{\partial E}{\partial z_k^{(t+1)}}\frac{\partial z_k^{(t+1)}}{\partial h_i^{(t)}}\frac{\partial h_i^{(t)}}{\partial z_i^{(t)}}\\
+    &=\sum_k \frac{\partial E}{\partial z_k^{(t+1)}}W_{ki}f'(z_i^{(t)})
 \end{aligned}$$
 
 带入原式，得到：
 
-$$\frac{\partial E^{(t)}}{\partial U_{ij}}=[\sum_k^M \frac{\partial E^{(t)}}{\partial s_k^{(t)}}V_{ki}+\sum_k^N \frac{\partial E^{(t+1)}}{\partial z_k^{(t+1)}}W_{ki}]\cdot f'(z_i^{(t)})\cdot x_j^{(t)}$$
+$$(\frac{\partial E}{\partial U_{ij}})^{(t)}=[\sum_k^M \frac{\partial E^{(t)}}{\partial s_k^{(t)}}V_{ki}+\sum_k^N \frac{\partial E}{\partial z_k^{(t+1)}}W_{ki}]\cdot f'(z_i^{(t)})\cdot x_j^{(t)}$$
 
-> 引入**误差记号**，记$\bm{\delta_y^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}},\bm{\delta_h^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}$
+> 引入**误差记号**，记 $\bm{\delta_y^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}},\bm{\delta_h^{(t)}}=\frac{\partial E}{\partial \bm{z^{(t)}}}$ 。再次提醒：某一时刻关于$\bm{s}$的误差只与当前时刻的损失有关，而关于$\bm{z}$的误差与后面的所有损失都有关。  
+> 所以，还有以下关系：$$\begin{aligned}
+    \bm{\delta_y^{(t)}}&=\frac{\partial E}{\partial \bm{s^{(t)}}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}\\
+    \bm{\delta_h^{(t)}}&=\frac{\partial E}{\partial \bm{z^{(t)}}}\not ={}\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}
+\end{aligned}$$
 
 上式可改写为：
 
