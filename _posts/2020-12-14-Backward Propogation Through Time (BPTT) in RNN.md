@@ -110,7 +110,8 @@ $$\begin{aligned}
 
 $$(\frac{\partial E}{\partial U_{ij}})^{(t)}=[\sum_k^M \frac{\partial E^{(t)}}{\partial s_k^{(t)}}V_{ki}+\sum_k^N \frac{\partial E}{\partial z_k^{(t+1)}}W_{ki}]\cdot f'(z_i^{(t)})\cdot x_j^{(t)}$$
 
-> 引入**误差记号**，记 $\bm{\delta_y^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}},\bm{\delta_h^{(t)}}=\frac{\partial E}{\partial \bm{z^{(t)}}}$ 。再次提醒：某一时刻关于$\bm{s}$的误差只与当前时刻的损失有关，而关于$\bm{z}$的误差与后面的所有损失都有关。所以，还有以下关系：  
+> 引入**误差记号**，记 $\bm{\delta_y^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}},\bm{\delta_h^{(t)}}=\frac{\partial E}{\partial \bm{z^{(t)}}}$ 。再次提醒：某一时刻关于$\bm{s}$的误差只与当前时刻的损失有关，而关于$\bm{z}$的误差与后面的所有损失都有关。所以，还有以下关系：
+>   
 > $$\begin{aligned}
     \bm{\delta_y^{(t)}}&=\frac{\partial E}{\partial \bm{s^{(t)}}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}\\
     \bm{\delta_h^{(t)}}&=\frac{\partial E}{\partial \bm{z^{(t)}}}\not ={}\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}
