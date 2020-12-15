@@ -78,7 +78,7 @@ $$\begin{aligned}
     &=\frac{\partial E^{(t)}}{\partial z_i^{(t)}}x_j^{(t)}
 \end{aligned}$$
 
-计算$\frac{\partial E^{(t)}}{\partial z_i^{(t)}}$这一项时，就需要仔细观察一下了。由于RNN的特性：计算$\bm{h^{(t)}}$时，同时需要 $\bm{x^{(t)}}$ 和 $\bm{h^{(t-1)}}$。所以 $\bm{z{(t)}}$ 不仅会对当前时刻的输出造成影响，也会影响到下一时刻的输出，变量间具体的依赖关系如下图所示：
+计算$\frac{\partial E^{(t)}}{\partial z_i^{(t)}}$这一项时，就需要仔细观察一下了。由于RNN的特性：计算$\bm{h^{(t)}}$时，同时需要 $\bm{x^{(t)}}$ 和 $\bm{h^{(t-1)}}$。所以 $\bm{z^{(t)}}$ 不仅会对当前时刻的输出造成影响，也会影响到下一时刻的输出，变量间具体的依赖关系如下图所示：
 
 ![](https://i.loli.net/2020/12/14/2tmzYTIeS8MycC1.png)
 
