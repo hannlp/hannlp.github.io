@@ -65,7 +65,7 @@ $$\begin{aligned}
 \end{aligned}$$
 
 推广到矩阵形式，即:  
-> $$\frac{\partial E}{\partial \bm{V}}=\sum_t[\frac{\partial E^{(t)}}{\partial \bm{y}}\odot g'(\bm{s^{(t)}})](\bm{h^{(t)}})^\mathrm{T}\tag{1}$$
+> $$\frac{\partial E}{\partial \bm{V}}=\sum_t[\frac{\partial E^{(t)}}{\partial \bm{y^{(t)}}}\odot g'(\bm{s^{(t)}})](\bm{h^{(t)}})^\mathrm{T}\tag{1}$$
 
 ## 2.3 求$\frac{\partial E}{\partial \bm{U}}$
 
@@ -108,7 +108,7 @@ $$\begin{aligned}
 
 $$\frac{\partial E^{(t)}}{\partial U_{ij}}=[\sum_k^M \frac{\partial E^{(t)}}{\partial s_k^{(t)}}V_{ki}+\sum_k^N \frac{\partial E^{(t+1)}}{\partial z_k^{(t+1)}}W_{ki}]\cdot f'(z_i^{(t)})\cdot x_j^{(t)}$$
 
-引入误差记号，记$\bm{\delta_y^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}},\bm{\delta_h^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}$
+> 引入**误差记号**，记$\bm{\delta_y^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}},\bm{\delta_h^{(t)}}=\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}$
 
 上式可改写为：
 
@@ -144,9 +144,9 @@ $$\begin{aligned}
 所以，我们重写$\frac{\partial E}{\partial \bm{U}},\frac{\partial E}{\partial \bm{W}},\frac{\partial E}{\partial \bm{V}}$：
 
 > $$\begin{aligned}
-    \frac{\partial E}{\partial \bm{V}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{s}}(\bm{h^{(t)}})^\mathrm{T}=\sum_t\bm{\delta_y^{(t)}}(\bm{h^{(t)}})^\mathrm{T}\\
-    \frac{\partial E}{\partial \bm{U}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z}}(\bm{x^{(t)}})^\mathrm{T}=\sum_t\bm{\delta_h^{(t)}}(\bm{x^{(t)}})^\mathrm{T}\\
-    \frac{\partial E}{\partial \bm{W}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z}}(\bm{h^{(t-1)}})^\mathrm{T}=\sum_t\bm{\delta_h^{(t)}}(\bm{h^{(t-1)}})^\mathrm{T}
+    \frac{\partial E}{\partial \bm{V}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}(\bm{h^{(t)}})^\mathrm{T}=\sum_t\bm{\delta_y^{(t)}}(\bm{h^{(t)}})^\mathrm{T}\\
+    \frac{\partial E}{\partial \bm{U}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}(\bm{x^{(t)}})^\mathrm{T}=\sum_t\bm{\delta_h^{(t)}}(\bm{x^{(t)}})^\mathrm{T}\\
+    \frac{\partial E}{\partial \bm{W}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{z^{(t)}}}(\bm{h^{(t-1)}})^\mathrm{T}=\sum_t\bm{\delta_h^{(t)}}(\bm{h^{(t-1)}})^\mathrm{T}
 \end{aligned}$$
 
 所以说推导到最后，我们一切都白干了吗？
@@ -156,7 +156,7 @@ $$\begin{aligned}
 对比上式和$(1),(2),(3)$，我们可以找出$\bm{\delta_y^{(t)}}$与$\bm{\delta_h^{(t)}}$的计算方法：
 
 $$\begin{aligned}
-    \bm{\delta_y^{(t)}}&=\frac{\partial E^{(t)}}{\partial \bm{y}}\odot g'(\bm{s^{(t)}})\\
+    \bm{\delta_y^{(t)}}&=\frac{\partial E^{(t)}}{\partial \bm{y^{(t)}}}\odot g'(\bm{s^{(t)}})\\
     \bm{\delta_h^{(t)}}&=(\bm{V}^\mathrm{T}\bm{\delta_y^{(t)}}+\bm{W}^\mathrm{T}\bm{\delta_h^{(t+1)}})\odot f'(\bm{z^{(t)}})
 \end{aligned}$$
 
