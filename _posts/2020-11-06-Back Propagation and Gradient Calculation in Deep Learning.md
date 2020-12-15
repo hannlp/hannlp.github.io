@@ -70,7 +70,7 @@ $$
 
 $W_{jk}^l$会对$C$有什么影响呢？他只会与第$l-1$层第$\bm{k}$个节点的输出$a_k^{l-1}$相乘，然后作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上。如图所示:
 
-![](https://i.loli.net/2020/12/06/6DokVTiKaUZuLpM.png)
+![](https://i.loli.net/2020/12/15/zRlcfaxrBbAGhZY.png)
 
 所以根据链式法则，有$\frac{\partial C}{\partial W_{jk}^l}=\frac{\partial C}{\partial z_j^l}\frac{\partial z_j^l}{\partial W_{jk}^l}$。其中，$z_j^l=\sum_{i=1}^{N_{l-1}}a_i^{l-1}W_{ji}^l+b_j^l$
 
