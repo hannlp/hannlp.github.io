@@ -29,3 +29,8 @@ tags:
 4. [深入理解Transformer及其源码 - ZingpLiu](https://www.cnblogs.com/zingp/p/11696111.html)
 
 ## 2.2 Bert
+![](https://i.loli.net/2020/12/15/18wZPMjQp5COuT2.png)
+![](https://i.loli.net/2020/12/15/U4htoOYcn1kLTAy.png)
+### 2.2.1 一段话总结
+### 2.2.2 模型源码
+### 2.1.3 优质文章索引
