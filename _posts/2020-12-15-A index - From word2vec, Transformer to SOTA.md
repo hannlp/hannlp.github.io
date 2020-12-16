@@ -23,7 +23,7 @@ tags:
 3. [tensor2tensor - tensorflow](https://github.com/tensorflow/tensor2tensor/blob/master/tensor2tensor/models/transformer.py) (tensorflow版本，**官方实现**，有较多冗余代码)
 
 ### 2.1.3 优质文章索引
-1. [Attention? Attention! - Lilian Weng](https://lilianweng.github.io/lil-log/2018/06/24/attention-attention.html) ()
+1. [Attention? Attention! - Lilian Weng](https://lilianweng.github.io/lil-log/2018/06/24/attention-attention.html) (选读，主要介绍注意力机制)
 2. [The Illustrated Transformer - jalammar](https://jalammar.github.io/illustrated-transformer/) (**首推**，以图像形式详细介绍了计算细节，例如block中的$QKV$矩阵运算、多头、前馈部分)
 3. [Dissecting BERT Part 1: The Encoder - Miguel Romero Calvo](https://medium.com/dissecting-bert/dissecting-bert-part-1-d3c3d495cdb3) (推荐，较上一篇更严谨，展示了**维度**的变化，并给出更多**真实的矩阵**示例)
 4. [Dissecting BERT Appendix: The Decoder - Miguel Romero Calvo](https://medium.com/dissecting-bert/dissecting-bert-appendix-the-decoder-3b86f66b0e5f) (**必读**，前两篇很少提及的**解码器**部分在这里详细介绍了，包括Mask、编码器与解码器间的attention、input_length与target_length转换)
