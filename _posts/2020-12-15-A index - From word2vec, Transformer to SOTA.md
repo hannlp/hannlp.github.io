@@ -27,7 +27,7 @@ tags:
 2. [The Illustrated Transformer - jalammar](https://jalammar.github.io/illustrated-transformer/) (**首推**，以图像形式详细介绍了计算细节，例如block中的$QKV$矩阵运算、多头、前馈部分)
 3. [Dissecting BERT Part 1: The Encoder - Miguel Romero Calvo](https://medium.com/dissecting-bert/dissecting-bert-part-1-d3c3d495cdb3) (推荐，较上一篇更严谨，展示了**维度**的变化，并给出更多**真实的矩阵**示例)
 4. [Dissecting BERT Appendix: The Decoder - Miguel Romero Calvo](https://medium.com/dissecting-bert/dissecting-bert-appendix-the-decoder-3b86f66b0e5f) (**必读**，前两篇很少提及的**解码器**部分在这里详细介绍了，包括Mask、编码器与解码器间的attention、input_length与target_length转换)
-5. [《Attention is All You Need》浅读（简介+代码）- 苏剑林](https://kexue.fm/archives/4765)
+5. [《Attention is All You Need》浅读（简介+代码）- 苏剑林](https://kexue.fm/archives/4765) (选读，对位置编码有所分析，也提出了transformer的一些不足)
 6. [深入理解Transformer及其源码 - ZingpLiu](https://www.cnblogs.com/zingp/p/11696111.html)
 
 ## 2.2 Bert
