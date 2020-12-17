@@ -33,8 +33,8 @@ $$
 # 4 零碎的深度学习知识
 ## 4.1 稳定性训练
 ### 4.1.1 归一化
-* 批量归一化(Batch Normalization)：沿着批次方向进行均值为0，方差为1的归一化。
-* 层归一化(Layer Normalization)：归一化操作沿着序列方向进行，为避免序列上不同位置输出结果的不可比性。
+* 批量归一化(Batch Normalization)：沿着**批次**方向进行均值为0，方差为1的归一化。
+* 层归一化(Layer Normalization)：归一化操作沿着**序列**方向进行，为避免序列上不同位置输出结果的不可比性。
 
 ### 4.1.2 残差网络(*Residual Networks*)
 采用跨层连接的结构，有$\bm{x_{l+1}}=F(\bm{x_l})+\bm{x_l}$。在反向传播时，在$\bm{x_l}$处的梯度为：
@@ -50,3 +50,8 @@ $$
 
 # 5 神经语言模型
 ## 5.1 一种评价指标-困惑度(*Perplexity, PPL*)
+
+# 6 机器翻译中的数据处理
+## 6.1 子词切分
+1. [深入理解NLP Subword算法：BPE、WordPiece、ULM](https://zhuanlan.zhihu.com/p/86965595)
+2. [BPE系列之—— BPE算法](https://blog.csdn.net/qq_40240102/article/details/101843196)
