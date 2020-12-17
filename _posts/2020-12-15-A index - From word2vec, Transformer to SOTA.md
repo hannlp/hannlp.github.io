@@ -36,11 +36,11 @@ tags:
 ### 2.2.1 一段话总结
 ### 2.2.2 模型源码
 1. [BERT-pytorch - codertimo](https://github.com/codertimo/BERT-pytorch) (pytorch版本，**首推**)
-2. [bert - google-research](https://github.com/google-research/bert) (tensorflow版本，**官方实现**，附[源码解析 - 梁源](https://www.cnblogs.com/Milburn/p/12031521.html))
+2. [bert - google-research](https://github.com/google-research/bert) (tensorflow版本，**官方实现**，附源码解析[1](https://www.cnblogs.com/Milburn/p/12031521.html),[2](https://blog.csdn.net/weixin_39470744))
 
 ### 2.1.3 优质文章索引
 1. [The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning) - Jay Alammar](https://jalammar.github.io/illustrated-bert/) (**首推**，站在NLP中Transfer Learning的角度，对比了ELMo，GPT等模型，重点讲解Bert，风格偏图像)
 2. [Understanding BERT Part 2: BERT Specifics - Francisco Ingham](https://medium.com/dissecting-bert/dissecting-bert-part2-335ff2ed9c73) (推荐，文中除Bert的训练细节外，还有很多自问自答、与GPT的对比、实验，便于更清楚的了解Bert)
-3. [一文读懂BERT(原理篇) - 忧郁得茄子](https://blog.csdn.net/jiaowoshouzi/article/details/89073944)
-4. [谷歌BERT预训练源码解析 - 保持一份率性](https://blog.csdn.net/weixin_39470744)
-5. [关于BERT的若干问题整理记录 - Adherer](https://zhuanlan.zhihu.com/p/95594311)
+3. [一文读懂BERT(原理篇) - 忧郁得茄子](https://blog.csdn.net/jiaowoshouzi/article/details/89073944) (推荐，一篇集大成的**中文**文章，引用了前几篇文章的很多内容，但总结的非常全面，涵盖了之前很少展开讲的**层归一化、padding mask**等，以及两种mask的结合方式)
+4. [Bert时代的创新（应用篇）：Bert在NLP各领域的应用进展 - 张俊林](https://zhuanlan.zhihu.com/p/68446772) (选读，应用篇)
+5. [关于BERT的若干问题整理记录 - Adherer](https://zhuanlan.zhihu.com/p/95594311) (选读，个人思考篇)
