@@ -30,15 +30,17 @@ tags:
 5. [《Attention is All You Need》浅读（简介+代码）- 苏剑林](https://kexue.fm/archives/4765) (选读，对位置编码有所分析，也提出了transformer的一些不足)
 6. [深入理解Transformer及其源码 - ZingpLiu](https://www.cnblogs.com/zingp/p/11696111.html) (选读，主要是在代码层面给予分析，与哈佛的文章类似)
 
-## 2.2 Bert
+## 2.2 GPT
+
+## 2.3 Bert
 ![](https://i.loli.net/2020/12/15/18wZPMjQp5COuT2.png)
 ![](https://i.loli.net/2020/12/15/U4htoOYcn1kLTAy.png)
-### 2.2.1 一段话总结
-### 2.2.2 模型源码
+### 2.3.1 一段话总结
+### 2.3.2 模型源码
 1. [BERT-pytorch - codertimo](https://github.com/codertimo/BERT-pytorch) (pytorch版本，**首推**)
 2. [bert - google-research](https://github.com/google-research/bert) (tensorflow版本，**官方实现**，附源码解析[1](https://www.cnblogs.com/Milburn/p/12031521.html),[2](https://blog.csdn.net/weixin_39470744))
 
-### 2.1.3 优质文章索引
+### 2.3.3 优质文章索引
 1. [The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning) - Jay Alammar](https://jalammar.github.io/illustrated-bert/) (**首推**，站在NLP中Transfer Learning的角度，对比了ELMo，GPT等模型，重点讲解Bert，风格偏图像)
 2. [Understanding BERT Part 2: BERT Specifics - Francisco Ingham](https://medium.com/dissecting-bert/dissecting-bert-part2-335ff2ed9c73) (推荐，文中除Bert的训练细节外，还有很多自问自答、与GPT的对比、实验，便于更清楚的了解Bert)
 3. [一文读懂BERT(原理篇) - 忧郁得茄子](https://blog.csdn.net/jiaowoshouzi/article/details/89073944) (推荐，一篇集大成的**中文**文章，引用了前几篇文章的很多内容，但总结的非常全面，涵盖了之前很少展开讲的**层归一化、padding mask**等，以及两种mask的结合方式)
