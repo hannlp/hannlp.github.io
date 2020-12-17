@@ -13,6 +13,7 @@ tags:
 ## 1.2 ELMo
 
 # 2 预训练(语言)模型
+[从word2vec开始，说下GPT庞大的家族系谱](https://www.jiqizhixin.com/articles/2020-10-04-2)
 ## 2.1 Transformer
 ![](https://i.loli.net/2020/12/15/kUp6erNM2tAZ4zH.png)
 ![](https://i.loli.net/2020/12/15/ZGCuHEVtlbUd1ap.png)
