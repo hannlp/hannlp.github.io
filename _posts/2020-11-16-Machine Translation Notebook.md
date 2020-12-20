@@ -55,3 +55,9 @@ $$
 ## 6.1 子词切分
 1. [深入理解NLP Subword算法：BPE、WordPiece、ULM](https://zhuanlan.zhihu.com/p/86965595)
 2. [BPE系列之—— BPE算法](https://blog.csdn.net/qq_40240102/article/details/101843196)
+
+# 7 资源
+## 7.1 平行语料
+1. [联合国平行语料库](https://conferences.unite.un.org/UNCORPUS/zh)
+2. [WMT19语料](http://www.statmt.org/wmt19/index.html)
+3. [NiuTrans开源语料](https://github.com/NiuTrans/NiuTrans.SMT/tree/master/sample-data)
