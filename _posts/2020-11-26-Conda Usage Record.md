@@ -29,7 +29,7 @@ conda config --set show_channel_urls yes
 conda config --get channels
 ```
 
-附链接：[清华源](https://mirrors.tuna.tsinghua.edu.cn/) | [中科大源](https://mirrors.ustc.edu.cn/) | [上交源](https://mirrors.sjtug.sjtu.edu.cn/#/)
+附链接：[清华源](https://mirrors.tuna.tsinghua.edu.cn/), [中科大源](https://mirrors.ustc.edu.cn/), [上交源](https://mirrors.sjtug.sjtu.edu.cn/#/)
 
 ## 1.2 环境管理
 ```python
@@ -94,8 +94,7 @@ FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecate
 ```
 
 **原因：** numpy版本不适应  
-**解决方案：** numpy降级即可。参考：tf-1.14.0、np-1.17.1时出现报错，就将numpy改为```pip install numpy==1.16.0```即无Warning  
-* 参考：[解决python调用TensorFlow时出现FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecate](https://blog.csdn.net/BigDream123/article/details/99467316)
+**解决方案：** numpy降级即可。例：tf-1.14.0、np-1.17.1时出现报错，就将numpy改为```pip install numpy==1.16.0```即可([参考](https://blog.csdn.net/BigDream123/article/details/99467316))
 
 另有以下报错：
 ```
@@ -103,8 +102,11 @@ FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecate
 ```
 
 **原因：** 预计是h5py版本不匹配  
-**解决方案：** 降低h5py版本即可。```pip install h5py==2.8.0``` // in Windows 10  
-* 参考：[Error using h5r>init h5py.h5r (line 145) AttributeError: type object 'h5py.h5r.Reference' has no attribute 'reduce_cython'](https://github.com/h5py/h5py/issues/1151)
+**解决方案：** 降低h5py版本即可。```pip install h5py==2.8.0``` ([参考](https://github.com/h5py/h5py/issues/1151))
+
+## 2.3 Pytorch安装相关
+### 2.3.1 Pytorch与CUDA
+
 
 # 参考资料
 1. [conda简直神了[conda基本废了]](https://www.jianshu.com/p/47a536e6ee20)
