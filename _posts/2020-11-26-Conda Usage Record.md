@@ -70,7 +70,6 @@ conda list
 >2. 进入cmd,输入pip install pyQt5
 
 * 参考：[anaconda navigator 突然打不开有可能是什么原因？](https://www.zhihu.com/question/52136894)
-
 ## 2.2 tensorflow-gpu安装相关
 ### 2.2.1 依赖的gpu环境
 例：```tensorflow_gpu-1.14.0```需要安装```cuDNN:7.4，CUDA:10```。这是[经过测试的构建配置](https://tensorflow.google.cn/install/source_windows)
@@ -104,10 +103,20 @@ FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecate
 **原因：** 预计是h5py版本不匹配  
 **解决方案：** 降低h5py版本即可。```pip install h5py==2.8.0``` ([参考](https://github.com/h5py/h5py/issues/1151))
 
-## 2.3 Pytorch安装相关
-### 2.3.1 Pytorch与CUDA
+## 2.3 PyTorch安装相关
+### 2.3.1 PyTorch与CUDA
+安装PyTorch(gpu)最关键的就是要将**Pytorch版本**、**CUDA版本**以及**系统的驱动版本(driver version)** 三者匹配起来。([版本对应关系表](https://blog.csdn.net/weixin_42069606/article/details/105198845))
 
-
+举个例子：
+1. 我想使用1.6版本的PyTorch
+2. 使用```nvcc -V```查看我现在的CUDA版本为10.1
+3. 使用```nvidia-smi```查看到driver version为418.67
+4. 在**版本对应关系表**中发现PyTorch1.6可以搭配CUDA10.1或9.2，但是CUDA10.1需要driver version>=418.96，我明显不满足(跑程序的时候也会提示设备版本too old)
+5. 所以选择安装cuda9.2，在([官方提供的安装命令](https://pytorch.org/get-started/previous-versions/))中可以很容易的找到对应的安装命令如下：  
+```
+# CUDA 9.2
+pip install torch==1.6.0+cu92 torchvision==0.7.0+cu92 -f https://download.pytorch.org/whl/torch_stable.html
+```
 # 参考资料
 1. [conda简直神了[conda基本废了]](https://www.jianshu.com/p/47a536e6ee20)
 2. [conda的安装与使用](https://www.jianshu.com/p/edaa744ea47d)(目前这篇文章也在持续更新)
