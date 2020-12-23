@@ -9,7 +9,7 @@ tags:
 
 # 0 推荐学习资源
 * [PYTORCH DOCUMENTATION](https://pytorch.org/docs/stable/index.html) - 最好的学习资源当然是官方文档啦
-* [动手学深度学习-PyTorch](https://tangshusen.me/Dive-into-DL-PyTorch/#/) - 只需了解基础的线性代数、微分和概率，以及基础的Python编程，即可迅速入门PyTorch
+* [《动手学深度学习》-PyTorch](https://tangshusen.me/Dive-into-DL-PyTorch/#/) - 只需了解基础的线性代数、微分和概率，以及基础的Python编程，即可迅速入门PyTorch。是 [Dive-into-DL](http://zh.d2l.ai/) 的PyTorch重构版本(中文)
 * [pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial) - 提供了很多非常简洁的模板代码，也很适合学习使用
 
 # 1 数据操作
