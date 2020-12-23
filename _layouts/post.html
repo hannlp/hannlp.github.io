@@ -46,13 +46,6 @@ layout: base
 
       <article role="main" class="blog-post">
         {% include toc.html html=content sanitize=true class="inline_toc" id="my_toc" %}
-        <script>
-          const content = document.querySelector('.blog-post');
-
-          scrollnav.init(content, {
-            debug: false
-          });
-        </script>
         {{ content }}
       </article>
 
