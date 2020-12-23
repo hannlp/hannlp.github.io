@@ -4,15 +4,6 @@ layout: base
 
 {% include header.html type="post" %}
 
-<script src="https://unpkg.com/scrollnav@3.0.1/dist/scrollnav.min.umd.js"></script>
-<script>
-  const content = document.querySelector('.blog-post');
-
-  scrollnav.init(content, {
-    debug: false
-  });
-</script>
-
 <div class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
   <div class="row">
     <div class="{% if page.full-width %} col {% else %} col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 {% endif %}">
