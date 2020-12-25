@@ -16,10 +16,20 @@ tags:
 ## 1.1 内存中的tensor
 由于python对于变量在内存中的特殊储存方式，基于python的PyTorch也会因此受到影响，具体有以下几种形式：
 1. 像Numpy一样，对一个tensor使用索引操作(如```new_tensor=tensor[1:]```)，索引出的结果与这个tensor**共享内存**(即修改一个，另一个也会跟着修改)
-2. 用```.view()```改变tensor的形状，返回的新tensor与源tensor**共享内存**(顾名思义，```.view()```仅仅改变对该张量的观察角度，内部数据并未改变)。所以如果想返回一个**真正副本**，推荐使用```.clone.view()```
+2. 用```.view()```改变tensor的形状，返回的新tensor与源tensor**共享内存**(顾名思义，```.view()```仅仅改变对该张量的观察角度，内部数据并未改变)。所以如果想返回一个**真正副本**，推荐使用```.clone.view()```或```.reshape()```
 3. 使用```.numpy()```和```.from_numpy()```将tensor与Numpy中的array相互转换时，产生的tensor和array**共享内存**。如果这个tensor需要一个新的内存，那么可以使用```torch.tensor()```，这将消耗更多的时间和空间。
 
-## 1.2 inplace操作
+## 1.2 tensor的contiguous
+顾名思义，**连续的**。这里的连续是指在**内存中**是连续的。PyTorch中张量的底层实现是使用C中的一维数组(一段连续的内存空间)
+
+使用```.view()```等方法时，必须先保证这个tensor是连续的。使用```.is_contiguous()```方法可以判断。  
+> ```.is_contiguous()```的直观解释是**tensor底层一维数组元素的存储顺序与tensor按行优先一维展开的元素顺序是否一致**
+
+如果tensor在内存中不连续，则需要使用```.contiguous()```方法，他会**重新开辟一块内存空间**以保证连续。
+
+PyTorch又提供了```.reshape()```方法，其实就等价于```.contiguous().view()```
+
+## 1.3 inplace操作
 PyTorch操作inplace版本都有后缀_，代表就地修改，例如：
 ```python
 y.add_(x)
@@ -28,7 +38,7 @@ x.grad.data.zero_()
 x.requires_grad_()
 ```
 
-## 1.3 tensor在cpu或gpu
+## 1.4 tensor在cpu或gpu
 使用方法```.to()```可以将tensor在cpu和gpu之间相互移动。
 
 # 2 完整的训练过程
@@ -40,3 +50,6 @@ x.requires_grad_()
 ### 2.1.2 torch.nn的特性
 1. 可使用```net.parameters()```来查看模型所有的可学习参数，返回一个生成器
 2. ```torch.nn```仅支持**一个batch**样本的输入(不支持单样本)，如果只有单个样本，需要手动添加维度
+
+# 参考资料
+1. [PyTorch中的contiguous - 栩风](https://zhuanlan.zhihu.com/p/64551412)
