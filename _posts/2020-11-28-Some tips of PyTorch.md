@@ -38,20 +38,17 @@ b = a.view(-1, 4)
 print(b.is_contiguous())
 c = b.transpose(0, 1)
 print(c.is_contiguous())
-
 # Outputs:
 True
 True
 False
 
 d = c.view(-1)
-
 # Outputs:
 RuntimeError: view size is not compatible with input tensor s size and stride (at least one dimension spans across two contiguous subspaces). Use .reshape(...) instead.
 
 d = c.contiguous().view(-1)
 print(d.shape)
-
 # Outputs:
 torch.Size([16])
 ```
