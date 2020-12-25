@@ -29,6 +29,34 @@ tags:
 
 PyTorch又提供了```.reshape()```方法，其实就等价于```.contiguous().view()```
 
+下面是一个简单的示例：
+
+```python
+a = torch.randn(16)
+print(a.is_contiguous())
+b = a.view(-1, 4)
+print(b.is_contiguous())
+c = b.transpose(0, 1)
+print(c.is_contiguous())
+
+# Outputs:
+True
+True
+False
+
+d = c.view(-1)
+
+# Outputs:
+RuntimeError: view size is not compatible with input tensor's size and stride (at least one dimension spans across two contiguous subspaces). Use .reshape(...) instead.
+
+d = c.contiguous().view(-1)
+print(d.shape)
+
+# Outputs:
+torch.Size([16])
+```
+了解更多，推荐阅读[参考资料[1]](https://zhuanlan.zhihu.com/p/64551412)
+
 ## 1.3 inplace操作
 PyTorch操作inplace版本都有后缀_，代表就地修改，例如：
 ```python
