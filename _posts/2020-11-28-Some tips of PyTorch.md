@@ -47,7 +47,7 @@ False
 d = c.view(-1)
 
 # Outputs:
-RuntimeError: view size is not compatible with input tensor's size and stride (at least one dimension spans across two contiguous subspaces). Use .reshape(...) instead.
+RuntimeError: view size is not compatible with input tensor s size and stride (at least one dimension spans across two contiguous subspaces). Use .reshape(...) instead.
 
 d = c.contiguous().view(-1)
 print(d.shape)
