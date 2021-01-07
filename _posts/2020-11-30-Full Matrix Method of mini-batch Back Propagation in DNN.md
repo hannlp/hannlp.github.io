@@ -75,19 +75,14 @@ $$C=Loss(\bm{A^L,Y})=\frac{1}{m}\cdot\frac{1}{2}\Vert\bm{Y-A^L}\Vert^2=\frac{1}{
 # 5 反向传播误差
 与上一篇文章相同，误差的反向传播，即已知$\frac{\partial C}{\partial \bm{Z^{l+1}}}$，希望求得$\frac{\partial C}{\partial \bm{Z^l}}$。我们还是先求矩阵中的一个元素的梯度$\frac{\partial C}{\partial Z_{j,m}^L}$。
 
-在这之前，希望大家想起文章开头说过，**样本(列)与样本(列)之间是互不影响的**，怎么理解呢？也就是**每个样本(列)在每一层流动的过程中，永远都只在属于自己的那一列**。这也是为什么多样本反向传播误差时的公式可以和单样本的基本相似，只是多了一个下标$m$：
-
-$$\frac{\partial C}{\partial Z_{j,m}^l}=\sum_k\frac{\partial C}{\partial Z_{k,m}^{l+1}}\frac{\partial Z_{k,m}^{l+1}}{\partial Z_{j,m}^l}$$
-
-其中，
-
+在这之前，希望大家想起文章开头说过，**样本(列)与样本(列)之间是互不影响的**，怎么理解呢？也就是**每个样本(列)在每一层流动的过程中，永远都只在属于自己的那一列**。这也是为什么多样本反向传播误差时的公式可以和单样本的基本相似，只是多了一个下标$m$：  
+$$\frac{\partial C}{\partial Z_{j,m}^l}=\sum_k\frac{\partial C}{\partial Z_{k,m}^{l+1}}\frac{\partial Z_{k,m}^{l+1}}{\partial Z_{j,m}^l}$$  
+其中，  
 $$\begin{aligned}
     Z_{k,m}^{l+1}&=\sum_{i=1}^{N_l}\sigma^l(Z_{i,m}^l)\cdot W_{ki}^{l+1}+b_k^{l+1}\\
     \frac{\partial Z_{k,m}^{l+1}}{\partial Z_{j,m}^l}&=\sigma'^l(Z_{j,m}^l)\cdot W_{kj}^{l+1}
-\end{aligned}$$
-
-将其带回原式，
-
+\end{aligned}$$  
+将其带回原式，  
 $$\begin{aligned}
     \frac{\partial C}{\partial Z_{j,m}^l}&=\sum_k\frac{\partial C}{\partial Z_{k,m}^{l+1}}\cdot W_{kj}^{l+1}\cdot\sigma'^l(Z_{j,m}^l)\\
     &=[\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{Z^{l+1}}})]_{j,m}\cdot \sigma'^l(Z_{j,m}^l)
