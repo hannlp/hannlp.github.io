@@ -61,8 +61,8 @@ $$C=Loss(\bm{A^L,Y})=\frac{1}{m}\cdot\frac{1}{2}\Vert\bm{Y-A^L}\Vert^2=\frac{1}{
 
 第一步，需要求$\frac{\partial C}{\partial \bm{A^L}}$，我们同样先求矩阵的一个元素的梯度$\frac{\partial C}{\partial A_{j,m}^L}$
 
-显而易见，$$\frac{\partial C}{\partial A_{j,m}^L}=\frac{1}{2m}\times2(Y_{j,m}-A_{j,m}^L)\times-1=\frac{1}{m}\cdot(A_{j,m}^L-Y_{j,m})$$
-因为在$C$的展开式中，**仅此一项的导数不为0**(可以回顾前一篇文章的这个部分)。
+显而易见 (因为在$C$的展开式中，**仅此一项的导数不为0**)，$$\frac{\partial C}{\partial A_{j,m}^L}=\frac{1}{2m}\times2(Y_{j,m}-A_{j,m}^L)\times-1=\frac{1}{m}\cdot(A_{j,m}^L-Y_{j,m})$$
+
 
 拓展到**矩阵表示**，即：
 > $$\frac{\partial C}{\partial \bm{A^L}}=\frac{1}{m}\cdot(\bm{A^L}-\bm{Y})$$
@@ -121,7 +121,7 @@ $$
 在扩展到**矩阵表示**时，我们需要引入一个全1的$M$维列向量：
 > $$\frac{\partial C}{\partial \bm{b^l}}=\frac{\partial C}{\partial \bm{Z^l}}\cdot \mathrm{ones(M,1)}$$
 
-使用维度计算验证一下:$(N_l\times M)\cdot(M,1)=(N_l\times 1)$
+使用维度计算验证一下: $(N_l\times M)\cdot(M,1)=(N_l\times 1)$
 
 # 7 多样本反向传播全矩阵方法的最后公式
 赏心悦目的公式们：
