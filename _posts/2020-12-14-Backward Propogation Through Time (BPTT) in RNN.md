@@ -6,9 +6,12 @@ tags:
 ---
 
 # 前言
-* _一点感悟：_ 前几天简单看了下王者荣耀觉悟AI的论文，发现除了强化学习以外，也用到了熟悉的**LSTM**。之后我又想起了知乎上的一个问题：“Transformer会彻底取代RNN吗？”。我想，在觉悟AI这类**严格依赖于时间**(比如：每读一帧，就要立即进行相应的决策) 的情境中，就根本没法用Transformer这类基于self-attention的模型。因为self-attention的独特性使其**必须在一开始就知道所有时间位置的信息**，Transformer在NLP上的成功，我觉得还是因为**自然语言**并不算是严格依赖于时间的。因为我们在**数据中**看到的句子都是**完整的一句话**，这就方便了self-attention直接对每个位置进行建模。
-* 所以，**Transformer是不可能彻底取代RNN的**。当然这只是我的一点思考，还有其他重要的原因：比如Transformer、Bert这种基于self-attention结构的预训练模型都需要海量的训练数据。在数据量不足的情景，只会带来巨大的偏差，但相同的数据在RNN甚至LSTM上已经可以达到足够好的效果。
-* 所以，RNN及其变种是永恒的经典，有必要认真学习。遂推导了一下RNN的反向传播算法(BPTT)，记录在此。
+RNN及其变种是一代经典，有必要认真学习。在推导了RNN的反向传播算法(BPTT)后，我发现一切反向传播算法都有普遍的规律：误差项都是有从后到前的递推关系的。另外，RNN按时间递推，其实与DNN中按层递推是非常相似的。遂将推导过程记录在此，方便回忆，也希望能给别人一点启发。
+
+# 0 一点感悟
+知乎上有这样一个问题：“Transformer会彻底取代RNN吗？”  
+前几天简单看了下王者荣耀觉悟AI的论文，发现除了强化学习以外，也用到了熟悉的**LSTM**。我想，在觉悟AI这类**严格依赖于时间**(比如：每读一帧，就要立即进行相应的决策) 的情境中，好像就没法用Transformer这类基于self-attention的模型。因为self-attention的独特性使其**必须在一开始就知道所有时间位置的信息**，Transformer在NLP上的成功，我觉得还是因为**自然语言**并不算是严格依赖于时间的。因为我们在**数据中**看到的句子都是**完整的一句话**，这就方便了self-attention直接对每个位置进行建模。  
+当然这只是我不成熟的思考(后面又想了想觉得有地方说的挺不对的)，还有其他重要的原因：比如Transformer、Bert这种基于self-attention结构的模型参数量极大，训练需要海量的数据。在数据量不足的情景，训练不充分，导致大bias，但相同的数据在RNN甚至LSTM上已经可以达到足够好的效果。
 
 # 1 RNN模型结构及符号定义
 ## 1.1 模型结构
@@ -46,7 +49,7 @@ $$\begin{aligned}
 首先快速总览一下RNN的全部流程。
 1. 首先令模型的隐含状态$\bm{h^{(0)}=0}$。
 2. 每一时刻$\bm{t}$的**输入$\bm{x^{(t)}}$** 都是一个向量(比如：在NLP中，可以使用词向量)，在经过模型后会得到**这一时刻的状态$\bm{h^{(t)}}$** 和**输出$\bm{y^{(t)}}$**。
-3. 在NLP中，$\bm{y^{(t)}}$是由$\bm{s^{(t)}}$经过$g$ (通常为Softmax) 激活得到的，搭配Cross Entropy Loss (比如：在词表中挑选下一个单词，这是一个多分类问题) ，就能计算出此刻的损失$E^{(t)}$。
+3. 在NLP中，$\bm{y^{(t)}}$是由$\bm{s^{(t)}}$经过$g$ (通常为Softmax) 激活得到的，搭配Cross Entropy Loss (比如：在词表中挑选下一个单词，这是一个分类问题) ，就能计算出此刻的损失$E^{(t)}$。
 4. 计算出$E^{(t)}$后，并不能立即对模型参数进行更新。需要沿着时间$t$不断给出输入，计算出所有时刻的损失。模型总损失为$E=\sum_tE^{(t)}$
 5. 我们需要根据总损失$E$计算所有参数的梯度$\frac{\partial E}{\partial \bm{U}},\frac{\partial E}{\partial \bm{W}},\frac{\partial E}{\partial \bm{V}},\frac{\partial E}{\partial \bm{b}},\frac{\partial E}{\partial \bm{c}}$，再使用基于梯度的优化方法进行参数更新。
 
@@ -71,7 +74,7 @@ $$\begin{aligned}
 
 $$\frac{\partial E}{\partial \bm{U}}=\sum_t(\frac{\partial E}{\partial \bm{U}})^{(t)}$$
 
-> 细心的人会发现，与之前 ($\frac{\partial E}{\partial \bm{V}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{V}}$) 不同，这次的 **时间上标$^{(t)}$** 加在了括号外面。简单说一下原因：由于$\bm{V}$在输出层，所以它在每一时刻的梯度只与当前时刻的损失($E^{(t)}$)有关。但$\bm{U}$和$\bm{W}$在隐藏层，参与到了下一时刻的运算。在求它们每一时刻的梯度时，要使用总损失($E$)来表示。
+> 细心的人会发现，与之前 ($\frac{\partial E}{\partial \bm{V}}=\sum_t\frac{\partial E^{(t)}}{\partial \bm{V}}$) 不同，这次的 **时间上标$^{(t)}$** 加在了括号外面。简单说一下原因：由于$\bm{V}$在输出层，所以它在每一时刻的梯度只与当前时刻的损失 $E^{(t)}$ 有关。但$\bm{U}$和$\bm{W}$在隐藏层，参与到了下一时刻的运算。在求它们每一时刻的梯度时，要使用总损失 $E$ 来表示。关于为什么**求和项**仍成立，可以参考[此文章](https://zybuluo.com/hanbingtao/note/541458)中的“数学公式超高能预警”部分，下同。
 
 观察公式 $\bm{z^{(t)}}=\bm{Ux^{(t)}}+\bm{Wh^{(t-1)}}+\bm{b}$ 和 $\bm{h^{(t)}}=f(\bm{z^{(t)}})$，有：
 
@@ -148,7 +151,7 @@ $$\begin{aligned}
 
 因为在$(a),(b),(c)$的第一行，早已经有了$\bm{\delta_y^{(t)}}$与$\bm{\delta_h^{(t)}}$的形式！我们只需要直接将其转化为矩阵表示就可以了。
 
-所以，我们重写$\frac{\partial E}{\partial \bm{U}},\frac{\partial E}{\partial \bm{W}},\frac{\partial E}{\partial \bm{V}}$：
+所以，我们重写$\frac{\partial E}{\partial \bm{V}},\frac{\partial E}{\partial \bm{W}},\frac{\partial E}{\partial \bm{U}}$：
 
 > $$\begin{aligned}
     \frac{\partial E}{\partial \bm{V}}&=\sum_t\frac{\partial E^{(t)}}{\partial \bm{s^{(t)}}}(\bm{h^{(t)}})^\mathrm{T}=\sum_t\bm{\delta_y^{(t)}}(\bm{h^{(t)}})^\mathrm{T}\\
