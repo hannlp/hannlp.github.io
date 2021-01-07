@@ -76,13 +76,17 @@ $$C=Loss(\bm{A^L,Y})=\frac{1}{m}\cdot\frac{1}{2}\Vert\bm{Y-A^L}\Vert^2=\frac{1}{
 与上一篇文章相同，误差的反向传播，即已知$\frac{\partial C}{\partial \bm{Z^{l+1}}}$，希望求得$\frac{\partial C}{\partial \bm{Z^l}}$。我们还是先求矩阵中的一个元素的梯度$\frac{\partial C}{\partial Z_{j,m}^L}$。
 
 在这之前，希望大家想起文章开头说过，**样本(列)与样本(列)之间是互不影响的**，怎么理解呢？也就是**每个样本(列)在每一层流动的过程中，永远都只在属于自己的那一列**。这也是为什么多样本反向传播误差时的公式可以和单样本的基本相似，只是多了一个下标$m$：
+$$\frac{\partial C}{\partial Z_{j,m}^l}=\sum_k\frac{\partial C}{\partial Z_{k,m}^{l+1}}\frac{\partial Z_{k,m}^{l+1}}{\partial Z_{j,m}^l}$$
+其中，
+$$\begin{aligned}
+    Z_{k,m}^{l+1}&=\sum_{i=1}^{N_l}\sigma^l(Z_{i,m}^l)\cdot W_{ki}^{l+1}+b_k^{l+1}\\
+    \frac{\partial Z_{k,m}^{l+1}}{\partial Z_{j,m}^l}&=\sigma'^l(Z_{j,m}^l)\cdot W_{kj}^{l+1}
+\end{aligned}$$
+将其带回原式，
 
 $$\begin{aligned}
-    &\frac{\partial C}{\partial Z_{j,m}^l}=\sum_k\frac{\partial C}{\partial Z_{k,m}^{l+1}}\frac{\partial Z_{k,m}^{l+1}}{\partial Z_{j,m}^l}\\
-    其中，&Z_{k,m}^{l+1}=\sum_{i=1}^{N_l}\sigma^l(Z_{i,m}^l)\times W_{ki}^{l+1}+b_k^{l+1}\\
-    所以，&\frac{\partial Z_{k,m}^{l+1}}{\partial Z_{j,m}^l}=\sigma'^l(Z_{j,m}^l)\times W_{kj}^{l+1}\\
-    将其带回原式，\frac{\partial C}{\partial Z_{j,m}^l}&=\sum_k\frac{\partial C}{\partial Z_{k,m}^{l+1}}\times W_{kj}^{l+1}\times\sigma'^l(Z_{j,m}^l)\\
-    &=[\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{Z^{l+1}}})]_{j,m}\times \sigma'^l(Z_{j,m}^l)
+    \frac{\partial C}{\partial Z_{j,m}^l}&=\sum_k\frac{\partial C}{\partial Z_{k,m}^{l+1}}\cdot W_{kj}^{l+1}\cdot\sigma'^l(Z_{j,m}^l)\\
+    &=[\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{Z^{l+1}}})]_{j,m}\cdot \sigma'^l(Z_{j,m}^l)
 \end{aligned}
 $$
 
@@ -98,8 +102,6 @@ $$
 先来与上一篇文章做一下对比：
 >* 在**单样本前向传播**中，$W_{jk}^l$只会与第$l-1$层第$\bm{k}$个节点的输出$a_k^{l-1}$相乘，然后作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上，这可以看作**一对一连接**。公式为：$$z_j^l=\sum_{i=1}^{N_{l-1}}a_i^{l-1}W_{ji}^l+b_j^l$$
 >* 而在**多样本前向传播**中，$W_{jk}^l$会**分别**与第$l-1$层第$\bm{k}$个节点的$M$个输出$A_{k,m}^{l-1}$相乘，然后**分别**作为一部分汇聚到下一层，也就是第$l$层的第$\bm{j}$个节点上(共有$M$个)，这可以看作是**M个一对一连接**。公式为:$$Z_{j,m}^l=\sum_{i=1}^{N_{l-1}}A_{i,m}^{l-1}W_{ji}^l+b_j^l$$
-
-如下图所示(还没画)：
 
 所以，根据链式法则，我们要在$m$维度上累加：$$\frac{\partial C}{\partial W_{jk}^l}=\sum_m\frac{\partial C}{\partial Z_{j,m}^l}\frac{\partial Z_{j,m}^l}{\partial W_{jk}^l}$$
 
@@ -134,4 +136,4 @@ Michael Nielsen在书中给出了计算mini-batch梯度的一种方法。
 
 ![](https://i.loli.net/2020/12/06/JFGIKhDXSU61fs7.png)
 
-这个方法是在单样本基础上实现的，总体的思路是先依次进行**mini-batch个样本**的前向传播和误差计算，再依次传播误差到每一层中，最后进一步计算$\bm{W^l,b^l}$的梯度。而全矩阵方法是**并行化**的，也就是一次前向传播就可以同时完成**mini-batch个样本**的相应计算，反向传播误差时亦如此。并行化也在当今的算法中大受推崇，比如序列建模中，Transformer相对于(RNN家族)的一个巨大优势，就是可以并行计算。
+这个方法是在单样本反向传播基础上实现的，总体的思路是先**依次**进行**mini-batch个样本**的前向传播和误差计算，再依次传播误差到每一层中，将梯度**累积**起来，最后通过**平均**计算所有$\bm{W^l,b^l}$的梯度(即:$\frac{总梯度}{mini-batch}$)。而全矩阵方法是**并行化**的，也就是一次前向传播就可以同时完成**mini-batch个样本**的相应计算，反向传播误差时亦如此。并行化也在当今的算法中大受推崇，比如序列建模中，Transformer相对于(RNN家族)的一个巨大优势，就是可以并行计算。
