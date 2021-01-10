@@ -68,7 +68,7 @@ conda deactivate
 2. 如果你在 **(base)环境**使用```pip install```，package应该就是安装在anaconda\Lib\site-packages下; 如果你在**其他虚拟环境**使用``pip install``，那么下载的包就只在这个虚拟环境中
 3. 其他虚拟环境下的使用python packages时优先搜索**该虚拟环境**下的package，如果没有它就搜索(base)环境下的package，也就是(base)环境下的package是可以被其他虚拟环境使用的
 
-但我发现这个答案并不奏效，而且我在linux下尝试使用其他环境进入python并```import torch```，仍显示‘ImportError: No module named torch’，所以此答案仅供参考，我对于自己出现的问题的解决方案是：
+但我发现**这个答案并不奏效**(似乎在windows上有效？)，而且我在linux下尝试使用其他环境进入python并```import torch```，仍显示‘ImportError: No module named torch’，所以此答案仅供参考，我目前没有太多心思继续深究这个问题了，所以对于自己出现的问题的解决方案是：
 
 > 坚决只使用(base)环境即可
 
@@ -105,6 +105,13 @@ conda list
 ```
 # CUDA 9.2
 pip install torch==1.6.0+cu92 torchvision==0.7.0+cu92 -f https://download.pytorch.org/whl/torch_stable.html
+```
+
+### 2.2.2 PyTorch检查cuda是否可用
+```python
+import torch
+print(torch.__version__)
+print(torch.cuda.is_available())
 ```
 
 ## 2.3 tensorflow-gpu安装相关
