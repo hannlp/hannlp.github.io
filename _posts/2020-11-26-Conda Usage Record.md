@@ -45,10 +45,10 @@ conda remove -n test --all
 # 完整复制某个环境
 conda create -n test2 -clone test
 
-# 进入虚拟环境(windows)
-activate test
+# 进入虚拟环境(windows系统此命令可以省略前面的conda)
+conda activate test
 
-# 退出虚拟环境(windows)
+# 退出虚拟环境
 conda deactivate
 ```
 ## 1.3 包管理
