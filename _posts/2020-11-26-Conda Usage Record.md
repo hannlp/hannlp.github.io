@@ -54,7 +54,7 @@ conda deactivate
 ```
 
 ### 1.2.2 conda环境管理中的一个细节
-在使用conda后，会发现命令提示符前多了一个(base)，这其实是conda自带的一个基础环境：
+在使用conda后，会发现命令提示符前多了一个(base)，这其实是conda自带的一个基础环境，而且每次登录后都会默认激活该环境：
 ```
 (base) [hanyuchen@IP-xxx-xxx-xx-xx ~]$
 ``` 
@@ -62,13 +62,15 @@ conda deactivate
 ```
 [hanyuchen@IP-xxx-xxx-xx-xx ~]$
 ```
-但退出(base)后，会发现之前使用conda安装的很多库，就无法导入了，比如```import torch```，遂上网寻找答案，找到了一个[比较优质的回答](https://segmentfault.com/q/1010000016958462)：
+但退出(base)后，会发现之前使用conda安装的很多库，就无法导入了，比如```import torch```，遂上网寻找答案，找到了一个[看起来比较优质的回答](https://segmentfault.com/q/1010000016958462)：
 
 1. ```conda install```的package是在**anaconda\pkgs**下，而```pip install```的package是在**anaconda\Lib\site-packages**下
 2. 如果你在 **(base)环境**使用```pip install```，package应该就是安装在anaconda\Lib\site-packages下; 如果你在**其他虚拟环境**使用``pip install``，那么下载的包就只在这个虚拟环境中
 3. 其他虚拟环境下的使用python packages时优先搜索**该虚拟环境**下的package，如果没有它就搜索(base)环境下的package，也就是(base)环境下的package是可以被其他虚拟环境使用的
 
-但我发现这个答案好像只适用于windows，而且我尝试使用其他环境进入python并```import torch```，仍显示‘ImportError: No module named torch’，所以此规律仅供参考。
+但我发现这个答案并不奏效，而且我在linux下尝试使用其他环境进入python并```import torch```，仍显示‘ImportError: No module named torch’，所以此答案仅供参考，我对于自己出现的问题的解决方案是：
+
+> 坚决只使用(base)环境即可
 
 ## 1.3 包管理
 ```python
