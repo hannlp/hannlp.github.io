@@ -5,11 +5,11 @@ tags:
 - 环境配置
 ---
 # 前言
-发现每次用conda的时候都要去百度找命令，故在此记录我最常用到的命令，以方便我或者其他人查找使用！
-以下所有命令在**2020-11-26**被验证可用，请放心使用！
-* **tip**:三击即可选中某一行命令
+发现每次用conda的时候都要去百度找命令，故在此记录我最常用到的命令，以方便我或者其他人查找使用！此外，除了conda的使用，此博客还记录了一些常用深度学习库的安装及配置的踩坑记录，以及一些冷门但较重要的环境细节。
 
 # 1 常用命令
+以下所有命令在**2021-01-10**被验证可用！
+
 ## 1.1 Conda基本配置
 ```python
 # 更新conda至最新版本，也会更新其它相关包
@@ -32,6 +32,7 @@ conda config --get channels
 附链接：[清华源](https://mirrors.tuna.tsinghua.edu.cn/), [中科大源](https://mirrors.ustc.edu.cn/), [上交源](https://mirrors.sjtug.sjtu.edu.cn/#/)
 
 ## 1.2 环境管理
+### 1.2.1 常用命令
 ```python
 # 查看已存在的环境
 conda env list
@@ -51,6 +52,24 @@ conda activate test
 # 退出虚拟环境
 conda deactivate
 ```
+
+### 1.2.2 conda环境管理中的一个细节
+在使用conda后，会发现命令提示符前多了一个(base)，这其实是conda自带的一个基础环境：
+```
+(base) [hanyuchen@IP-xxx-xxx-xx-xx ~]$
+``` 
+当然，可以通过```conda deactivate```命令来退出(base)环境：
+```
+[hanyuchen@IP-xxx-xxx-xx-xx ~]$
+```
+但退出(base)后，会发现之前使用conda安装的很多库，就无法导入了，比如```import torch```，遂上网寻找答案，找到了一个[比较优质的回答](https://segmentfault.com/q/1010000016958462)：
+
+1. ```conda install```的package是在**anaconda\pkgs**下，而```pip install```的package是在**anaconda\Lib\site-packages**下
+2. 如果你在 **(base)环境**使用```pip install```，package应该就是安装在anaconda\Lib\site-packages下; 如果你在**其他虚拟环境**使用``pip install``，那么下载的包就只在这个虚拟环境中
+3. 其他虚拟环境下的使用python packages时优先搜索**该虚拟环境**下的package，如果没有它就搜索(base)环境下的package，也就是(base)环境下的package是可以被其他虚拟环境使用的
+
+但我发现这个答案好像只适用于windows，而且我尝试使用其他环境进入python并```import torch```，仍显示‘ImportError: No module named torch’，所以此规律仅供参考。
+
 ## 1.3 包管理
 ```python
 # 在指定环境安装包并指定版本,如果不用-n指定环境名称，则被安装在当前活跃环境
