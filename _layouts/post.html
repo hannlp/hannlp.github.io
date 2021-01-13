@@ -88,17 +88,28 @@ layout: base
       <!-- 来必力City版安装代码 -->
       <div id="lv-container" data-id="city" data-uid="MTAyMC81MjM3OC8yODg1Ng==">
         <script type="text/javascript">
-          (function (d, s) {
-            var j, e = d.getElementsByTagName(s)[0];
+          //平台、设备和操作系统(使来必力评论系统只在电脑端加载)
+          var system = {
+            win: false,
+            mac: false,
+            xll: false
+          };
+          //检测平台
+          var p = navigator.platform;
+          system.win = p.indexOf("Win") == 0;
+          system.mac = p.indexOf("Mac") == 0;
+          system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+          if (system.win || system.mac || system.xll) {
+            (function (d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          }
 
-            if (typeof LivereTower === 'function') { return; }
-
-            j = d.createElement(s);
-            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-            j.async = true;
-
-            e.parentNode.insertBefore(j, e);
-          })(document, 'script');
         </script>
         <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
       </div>
