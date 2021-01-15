@@ -83,7 +83,7 @@ conda list
 
 # 2 常出现的错误
 ## 2.1 python相关
-### 2.1.1 python启动时报interactivehook
+### 2.1.1 启动时的interactivehook UnicodeDecodeError
 具体情况如下：
 ```
 Failed calling sys.__interactivehook__
@@ -94,7 +94,7 @@ Traceback (most recent call last):
 UnicodeDecodeError: 'gbk' codec can't decode byte 0xaf in position 34: illegal multibyte sequence
 ```
 
-**解决方案：** 找到自己的'history.py'文件，在读取文件的代码处添加'encoding=utf-8'，如下所示：
+**解决方案：** 找到自己的‘history.py’文件，在读取文件的代码处添加'encoding=utf-8'，如下所示：
 
 ```python
 for line in open(filename, 'r', encoding='utf-8'):
