@@ -82,7 +82,27 @@ conda list
 ```
 
 # 2 常出现的错误
-## 2.1 anaconda-navigator 不能正常启动
+## 2.1 python相关
+### 2.1.1 python启动时报interactivehook
+具体情况如下：
+```
+Failed calling sys.__interactivehook__
+Traceback (most recent call last):
+  ...
+  File "D:\My_Programs\Anaconda\lib\site-packages\pyreadline\lineeditor\history.py", line 82, in read_history_file
+    for line in open(filename, 'r'):
+UnicodeDecodeError: 'gbk' codec can't decode byte 0xaf in position 34: illegal multibyte sequence
+```
+
+**解决方案：** 找到自己的'history.py'文件，在读取文件的代码处添加'encoding=utf-8'，如下所示：
+
+```python
+for line in open(filename, 'r', encoding='utf-8'):
+```
+
+具体的原因和解决过程见([参考](https://blog.csdn.net/hongxingabc/article/details/102610442))
+
+## 2.2 anaconda-navigator 不能正常启动
 如果错误提示中明显能够看到pyQt5相关条目，并且anaconda prompt可以运行，则说明核心模块安装正确，是UI(界面插件)的问题
 
 **原因：** 界面插件损坏  
@@ -92,8 +112,8 @@ conda list
 
 * 参考：[anaconda navigator 突然打不开有可能是什么原因？](https://www.zhihu.com/question/52136894)
 
-## 2.2 PyTorch安装相关
-### 2.2.1 PyTorch与CUDA
+## 2.3 PyTorch安装相关
+### 2.3.1 PyTorch与CUDA
 安装PyTorch(gpu)最关键的就是要将**Pytorch版本**、**CUDA版本**以及**系统的驱动版本(driver version)** 三者匹配起来。([版本对应关系表](https://blog.csdn.net/weixin_42069606/article/details/105198845))
 
 举个例子：
@@ -107,15 +127,15 @@ conda list
 pip install torch==1.6.0+cu92 torchvision==0.7.0+cu92 -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
-### 2.2.2 PyTorch检查CUDA是否可用
+### 2.3.2 PyTorch检查CUDA是否可用
 ```python
 import torch
 print(torch.__version__)
 print(torch.cuda.is_available())
 ```
 
-## 2.3 tensorflow-gpu安装相关
-### 2.3.1 依赖的gpu环境
+## 2.4 tensorflow-gpu安装相关
+### 2.4.1 依赖的gpu环境
 例：```tensorflow_gpu-1.14.0```需要安装```cuDNN:7.4，CUDA:10```。这是[经过测试的构建配置](https://tensorflow.google.cn/install/source_windows)
 
 **查看CUDA版本：** 命令行输入```nvcc --version```  
@@ -131,7 +151,7 @@ print(torch.cuda.is_available())
 ```
 附：[Linux 和 Windows 查看 CUDA 和 cuDNN 版本](https://www.cnblogs.com/wuliytTaotao/p/11453265.html)
 
-### 2.3.2 tf-1.14.0与其他库版本不匹配系列
+### 2.4.2 tf-1.14.0与其他库版本不匹配系列
 直接```conda install tensorflow-gpu=1.14```，然后进入Python环境尝试导入，发现以下警告:
 ```
 FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecate
