@@ -14,7 +14,7 @@ tags:
 ## 2.1 运行脚本时出现$'\r': 未找到命令
 报错已经非常明确了，是linux无法解析$'\r'。这其实是windows与linux系统的差异导致的：因为linux上的换行符为\n，而windows上的换行符为\r\n，所以脚本到linux上就无法解析了([参考](https://blog.csdn.net/u010416101/article/details/80135293))。
 
-**解决方案：** 
+**解决方案：**   
 例如在windows下编辑好一个'hello.sh'文件，传输到了linux系统下，需要进行以下操作：
 ```
 vi hello.sh
