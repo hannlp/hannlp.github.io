@@ -107,7 +107,7 @@ conda list
 pip install torch==1.6.0+cu92 torchvision==0.7.0+cu92 -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
-### 2.2.2 PyTorch检查cuda是否可用
+### 2.2.2 PyTorch检查CUDA是否可用
 ```python
 import torch
 print(torch.__version__)

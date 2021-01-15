@@ -42,12 +42,12 @@ drive.mount('/content/drive')
 2. **目录名**中最好不要有空格。如果有空格，用到此目录名时需要在空格前加```\```进行转义
 
 # 3 深度学习环境相关
-## 3.1 PyTorch配置
+## 3.1 PyTorch 1.6.0 及环境配置
 先运行完安装命令，并点击“RESTART RUNTIME”按钮
 ```
 !pip install torch==1.6.0+cu92 torchvision==0.7.0+cu92 -f https://download.pytorch.org/whl/torch_stable.html
 ```
-检查cuda是否可用
+检查CUDA是否可用
 ```python
 import torch
 print(torch.__version__)
