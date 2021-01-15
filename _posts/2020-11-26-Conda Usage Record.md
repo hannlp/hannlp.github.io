@@ -93,14 +93,12 @@ Traceback (most recent call last):
     for line in open(filename, 'r'):
 UnicodeDecodeError: 'gbk' codec can't decode byte 0xaf in position 34: illegal multibyte sequence
 ```
-
+**原因：** 记录历史命令的过程中遇到过中文，始终无法解码。具体分析过程见([参考](https://blog.csdn.net/hongxingabc/article/details/102610442))  
 **解决方案：** 找到自己的‘history.py’文件，在读取文件的代码处添加'encoding=utf-8'，如下所示：
 
 ```python
 for line in open(filename, 'r', encoding='utf-8'):
 ```
-
-具体的原因和解决过程见([参考](https://blog.csdn.net/hongxingabc/article/details/102610442))
 
 ## 2.2 anaconda-navigator 不能正常启动
 如果错误提示中明显能够看到pyQt5相关条目，并且anaconda prompt可以运行，则说明核心模块安装正确，是UI(界面插件)的问题
