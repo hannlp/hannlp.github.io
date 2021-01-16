@@ -40,3 +40,8 @@ Exception: process 2 terminated with exit code 1
 
 **解决方案：**  
 直接使用如下命令```export MKL_THREADING_LAYER=GNU```即可。具体原因见[this issue](https://github.com/pytorch/pytorch/issues/37377)
+
+# 参考资料
+1. [手把手教你用fairseq训练一个NMT机器翻译系统 - 胤风
+](https://blog.csdn.net/moreaction_/article/details/107252080)
+2. 
