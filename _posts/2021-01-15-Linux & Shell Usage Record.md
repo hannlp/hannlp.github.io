@@ -12,7 +12,7 @@ tags:
 2. [Linux命令大全 - runoob](https://www.runoob.com/linux/linux-command-manual.html)
 
 # 1 Linux命令记录
-## 1.1 令进程在后台运行
+## 1.1 令进程在后台不挂断运行
 **如下情景：**  
 在自家笔记本上，使用Xshell登录实验室服务器运行某一进程，希望**1.该进程运行时我也能够使用其他指令**(如nvidia-smi)，且**2.关闭Xshell(ssh连接也会断)后进程依然能够运行**，这样我自己的笔记本就不用一直开机运行Xshell了
 
