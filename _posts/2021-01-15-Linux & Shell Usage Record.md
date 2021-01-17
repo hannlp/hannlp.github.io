@@ -29,16 +29,20 @@ Linux中，根目录从```/```开始
 **举例：**  
 1. ```[hanyuchen@IP-xxx hans]$ ls /``` ，得到:
 
-> bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
-> boot  etc  lib   media  opt  root  sbin  sys  usr
+```
+bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+boot  etc  lib   media  opt  root  sbin  sys  usr
+```
 
-解释：当前我在hans目录中，使用```ls```列出根目录中的目录和文件
+> 解释：当前我在hans目录中，使用```ls```列出根目录中的目录和文件
 
-1. ```[hanyuchen@IP-xxx hans]$ ls .``` ，得到：
+2. ```[hanyuchen@IP-xxx hans]$ ls .``` ，得到：
 
-> Anaconda3-2020.07-Linux-x86_64.sh  mycert.pem  mykey.key  test.py
+```
+Anaconda3-2020.07-Linux-x86_64.sh  mycert.pem  mykey.key  test.py
+```
 
-解释：当前我在hans目录中，使用```ls```列出hans目录中的目录和文件
+> 解释：当前我在hans目录中，使用```ls```列出hans目录中的目录和文件
 
 ## 1.2 常用命令
 ### 1.2.1 令进程在后台不挂断运行
