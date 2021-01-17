@@ -18,8 +18,7 @@ tags:
 **绝对路径：**  
 Linux中，根目录从```/```开始
 
-**相对路径：**
-
+**相对路径：**  
 ```.``` 表示当前目录  
 ```..``` 表示上级目录  
 ```~``` 表示当前用户自己的家目录  
@@ -34,7 +33,7 @@ Linux中，根目录从```/```开始
 > boot  etc  lib   media  opt  root  sbin  sys  usr
 
 解释：当前我在hans目录中，使用```ls```列出根目录中的目录和文件
-  
+
 1. ```[hanyuchen@IP-xxx hans]$ ls .``` ，得到：
 
 > Anaconda3-2020.07-Linux-x86_64.sh  mycert.pem  mykey.key  test.py
