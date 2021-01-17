@@ -42,6 +42,7 @@ Exception: process 2 terminated with exit code 1
 直接使用如下命令```export MKL_THREADING_LAYER=GNU```，再重新运行训练命令即可。具体原因见[this issue](https://github.com/pytorch/pytorch/issues/37377)
 
 # 参考资料
-1. [手把手教你用fairseq训练一个NMT机器翻译系统 - 胤风
+1. [如何使用fairseq复现Transformer NMT](http://www.linzehui.me/2019/01/28/%E7%A2%8E%E7%89%87%E7%9F%A5%E8%AF%86/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8fairseq%E5%A4%8D%E7%8E%B0Transformer%20NMT/)
+2. [手把手教你用fairseq训练一个NMT机器翻译系统 - 胤风
 ](https://blog.csdn.net/moreaction_/article/details/107252080)
-2. [FaceBook-NLP工具Fairseq漫游指南(1)—命令行工具 - ZhuNLP](https://zhuanlan.zhihu.com/p/194176917)
+3. [FaceBook-NLP工具Fairseq漫游指南(1)—命令行工具 - ZhuNLP](https://zhuanlan.zhihu.com/p/194176917)
