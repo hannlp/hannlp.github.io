@@ -11,8 +11,22 @@ tags:
 1. [Shell 教程 - runoob](https://www.runoob.com/linux/linux-shell.html)
 2. [Linux命令大全 - runoob](https://www.runoob.com/linux/linux-command-manual.html)
 
-# 1 Linux命令记录
-## 1.1 令进程在后台不挂断运行
+# 1 Linux使用记录
+## 1.1 基础知识
+### 1.1.1 Linux中路径的表示
+
+**绝对路径：**  
+Linux中，根目录从```/```开始
+
+**相对路径：**  
+```.```表示当前目录
+```..```表示上级目录
+```~```表示当前用户自己的home目录
+```~user```表示用户名为USER的家目录，这里的user是在/etc/passwd中存在的用户名
+
+可以使用```pwd```查看当前路径(从根目录开始)
+## 1.2 常用命令
+### 1.2.1 令进程在后台不挂断运行
 **如下情景：**  
 在自家笔记本上，使用Xshell登录实验室服务器运行某一进程，希望**1.该进程运行时我也能够使用其他指令**(如nvidia-smi)，且**2.关闭Xshell(ssh连接也会断)后进程依然能够运行**，这样我自己的笔记本就不用一直开机运行Xshell了
 
@@ -34,3 +48,7 @@ vi hello.sh
 :set ff=unix
 :wq
 ```
+
+# 参考资料
+1. [Linux - 路径的表示](https://blog.csdn.net/zhangzhebjut/article/details/22977477)
+2. 
