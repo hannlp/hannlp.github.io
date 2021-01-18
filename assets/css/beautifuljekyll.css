@@ -857,12 +857,11 @@ pre {
   /*
   background-image: linear-gradient(
     rgba(0,0,0,0.03), rgba(0,0,0,0.03) 1.5em, rgba(0,0,0,0.02) 1.5em, rgba(0,0,0,0.02) 3em);
-  */
   background-size: auto 3em;
   background-position-y: 0.625rem;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-left: 0.1rem solid #00ff71;
-  background: lightyellow;
+  border: 1px solid rgba(0,0,0,0.1);*/
+  border-left: 0.2rem solid #dc74a4;
+  background: #e0f3ff9c;
 }
 .highlight > pre:not([class~="highlight"]) { /* code block with line number */
   padding: 0;
