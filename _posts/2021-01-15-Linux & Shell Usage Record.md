@@ -14,7 +14,8 @@ tags:
 # 1 Linux使用记录
 ## 1.1 基础知识
 ### 1.1.1 Linux中路径的表示
-可以使用```pwd```查看当前路径(从根目录开始)  
+可以使用```pwd```查看当前路径(从根目录开始)
+
 **绝对路径：**  
 Linux中，根目录从```/```开始
 
@@ -48,6 +49,8 @@ Anaconda3-2020.07-Linux-x86_64.sh  mycert.pem  mykey.key  test.py
 对于需求2，可以使用```nohup```命令，例如```nohup command```。这个命令是“no hang up”(不挂断)的缩写，可以使得关闭终端之后继续运行相应的进程
 
 综上所述，想同时满足两个需求，可以直接使用```nohup command &```。更多的使用方法见[参考资料1](https://www.cnblogs.com/caodneg7/p/12028236.html), [2](https://mp.weixin.qq.com/s/nyT-FPdIUdJUiUCYVGEnTg)
+
+### 1.2.2 关闭进程
 
 # 2 问题记录
 ## 2.1 运行脚本时出现$'\r': 未找到命令
