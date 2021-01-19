@@ -51,11 +51,20 @@ pip install --editable ./
 3. [NIST数据集](https://catalog.ldc.upenn.edu/LDC2010T21) (200w左右，需要购买)
 4. [United Nations Parallel Corpus](https://conferences.unite.un.org/UNCORPUS/zh) (1500w左右，联合国文件领域)
 
-我本人使用过语料1、3，其中3是跟已购买的师兄要的，不向外提供。另外，其实初次训练建议使用语料1，训练快，能够快速体验整个流程。当然，中英还有很多其他语料，见[参考资料1](https://chinesenlp.xyz/#/docs/machine_translation),[2](https://www.cluebenchmarks.com/dataSet_search.html)
+我本人使用过语料1、3，其中3是跟已购买的师兄要的，不向外提供。其实初次训练建议使用语料1，规模小训练快，能够快速体验整个流程。当然，中英还有很多其他语料，见[参考资料1](https://chinesenlp.xyz/#/docs/machine_translation), [2](https://www.cluebenchmarks.com/dataSet_search.html)
 
 ## 2.2 数据预处理
 ### 2.2.1 数据格式
-在本篇博客中，我准备使用WMT20新闻翻译任务的**news-commentary-v15语料**(news-commentary-v15.en-zh.tsv)，格式如下：  
+在本篇博客中，我准备使用WMT20新闻翻译任务的**news-commentary-v15语料**，放于以下位置：  
+```python
+...
+└── nmt
+    ├── data
+        └── v15news     
+            └── news-commentary-v15.en-zh.tsv
+...
+```
+格式如下：  
 ```
 1929 or 1989?	1929年还是1989年?
 PARIS – As the economic crisis deepens and widens, the world has been searching for historical analogies to help us understand what has been happening.	巴黎-随着经济危机不断加深和蔓延，整个世界一直在寻找历史上的类似事件希望有助于我们了解目前正在发生的情况。
@@ -64,7 +73,73 @@ At the start of the crisis, many people likened it to 1982 or 1973, which was re
 ```
 
 ### 2.2.2 切分
-首先，需要将以上文件分成标准格式，即源语言(zh)、目标语言(en)文件各一个，一行一句。另外，每个语言都需要按比例划分出训练集、测试集、开发集
+首先，需要将以上文件分成标准格式，即源语言(zh)、目标语言(en)文件各一个，一行一句，附自己写的脚本(cut2.py)：
+```python
+import sys
+
+'''
+Usage: 
+python cut2.py fpath new_data_dir
+'''
+
+def cut2(fpath, new_data_dir, nsrc='zh', ntgt='en'):
+    fp = open(fpath, encoding='utf-8')
+    src_fp = open(new_data_dir + 'raw.' + nsrc, 'w', encoding='utf-8')
+    tgt_fp = open(new_data_dir + 'raw.' + ntgt, 'w', encoding='utf-8')
+    for line in fp.readlines():
+        tgt_line, src_line = line.replace('\n', '').split('\t')
+        src_fp.write(src_line + '\n')
+        tgt_fp.write(tgt_line + '\n')
+    src_fp.close()
+    tgt_fp.close()
+
+if __name__ == '__main__':      
+    cut2(fpath=sys.argv[1], new_data_dir=sys.argv[2], nsrc='zh', ntgt='en')
+```
+另外，两个语言都需要按比例划分出训练集、测试集、开发集，附自己写的脚本(split.py)：
+```python
+import random
+import sys
+
+'''
+Usage:
+python split.py src_fpath tgt_fpath new_data_dir
+'''
+
+def split(src_fpath, tgt_fpath, nsrc='zh', ntgt='en', ratio=(0.9, 0.05, 0.05), new_data_dir=''):
+  src_fp = open(src_fpath, encoding='utf-8')
+  tgt_fp = open(tgt_fpath, encoding='utf-8')
+  
+  src_train, src_test, src_val = open(new_data_dir + 'train.' + nsrc, 'w', encoding='utf-8'), \
+    open(new_data_dir + 'test.' + nsrc, 'w', encoding='utf-8'), open(new_data_dir + 'valid.' + nsrc, 'w', encoding='utf-8')
+  tgt_train, tgt_test, tgt_val = open(new_data_dir + 'train.' + ntgt, 'w', encoding='utf-8'), \
+    open(new_data_dir + 'test.' + ntgt, 'w', encoding='utf-8'), open(new_data_dir + 'valid.' + ntgt, 'w', encoding='utf-8')
+  
+  src, tgt = src_fp.readlines(), tgt_fp.readlines()
+  for s, t in zip(src, tgt):
+      rand = random.random()
+      if 0 < rand <= ratio[0]:
+        src_train.write(s)
+        tgt_train.write(t)
+      elif ratio[0] < rand <= ratio[0] + ratio[1]:
+        src_test.write(s)
+        tgt_test.write(t)
+      else:
+        src_val.write(s)
+        tgt_val.write(t)
+  
+  src_fp.close()
+  tgt_fp.close()
+  src_train.close()
+  src_test.close()
+  src_val.close()
+  tgt_train.close()
+  tgt_test.close()
+  tgt_val.close()
+
+if __name__ == '__main__':      
+    split(src_fpath=sys.argv[1], tgt_fpath=sys.argv[2], nsrc='zh', ntgt='en', ratio=(0.95, 0.025, 0.025), new_data_dir=sys.argv[3])
+```
 
 
 ### 2.2.3 tokenize
