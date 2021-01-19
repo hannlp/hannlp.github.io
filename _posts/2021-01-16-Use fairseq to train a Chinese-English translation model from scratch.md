@@ -6,23 +6,51 @@ tags:
 ---
 # 前言
 
-# 0 相关链接
-1. [Moses](https://github.com/moses-smt/mosesdecoder)(preprocessing scripts to tokenisation,truecasing,cleaning), [here](http://www.statmt.org/moses/?n=Moses.Baseline) is documentation
-2. [subword-nmt](https://github.com/rsennrich/subword-nmt)(preprocessing scripts to segment text into subword units)
-3. [jieba](https://github.com/fxsjy/jieba)(中文分词组件)
-4. [fairseq](https://github.com/pytorch/fairseq)(a sequence modeling toolkit), [here](https://fairseq.readthedocs.io/en/latest/index.html#) is documentation
+# 1 目录结构及相关链接
+## 1.1 目录结构
+```
+~
+├── mosesdecoder
+├── subword-nmt
+├── fairseq
+└── nmt
+    ├── data        # 用于存放训练数据及二进制文件
+    ├── models      # 用于保存模型的checkpoints
+    ├── utils       # 一些其他工具
+    └── scripts     # 一些脚本
+```
 
-# 1 数据
-## 1.1 数据集
-## 1.2 数据预处理
+## 1.2 相关链接
+1. [Moses](https://github.com/moses-smt/mosesdecoder) (一个SMT工具，在这里只会用到一些预处理脚本，如：**tokenisation**, **truecasing**, **cleaning**), 这是[文档](http://www.statmt.org/moses/?n=Moses.Baseline)，安装指令如下：  
+```
+git clone https://github.com/moses-smt/mosesdecoder.git
+```
+2. [subword-nmt](https://github.com/rsennrich/subword-nmt) (用于生成子词的BPE算法脚本)，安装指令如下：  
+```
+git clone https://github.com/rsennrich/subword-nmt.git
+```
+3. [jieba](https://github.com/fxsjy/jieba) (中文分词组件)，安装指令如下:  
+```
+pip install jieba
+```
+4. [fairseq](https://github.com/pytorch/fairseq) (一个基于PyTorch的序列建模工具), 这是[文档](https://fairseq.readthedocs.io/en/latest/index.html#)，安装指令如下：  
+```
+git clone https://github.com/pytorch/fairseq
+cd fairseq
+pip install --editable ./
+```
 
-# 2 训练过程
-## 2.1 训练
-## 2.2 推理
+# 2 数据
+## 2.2 数据集
+## 2.3 数据预处理
 
-# 3 问题集锦
-## 3.1 fairseq框架相关
-### 3.1.1 多GPU训练报错
+# 3 训练过程
+## 3.1 训练
+## 3.2 推理
+
+# 4 问题集锦
+## 4.1 fairseq框架相关
+### 4.1.1 多GPU训练报错
 在linux下使用fairseq训练命令，内容如下：
 ```
 CUDA_VISIBLE_DEVICES=0,1,2,3 fairseq-train ...
