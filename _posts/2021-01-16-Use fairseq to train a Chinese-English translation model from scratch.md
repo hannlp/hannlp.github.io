@@ -73,7 +73,7 @@ At the start of the crisis, many people likened it to 1982 or 1973, which was re
 ```
 
 ### 2.2.2 切分
-首先，需要将以上文件分成标准格式，即源语言(zh)、目标语言(en)文件各一个，一行一句，附自己写的脚本(cut2.py)：
+首先，需要将以上文件分成标准格式，即源语言(raw.zh)、目标语言(raw.en)文件各一个，一行一句，附自己写的脚本(cut2.py)：
 ```python
 import sys
 
@@ -96,7 +96,7 @@ def cut2(fpath, new_data_dir, nsrc='zh', ntgt='en'):
 if __name__ == '__main__':      
     cut2(fpath=sys.argv[1], new_data_dir=sys.argv[2], nsrc='zh', ntgt='en')
 ```
-另外，两个语言都需要按比例划分出训练集、测试集、开发集，附自己写的脚本(split.py)：
+另外，两个语言都需要按比例划分出训练集、测试集、开发集(所以共6个文件，为方便区分，直接以 'train.en' 这样的格式命名)，附自己写的脚本(split.py)：
 ```python
 import random
 import sys
@@ -140,7 +140,7 @@ def split(src_fpath, tgt_fpath, nsrc='zh', ntgt='en', ratio=(0.9, 0.05, 0.05), n
 if __name__ == '__main__':      
     split(src_fpath=sys.argv[1], tgt_fpath=sys.argv[2], nsrc='zh', ntgt='en', ratio=(0.95, 0.025, 0.025), new_data_dir=sys.argv[3])
 ```
-最后，data目录中有如下数据：  
+最后，data/v15news目录中有如下数据：  
 ```python
 ...
 └── nmt
