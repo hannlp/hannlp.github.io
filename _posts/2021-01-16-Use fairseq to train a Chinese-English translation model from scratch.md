@@ -21,11 +21,12 @@ tags:
 ```
 
 ## 1.2 相关链接
+除**jieba**是使用```pip```安装外，其他几个工具都是建议直接克隆库到自己的用户目录中，方便使用其脚本(**moses**/**subword-nmt**)，或未来可能要自己拓展其中的模型(**fairseq**)
 1. [Moses](https://github.com/moses-smt/mosesdecoder) (一个SMT工具，在这里只会用到一些预处理脚本，如：**tokenisation**, **truecasing**, **cleaning**), 这是[文档](http://www.statmt.org/moses/?n=Moses.Baseline)，安装指令如下：  
 ```
 git clone https://github.com/moses-smt/mosesdecoder.git
 ```
-2. [subword-nmt](https://github.com/rsennrich/subword-nmt) (用于生成子词的BPE算法脚本)，安装指令如下：  
+2. [subword-nmt](https://github.com/rsennrich/subword-nmt) (使用BPE算法生成子词的预处理脚本)，安装指令如下：  
 ```
 git clone https://github.com/rsennrich/subword-nmt.git
 ```
