@@ -10,8 +10,8 @@ tags:
 # 1 目录结构及相关链接
 ## 1.1 目录结构
 
-```~```代表linux系统中**我的用户目录**，提前组织一个目录结构的好处是可以让后面的一系列操作更加规范化  
- ```python
+其中```~```代表linux系统中**我的用户目录**，提前组织一个目录结构的好处是可以让后面的一系列操作更加规范化  
+```python
 ~
 ├── mosesdecoder
 ├── subword-nmt
@@ -46,8 +46,12 @@ pip install --editable ./
 # 2 数据
 ## 2.2 平行语料
 对于有监督神经中英机器翻译，能够找到的语料如下：
-1. [NEU nlp lab 开源语料](https://github.com/NiuTrans/NiuTrans.SMT/tree/master/sample-data) (10w量级，政治新闻领域)
-2. 
+1. [NEU nlp lab 开源语料](https://github.com/NiuTrans/NiuTrans.SMT/tree/master/sample-data) (10w，国内政治新闻领域)
+2. [WMT新闻翻译任务News Commentary语料](http://www.statmt.org/wmt20/translation-task.html) (32w左右，国际新闻领域。其实News Commentary每年都有新闻数据集，但是基本没啥变化，每次在前一年的基础上加几百句，所以这里的链接直接指向最新的WMT20)
+3. [NIST数据集](https://catalog.ldc.upenn.edu/LDC2010T21) (200w左右，需要购买)
+4. [United Nations Parallel Corpus](https://conferences.unite.un.org/UNCORPUS/zh) (1500w左右，联合国文件领域)
+
+我本人使用过语料1、3，其中3是跟已购买的师兄要的，不向外提供。另外，其实初次训练建议使用语料1，训练快，能够快速体验整个流程。当然，中英还有很多其他语料，见[参考资料1](https://chinesenlp.xyz/#/docs/machine_translation),[2](https://www.cluebenchmarks.com/dataSet_search.html)
 
 ## 2.3 数据预处理
 
