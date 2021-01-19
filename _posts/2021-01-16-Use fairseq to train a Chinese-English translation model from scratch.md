@@ -45,7 +45,9 @@ pip install --editable ./
 # 2 数据
 ## 2.2 平行语料
 对于有监督神经中英机器翻译，能够找到的语料如下：
-1. [NEU nlp lab 开源语料](https://github.com/NiuTrans/NiuTrans.SMT/tree/master/sample-data) ()
+1. [NEU nlp lab 开源语料](https://github.com/NiuTrans/NiuTrans.SMT/tree/master/sample-data) (10w量级，政治新闻领域)
+2. 
+
 ## 2.3 数据预处理
 
 # 3 训练过程
