@@ -140,6 +140,23 @@ def split(src_fpath, tgt_fpath, nsrc='zh', ntgt='en', ratio=(0.9, 0.05, 0.05), n
 if __name__ == '__main__':      
     split(src_fpath=sys.argv[1], tgt_fpath=sys.argv[2], nsrc='zh', ntgt='en', ratio=(0.95, 0.025, 0.025), new_data_dir=sys.argv[3])
 ```
+最后，data目录中有如下数据：  
+```python
+...
+└── nmt
+    ├── data
+        └── v15news     
+            ├── news-commentary-v15.en-zh.tsv
+            ├── raw.en
+            ├── raw.zh
+            ├── test.en
+            ├── test.zh
+            ├── train.en
+            ├── train.zh
+            ├── valid.en
+            └── valid.zh
+...
+```
 
 
 ### 2.2.3 tokenize
