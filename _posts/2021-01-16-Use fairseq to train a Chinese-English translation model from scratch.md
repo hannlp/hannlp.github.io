@@ -100,3 +100,6 @@ Exception: process 2 terminated with exit code 1
 2. [手把手教你用fairseq训练一个NMT机器翻译系统 - 胤风
 ](https://blog.csdn.net/moreaction_/article/details/107252080)
 3. [FaceBook-NLP工具Fairseq漫游指南(1)—命令行工具 - ZhuNLP](https://zhuanlan.zhihu.com/p/194176917)
+4. Findings of the 2019 Conference on Machine Translation (WMT19)
+5. The NiuTrans Machine Translation System for WMT18, WMT19, WMT20
+6. Baidu Neural Machine Translation Systems for WMT19
