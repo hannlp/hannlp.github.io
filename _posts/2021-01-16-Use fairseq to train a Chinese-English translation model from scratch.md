@@ -8,7 +8,7 @@ tags:
 
 # 1 目录结构及相关链接
 ## 1.1 目录结构
-```
+```python
 ~
 ├── mosesdecoder
 ├── subword-nmt
