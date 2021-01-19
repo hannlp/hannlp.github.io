@@ -23,7 +23,7 @@ tags:
 ```
 
 ## 1.2 相关工具
-除**jieba**是使用```pip```安装外，其他几个工具都是建议直接克隆库到自己的用户目录中，方便使用其脚本(**moses**/**subword-nmt**)，或未来可能要自己拓展其中的模型(**fairseq**)
+除**jieba**是使用```pip install```安装外，其他几个工具都是建议直接克隆库到自己的用户目录中，方便使用其脚本(**moses**/**subword-nmt**)，或未来可能要自己拓展其中的模型(**fairseq**)
 1. [Moses](https://github.com/moses-smt/mosesdecoder) (一个SMT工具，在这里只会用到一些预处理脚本，如：**tokenisation**, **truecasing**, **cleaning**), 这是[文档](http://www.statmt.org/moses/?n=Moses.Baseline)，安装指令如下：  
 ```
 git clone https://github.com/moses-smt/mosesdecoder.git
@@ -43,8 +43,8 @@ cd fairseq
 pip install --editable ./
 ```
 
-# 2 数据
-## 2.2 平行语料
+# 2 数据的准备
+## 2.1 平行语料
 对于有监督神经中英机器翻译，能够找到的语料如下：
 1. [NEU nlp lab 开源语料](https://github.com/NiuTrans/NiuTrans.SMT/tree/master/sample-data) (10w，国内政治新闻领域)
 2. [WMT新闻翻译任务News Commentary语料](http://www.statmt.org/wmt20/translation-task.html) (32w左右，国际新闻领域。其实News Commentary每年都有新闻数据集，但是基本没啥变化，每次在前一年的基础上加几百句，所以这里的链接直接指向最新的WMT20)
@@ -53,10 +53,22 @@ pip install --editable ./
 
 我本人使用过语料1、3，其中3是跟已购买的师兄要的，不向外提供。另外，其实初次训练建议使用语料1，训练快，能够快速体验整个流程。当然，中英还有很多其他语料，见[参考资料1](https://chinesenlp.xyz/#/docs/machine_translation),[2](https://www.cluebenchmarks.com/dataSet_search.html)
 
-在本篇博客中，我准备使用WMT20新闻翻译任务的**news-commentary-v15语料**
-## 2.3 数据预处理
+## 2.2 数据预处理
+### 2.2.1 数据格式
+在本篇博客中，我准备使用WMT20新闻翻译任务的**news-commentary-v15语料**(news-commentary-v15.en-zh.tsv)，格式如下：  
+```
+1929 or 1989?	1929年还是1989年?
+PARIS – As the economic crisis deepens and widens, the world has been searching for historical analogies to help us understand what has been happening.	巴黎-随着经济危机不断加深和蔓延，整个世界一直在寻找历史上的类似事件希望有助于我们了解目前正在发生的情况。
+At the start of the crisis, many people likened it to 1982 or 1973, which was reassuring, because both dates refer to classical cyclical downturns.	一开始，很多人把这次危机比作1982年或1973年所发生的情况，这样得类比是令人宽心的，因为这两段时期意味着典型的周期性衰退。
+...
+```
 
-### 2.3.1 
+### 2.2.2 切分
+首先，需要将以上文件分成标准格式，即源语言(zh)、目标语言(en)文件各一个，一行一句。另外，每个语言都需要按比例划分出训练集、测试集、开发集
+
+
+### 2.2.3 tokenize
+### 2.2.4 
 
 # 3 训练过程
 ## 3.1 训练
