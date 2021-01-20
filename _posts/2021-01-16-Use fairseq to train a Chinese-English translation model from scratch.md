@@ -400,7 +400,7 @@ python ${utils}/split.py ${data_dir}/clean.zh ${data_dir}/clean.en ${data_dir}/
 
 # 3 训练过程
 ## 3.1 生成词表及二进制文件
-首先用预处理后的六个文件(train.zh, valid.en等)，调用```fairseq-preprocess```命令生成**词表**和**训练用的二进制文件**  
+首先用预处理后的六个文件(train.zh, valid.en等)，使用```fairseq-preprocess```命令生成**词表**和**训练用的二进制文件**  
 ```
 fairseq-preprocess --source-lang ${src} --target-lang ${tgt} \
     --trainpref ${data_dir}/train --validpref ${data_dir}/valid --testpref ${data_dir}/test \
@@ -422,7 +422,7 @@ fairseq-preprocess --source-lang ${src} --target-lang ${tgt} \
 需要提醒的是：训练阶段使用的是**训练集**和**验证集**，解码阶段使用的是**测试集**
 
 ## 3.2 训练
-使用```fairseq-train```命令进行训练，其中有很多可以自由设置的超参数，比如选择使用什么模型，模型的参数等。其中，```--save-dir``` 这个参数是指每一个epoch结束后模型保存的位置
+使用```fairseq-train```命令进行训练，其中有很多可以自由设置的超参数，比如选择使用什么模型，模型的参数等。其中，```--save-dir``` 这个参数是指每一个epoch结束后模型保存的位置  
 ```
 CUDA_VISIBLE_DEVICES=0,1,2,3 nohup fairseq-train ${data_dir}/data-bin --arch transformer \
 	--source-lang ${src} --target-lang ${tgt}  \
@@ -455,13 +455,14 @@ epoch 023 | valid on 'valid' subset | loss 4.369 | nll_loss 2.65 | ppl 6.28 | wp
 ```
 
 ## 3.3 解码
+### 3.3.1 生成式解码
+使用```fairseq-generate```命令进行生成式解码(**for binarized data**)，可以自行选择是否添加```--remove-bpe```参数，使得在生成时就去掉bpe符号(@@)
 ```
 fairseq-generate ${data_dir}/data-bin \
     --path ${model_dir}/checkpoints/checkpoint_best.pt \
     --batch-size 128 --beam 8 > ./bestbeam8.txt
 ```
-
-选取一部分结果，如下所示(**S**: 源句子，**T**: 目标句子，**H/D**: 预测的句子及其生成概率的log，句子质量越好，其生成概率越接近1，其log越接近0。**P**: 每一个词的生成概率的log。其中，$H=\frac{\sum P}{n}$)：
+选取一部分结果，如下所示(**S**: 源句子，**T**: 目标句子，**H/D**: 预测的句子及其生成概率的log，句子质量越好，其生成概率越接近1，其log越接近0。**P**: 每一个词的生成概率的log。其中，$H=\frac{\sum P}{n}$)：  
 ```
 S-537	西班牙 的 人权 困境
 T-537	Spain &apos;s Human-Rights Dilemma
@@ -487,6 +488,9 @@ H-432	-0.7003933787345886	in the words of Susan Collins , a Republican senator f
 D-432	-0.7003933787345886	in the words of Susan Collins , a Republican senator from Maine , it would be a mistake to shut down the government &apos;s &quot; all small business &quot; around the Maine National Park , where she proposed a settlement and delivered it to the Senate .
 P-432	-1.2762 -0.3546 -0.0142 -0.1261 -0.0058 -0.7617 -0.1695 -0.2992 -0.0777 -0.3016 -0.4818 -0.0061 -0.0308 -0.3509 -2.5533 -1.5254 -0.2761 -1.1667 -0.6169 -0.6285 -1.2463 -0.0973 -1.4414 -0.3324 -0.2302 -0.3312 -0.6847 -1.0005 -0.1812 -2.9048 -0.3072 -1.8045 -0.0473 -0.8421 -0.4715 -0.6841 -1.1902 -1.6192 -0.3370 -2.3317 -0.3701 -0.2508 -3.0284 -0.2336 -1.1318 -0.3904 -0.1124 -0.0262 -0.2203 -0.1480
 ```
+
+### 3.3.2 交互式解码
+
 ## 3.4 后处理及评价
 
 # 4 问题集锦
