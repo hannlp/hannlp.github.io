@@ -296,12 +296,48 @@ one senses something like the making of an American-Asian dominated universe .
 indeed , on the surface it seems to be its perfect anti@@ thesis : the collapse of a wall symboli@@ zing oppression and artificial divisions versus the collapse of a seemingly inde@@ struc@@ tible and reassuring institution of financial capitalism .
 as a visiting professor at Harvard and MIT , I am getting a good pre@@ view of what the world could look like when the crisis finally passes .
 one senses something like the making of an American-@@ Asian dominated universe .
-
 ```
 
 ### 2.2.9 clean
+对上述处理后的双语文件(norm.tok.true.bpe.en, norm.seg.tok.bpe.zh)进行过滤(取设定的**最小长度**和**最大长度**之间的句对，可有效过滤空白行)，使用命令：  
+```bash
+mv ${data_dir}/norm.seg.tok.bpe.zh ${data_dir}/toclean.zh
+mv ${data_dir}/norm.tok.true.bpe.en ${data_dir}/toclean.en 
+${CLEAN} ${data_dir}/toclean zh en ${data_dir}/clean 1 256
+```
+处理后的文件在目录中如下格式存放：  
+```python
+├── data
+    └── v15news
+        ...
+        ├── clean.zh
+        └── clean.en
+```
+效果如下(每行最开始标出了行号):
+```python
+# norm.tok.true.bpe.en
+30 we can only hope that , in the end , the consequences of 2009 similarly prove to be far less dramatic than we now - intuitively and in our historical refle@@ xes - feel them to be .
+31
+32 one Hund@@ red Years of Ine@@ p@@ titude
+
+# clean.en
+30 we can only hope that , in the end , the consequences of 2009 similarly prove to be far less dramatic than we now - intuitively and in our historical refle@@ xes - feel them to be .
+31 one Hund@@ red Years of Ine@@ p@@ titude
+32 Berlin - The global financial and economic crisis that began in 2008 was the greatest economic stre@@ ss-@@ test since the Great Depression , and the greatest challenge to social and political systems since World War II .
+
+# norm.seg.tok.bpe.zh
+30 我们 只能 希望 2009 年 的 危机 同样 地 最后 被 证明 是 远远 低于 我们 现在 以 直觉 和 历史 回顾 的 方式 � � 感觉 到 的 那么 剧烈 。
+31 
+32 百年 愚@@ 顽
+
+# clean.zh
+30 我们 只能 希望 2009 年 的 危机 同样 地 最后 被 证明 是 远远 低于 我们 现在 以 直觉 和 历史 回顾 的 方式 � � 感觉 到 的 那么 剧烈 。
+31 百年 愚@@ 顽
+32 柏林 - - 2008 年 爆发 的 全球 金融 和 经济危机 是 自大 萧条 以来 最 严峻 的 一次 经济 压力 测试 ， 也 是 自 二战 以来 社会 和 政治 制度 所 面临 的 最 严重 挑战 。
+```
+
 ### 2.2.10 split
-另外，两个语言都需要按比例划分出训练集、测试集、开发集(所以共6个文件，为方便区分，直接以 'train.en', 'valid.zh' 这样的格式命名)，附自己写的脚本(split.py)：
+最后，双语文件(clean.zh, clean.en)都需要按比例划分出训练集、测试集、开发集(所以共6个文件，为方便区分，直接以 'train.en', 'valid.zh' 这样的格式命名)，附自己写的脚本(split.py)：
 ```python
 import random
 import sys
@@ -346,19 +382,16 @@ if __name__ == '__main__':
     split(src_fpath=sys.argv[1], tgt_fpath=sys.argv[2], nsrc='zh', ntgt='en', ratio=(0.95, 0.025, 0.025), new_data_dir=sys.argv[3])
 ```
 最后，data/v15news目录中有如下数据：  
-```python
-...
-└── nmt
-    ├── data
-        └── v15news     
-            ...
-            ├── test.en
-            ├── test.zh
-            ├── train.en
-            ├── train.zh
-            ├── valid.en
-            └── valid.zh
-...
+```pythont
+├── data
+    └── v15news
+        ...
+        ├── test.en
+        ├── test.zh
+        ├── train.en
+        ├── train.zh
+        ├── valid.en
+        └── valid.zh
 ```
 
 # 3 训练过程
