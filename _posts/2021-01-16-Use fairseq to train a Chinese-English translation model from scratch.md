@@ -51,7 +51,7 @@ pip install --editable ./
 ```
 
 ### 1.2.2 用于初始化的bash文件
-这个文件定义了一些后面需要用到的变量(主要是各种脚本的路径)，包括tokenizer.perl, truecase.perl等，可以在linux中使用bash xx.sh运行，也可以把这些内容直接全部复制到linux命令行中按回车  
+这个文件是在上述目录结构的基础下，定义了一些后面需要用到的变量(主要是各种脚本的路径)，包括tokenizer.perl, truecase.perl等，可以在linux中使用bash xx.sh运行，也可以把这些内容直接全部复制到linux命令行中按回车  
 ```bash
 #!/bin/sh
 
