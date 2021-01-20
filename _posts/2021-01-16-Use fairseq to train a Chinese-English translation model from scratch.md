@@ -51,7 +51,7 @@ pip install --editable ./
 
 # 2 数据的准备
 ## 2.1 平行语料
-对于有监督神经中英机器翻译，能够找到的语料如下：
+对于有监督神经机器翻译，能够找到的中英平行语料如下：
 1. [NEU nlp lab 开源语料](https://github.com/NiuTrans/NiuTrans.SMT/tree/master/sample-data) (10w，国内政治新闻领域)
 2. [WMT新闻翻译任务News Commentary语料](http://www.statmt.org/wmt20/translation-task.html) (32w左右，国际新闻领域。其实News Commentary每年都有新闻数据集，但是基本没啥变化，每次在前一年的基础上加几百句，所以这里的链接直接指向最新的WMT20)
 3. [NIST数据集](https://catalog.ldc.upenn.edu/LDC2010T21) (200w左右，需要购买)
@@ -78,8 +78,30 @@ At the start of the crisis, many people likened it to 1982 or 1973, which was re
 ...
 ```
 
+### 2.2.2 初始化bash文件
+这个文件定义了一些后面需要用到的变量(主要是各种脚本的路径)，包括tokenizer.perl, truecase.perl等，可以在linux中使用bash xx.sh运行，也可以把这些内容直接全部复制到linux命令行中按回车  
+```bash
+#!/bin/sh
+
+src=zh
+tgt=en
+
+SCRIPTS=~/mosesdecoder/scripts
+TOKENIZER=${SCRIPTS}/tokenizer/tokenizer.perl
+LC=${SCRIPTS}/tokenizer/lowercase.perl
+TRAIN_TC=${SCRIPTS}/recaser/train-truecaser.perl
+TC=${SCRIPTS}/recaser/truecase.perl
+NORM_PUNC=${SCRIPTS}/tokenizer/normalize-punctuation.perl
+CLEAN=${SCRIPTS}/training/clean-corpus-n.perl
+BPEROOT=~/subword-nmt/subword_nmt
+
+data_dir=~/nmt/data/v15news
+model_dir=~/nmt/models/v15news
+utils=~/nmt/utils
+```
+
 ### 2.2.2 切分
-首先，需要将以上文件分成标准格式，即源语言(raw.zh)、目标语言(raw.en)文件各一个，一行一句，附自己写的脚本(cut2.py)：
+首先，需要将一个单独的数据文件切分成标准格式，即源语言(raw.zh)、目标语言(raw.en)文件各一个，一行一句，附自己写的脚本(cut2.py)：
 ```python
 import sys
 
@@ -102,6 +124,12 @@ def cut2(fpath, new_data_dir, nsrc='zh', ntgt='en'):
 if __name__ == '__main__':      
     cut2(fpath=sys.argv[1], new_data_dir=sys.argv[2], nsrc='zh', ntgt='en')
 ```
+
+调用的命令：  
+```bash
+python ${utils}/cut2.py ${data_dir}/news-commentary-v15.en-zh.tsv ${data_dir}/
+```
+
 切分后在目录中如下格式存放：  
 ```python
 ...
