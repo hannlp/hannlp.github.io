@@ -188,7 +188,7 @@ python -m jieba -d " " ${data_dir}/norm.zh > ${data_dir}/norm.seg.zh
 ```
 
 ### 2.2.6 tokenize
-对上述处理后的双语文件(norm.en, norm.seg.zh)进行标记化处理(可以理解为将**英文单词**与**标点符号**用空格分开，同时将多个连续空格简化为一个空格)，使用命令：  
+对上述处理后的双语文件(norm.en, norm.seg.zh)进行标记化处理，有很多功能(1.将**英文单词**与**标点符号**用空格分开 2.将多个连续空格简化为一个空格 3.将很多符号替换成转义字符，如：把```"```替换成```&quot;```)，使用命令：  
 ```bash
 ${TOKENIZER} -l en < ${data_dir}/norm.en > ${data_dir}/norm.tok.en
 ${TOKENIZER} -l zh < ${data_dir}/norm.seg.zh > ${data_dir}/norm.seg.tok.zh
@@ -212,12 +212,14 @@ ${TOKENIZER} -l zh < ${data_dir}/norm.seg.zh > ${data_dir}/norm.seg.tok.zh
 而 历史 是 不 公平 的 。 尽管 美国 要 为 当今 的 全球 危机 负 更 大 的 责任 ， 但 美国 可能 会 比 大多数 国家 以 更 良好 的 势态 走出 困境 。
 
 # norm.en
-For geo-strategists, however, the year that naturally comes to mind, in both politics and economics, is 1989.
+"We can't waste time," he says.
 Of course, the fall of the house of Lehman Brothers has nothing to do with the fall of the Berlin Wall.
+Second, Zoellick should ask why the Bank spends only 2.5% of its budget on the "knowledge bank" research function that it trumpets so proudly in its external relations materials, while it spends three times that amount on maintaining its executive board.
 
 # norm.tok.en
-For geo-strategists , however , the year that naturally comes to mind , in both politics and economics , is 1989 .
+&quot; We can &apos;t waste time , &quot; he says .
 Of course , the fall of the house of Lehman Brothers has nothing to do with the fall of the Berlin Wall .
+Second , Zoellick should ask why the Bank spends only 2.5 % of its budget on the &quot; knowledge bank &quot; research function that it trumpets so proudly in its external relations materials , while it spends three times that amount on maintaining its executive board .
 ```
 
 ### 2.2.7 truecase
