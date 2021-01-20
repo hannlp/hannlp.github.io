@@ -40,6 +40,7 @@ pip install --editable ./
 └── nmt
     ├── data
         └── v15news
+            ├── result          # 用于存放翻译结果
             └── data-bin        # 用于存放二进制文件
     ├── models                  # 用于保存过程中的model文件和checkpoint
         └── v15news
@@ -458,13 +459,13 @@ epoch 023 | valid on 'valid' subset | loss 4.369 | nll_loss 2.65 | ppl 6.28 | wp
 
 ## 3.3 解码
 ### 3.3.1 生成式解码
-使用```fairseq-generate```命令进行生成式解码(**for binarized data**)，可以自行选择是否添加```--remove-bpe```参数，使得在生成时就去掉bpe符号(@@)
+使用```fairseq-generate```命令进行生成式解码(**用于二进制数据**)，可以自行选择是否添加```--remove-bpe```参数，使得在生成时就去掉bpe符号(@@)
 ```
 fairseq-generate ${data_dir}/data-bin \
     --path ${model_dir}/checkpoints/checkpoint_best.pt \
-    --batch-size 128 --beam 8 > ./bestbeam8.txt
+    --batch-size 128 --beam 8 > ${data_dir}/result/bestbeam8.txt
 ```
-选取一部分结果，如下所示(**S**: 源句子，**T**: 目标句子，**H/D**: 预测的句子及其生成概率的log，句子质量越好，其生成概率越接近1，其log越接近0。**P**: 每一个词的生成概率的log。其中，$H=\frac{\sum P}{n}$)：  
+选取一部分结果展示如下 (**S**: 源句子，**T**: 目标句子，**H/D**: 预测的句子及其生成概率的log，句子质量越好，其生成概率越接近1，其log越接近0。**P**: 每一个词的生成概率的log。其中，$H=\frac{\sum P}{n}$)：  
 ```
 S-537	西班牙 的 人权 困境
 T-537	Spain &apos;s Human-Rights Dilemma
@@ -494,6 +495,19 @@ P-432	-1.2762 -0.3546 -0.0142 -0.1261 -0.0058 -0.7617 -0.1695 -0.2992 -0.0777 -0
 ### 3.3.2 交互式解码
 
 ## 3.4 后处理及评价
+### 3.4.1 抽取译文
+由于解码生成的文件包含大量无关信息，所以需要把译文单独抽取出来，一行一句：
+```bash
+grep ^H ${data_dir}/result/bestbeam8.txt | cut -f3- > ${data_dir}/result/result.tok.true.bpe.en
+```
+### 3.4.1 去除bpe符号
+有两种方法可以去除bpe符号，第一种是在解码时添加```--remove-bpe```参数，第二种是使用```sed```指令：
+```bash
+sed -r 's/(@@ )| (@@ ?$)//g' < ${data_dir}/result/result.tok.true.bpe.en  > ${data_dir}/result/result.tok.true.en
+```
+
+### 3.4.2 de_truecase
+### 3.4.3 de_tokenize
 
 # 4 问题集锦
 ## 4.1 fairseq框架相关
