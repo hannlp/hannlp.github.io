@@ -69,6 +69,7 @@ DETC=${SCRIPTS}/recaser/detruecase.perl
 NORM_PUNC=${SCRIPTS}/tokenizer/normalize-punctuation.perl
 CLEAN=${SCRIPTS}/training/clean-corpus-n.perl
 BPEROOT=~/subword-nmt/subword_nmt
+MULTI_BLEU=${SCRIPTS}/generic/multi-bleu.perl
 
 data_dir=~/nmt/data/v15news
 model_dir=~/nmt/models/v15news
@@ -498,7 +499,7 @@ P-432	-1.2762 -0.3546 -0.0142 -0.1261 -0.0058 -0.7617 -0.1695 -0.2992 -0.0777 -0
 
 ## 3.4 后处理及评价
 ### 3.4.1 抽取译文
-由于解码生成的文件包含大量无关信息，所以需要把**译文**和**正确答案**单独抽取出来：
+由于解码生成的文件包含大量无关信息，所以需要把**译文**和**正确答案**单独抽取出来，其中predict是译文，answer是正确答案：
 ```bash
 grep ^H ${data_dir}/result/bestbeam8.txt | cut -f3- > ${data_dir}/result/predict.tok.true.bpe.en
 grep ^T ${data_dir}/result/bestbeam8.txt | cut -f2- > ${data_dir}/result/answer.tok.true.bpe.en
