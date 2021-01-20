@@ -185,7 +185,7 @@ python -m jieba -d " " ${data_dir}/norm.zh > ${data_dir}/norm.seg.zh
 一 开始 ， 很多 人 把 这次 危机 比作 1982 年 或 1973 年 所 发生 的 情况 ， 这样 得 类比 是 令人 宽心 的 ， 因为 这 两段 时期 意味着 典型 的 周期性 衰退 。
 ```
 ### 2.2.6 tokenize
-对上述处理后的双语文件(norm.en, norm.seg.zh)进行标记化处理(可以理解为将英文每句话最后一个词与之后面的标点符号分开)，使用命令：  
+对上述处理后的双语文件(norm.en, norm.seg.zh)进行标记化处理(可以理解为将英文每句话最后一个词与其后面的标点符号分开，同时将多个连续空格简化为一个空格)，使用命令：  
 ```bash
 ${TOKENIZER} -l en < ${data_dir}/norm.en > ${data_dir}/norm.tok.en
 ${TOKENIZER} -l zh < ${data_dir}/norm.seg.zh > ${data_dir}/norm.seg.tok.zh
@@ -200,14 +200,18 @@ ${TOKENIZER} -l zh < ${data_dir}/norm.seg.zh > ${data_dir}/norm.seg.tok.zh
 ```
 效果如下:
 ```
-# norm.zh
-1929年还是1989年?
-巴黎-随着经济危机不断加深和蔓延，整个世界一直在寻找历史上的类似事件希望有助于我们了解目前正在发生的情况。
-一开始，很多人把这次危机比作1982年或1973年所发生的情况，这样得类比是令人宽心的，因为这两段时期意味着典型的周期性衰退。
 # norm.seg.zh
-1929 年 还是 1989 年 ?
-巴黎 - 随着 经济危机 不断 加深 和 蔓延 ， 整个 世界 一直 在 寻找 历史 上 的 类似 事件 希望 有助于 我们 了解 目前 正在 发生 的 情况 。
-一 开始 ， 很多 人 把 这次 危机 比作 1982 年 或 1973 年 所 发生 的 情况 ， 这样 得 类比 是 令人 宽心 的 ， 因为 这 两段 时期 意味着 典型 的 周期性 衰退 。
+目前 的 趋势 是 ， 要么 是 过度 的 克制 （ 欧洲   ）   ，   要么 是 努力 的 扩展 （ 美国   ）   。
+而 历史 是 不 公平 的 。   尽管 美国 要 为 当今 的 全球 危机 负 更 大 的 责任 ， 但 美国 可能 会 比 大多数 国家 以 更 良好 的 势态 走出 困境 。
+# norm.seg.tok.zh
+目前 的 趋势 是 ， 要么 是 过度 的 克制 （ 欧洲 ） ， 要么 是 努力 的 扩展 （ 美国 ） 。
+而 历史 是 不 公平 的 。 尽管 美国 要 为 当今 的 全球 危机 负 更 大 的 责任 ， 但 美国 可能 会 比 大多数 国家 以 更 良好 的 势态 走出 困境 。
+# norm.en
+For geo-strategists, however, the year that naturally comes to mind, in both politics and economics, is 1989.
+Of course, the fall of the house of Lehman Brothers has nothing to do with the fall of the Berlin Wall.
+# norm.tok.en
+For geo-strategists , however , the year that naturally comes to mind , in both politics and economics , is 1989 .
+Of course , the fall of the house of Lehman Brothers has nothing to do with the fall of the Berlin Wall .
 ```
 
 ### 2.2.7 truecase
