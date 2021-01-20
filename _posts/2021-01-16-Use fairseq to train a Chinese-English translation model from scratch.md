@@ -399,8 +399,8 @@ python ${utils}/split.py ${data_dir}/clean.zh ${data_dir}/clean.en ${data_dir}/
 ```
 
 # 3 训练过程
-## 3.1 生成二进制文件
-由于使用了fairseq工具，就需要按照他的步骤来。首先用预处理后的六个文件(train.zh, valid.en等)，调用```fairseq-preprocess```命令生成训练用的二进制文件  
+## 3.1 生成词表及二进制文件
+由于使用了fairseq工具，就需要按照他的步骤来。首先用预处理后的六个文件(train.zh, valid.en等)，调用```fairseq-preprocess```命令生成**词表**和**训练用的二进制文件**  
 ```
 fairseq-preprocess --source-lang ${src} --target-lang ${tgt} \
     --trainpref ${data_dir}/train --validpref ${data_dir}/valid --testpref ${data_dir}/test \
@@ -419,6 +419,7 @@ fairseq-preprocess --source-lang ${src} --target-lang ${tgt} \
             ...
             └── valid.zh-en.en.bin
 ```
+
 ## 3.2 训练
 ```
 CUDA_VISIBLE_DEVICES=0,1,2,3 nohup fairseq-train ${data_dir}/data-bin --arch transformer \
