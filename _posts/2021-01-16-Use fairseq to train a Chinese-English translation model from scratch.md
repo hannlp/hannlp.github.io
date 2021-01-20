@@ -5,30 +5,10 @@ tags:
 - 机器翻译
 ---
 # 前言
-由于毕设是做神经机器翻译相关，所以先尝试一下神经机器翻译的整个流程是非常有必要的。故将训练有监督**中英NMT模型**的整个流程，包括工具和数据的准备、数据的预处理、训练及解码等过程，以及过程中遇到的问题和解决方案记录在此，以供后期回顾，也希望能够给予别人一些帮助。
+由于毕设是做神经机器翻译相关，所以先尝试一下神经机器翻译的整个流程是非常有必要的。故将在news-commentary-v15语料上训练有监督**中英NMT模型**的整个流程，包括工具和数据的准备、数据的预处理、训练及解码等过程，以及过程中遇到的问题和解决方案记录在此，以供后期回顾，也希望能够给予别人一些帮助。
 
-# 1 目录结构及相关工具
-## 1.1 目录结构
-提前组织一个目录结构的好处是可以让后面的一系列操作更加统一、规范化。下表中```~```代表linux系统中**我的用户目录**, v15news目录名代表此次我使用的数据集名称  
-```php
-~
-├── mosesdecoder
-├── subword-nmt
-├── fairseq
-└── nmt
-    ├── data
-        └── v15news
-            └── data-bin        # 用于存放二进制文件
-    ├── models                  # 用于保存过程中的model文件和checkpoint
-        └── v15news
-            └── checkpoints     # 保存checkpoints
-    ├── utils                   # 一些其他工具
-        ├── split.py            # 用于划分train,valid,test
-        └── cut2.py             # 用于划分src,tgt
-    └── scripts                 # 一些脚本
-```
-
-## 1.2 相关工具
+# 1 相关工具及目录结构
+## 1.1 相关工具
 除**jieba**是使用```pip install```安装外，其他几个工具都是建议直接克隆库到自己的用户目录中，方便使用其脚本(**moses**/**subword-nmt**)，或未来可能要自己拓展其中的模型(**fairseq**)
 1. [Moses](https://github.com/moses-smt/mosesdecoder) (一个SMT工具，在这里只会用到一些预处理脚本，如：**tokenisation**, **truecasing**, **cleaning**), 这是[文档](http://www.statmt.org/moses/?n=Moses.Baseline)，安装指令如下：  
 ```
@@ -49,6 +29,48 @@ cd fairseq
 pip install --editable ./
 ```
 
+## 1.2 目录结构与初始化
+### 1.2.1 目录结构
+提前组织一个目录结构的好处是可以让后面的一系列操作更加统一、规范化。下表中```~```代表linux系统中**我的用户目录**, v15news目录名代表此次我使用的数据集名称  
+```php
+~
+├── mosesdecoder
+├── subword-nmt
+├── fairseq
+└── nmt
+    ├── data
+        └── v15news
+            └── data-bin        # 用于存放二进制文件
+    ├── models                  # 用于保存过程中的model文件和checkpoint
+        └── v15news
+            └── checkpoints     # 保存checkpoints
+    ├── utils                   # 一些其他工具
+        ├── split.py            # 用于划分train,valid,test
+        └── cut2.py             # 用于划分src,tgt
+    └── scripts                 # 一些脚本
+```
+
+### 1.2.2 用于初始化的bash文件
+这个文件定义了一些后面需要用到的变量(主要是各种脚本的路径)，包括tokenizer.perl, truecase.perl等，可以在linux中使用bash xx.sh运行，也可以把这些内容直接全部复制到linux命令行中按回车  
+```bash
+#!/bin/sh
+
+src=zh
+tgt=en
+
+SCRIPTS=~/mosesdecoder/scripts
+TOKENIZER=${SCRIPTS}/tokenizer/tokenizer.perl
+LC=${SCRIPTS}/tokenizer/lowercase.perl
+TRAIN_TC=${SCRIPTS}/recaser/train-truecaser.perl
+TC=${SCRIPTS}/recaser/truecase.perl
+NORM_PUNC=${SCRIPTS}/tokenizer/normalize-punctuation.perl
+CLEAN=${SCRIPTS}/training/clean-corpus-n.perl
+BPEROOT=~/subword-nmt/subword_nmt
+
+data_dir=~/nmt/data/v15news
+model_dir=~/nmt/models/v15news
+utils=~/nmt/utils
+```
 # 2 数据的准备
 ## 2.1 平行语料
 对于有监督神经机器翻译，能够找到的中英平行语料如下：
@@ -78,30 +100,8 @@ At the start of the crisis, many people likened it to 1982 or 1973, which was re
 ...
 ```
 
-### 2.2.2 初始化bash文件
-这个文件定义了一些后面需要用到的变量(主要是各种脚本的路径)，包括tokenizer.perl, truecase.perl等，可以在linux中使用bash xx.sh运行，也可以把这些内容直接全部复制到linux命令行中按回车  
-```bash
-#!/bin/sh
-
-src=zh
-tgt=en
-
-SCRIPTS=~/mosesdecoder/scripts
-TOKENIZER=${SCRIPTS}/tokenizer/tokenizer.perl
-LC=${SCRIPTS}/tokenizer/lowercase.perl
-TRAIN_TC=${SCRIPTS}/recaser/train-truecaser.perl
-TC=${SCRIPTS}/recaser/truecase.perl
-NORM_PUNC=${SCRIPTS}/tokenizer/normalize-punctuation.perl
-CLEAN=${SCRIPTS}/training/clean-corpus-n.perl
-BPEROOT=~/subword-nmt/subword_nmt
-
-data_dir=~/nmt/data/v15news
-model_dir=~/nmt/models/v15news
-utils=~/nmt/utils
-```
-
-### 2.2.2 切分
-首先，需要将一个单独的数据文件切分成标准格式，即源语言(raw.zh)、目标语言(raw.en)文件各一个，一行一句，附自己写的脚本(cut2.py)：
+### 2.2.3 切分
+首先，需要将一个单独的数据文件切分成标准格式，即源语言(raw.zh)、目标语言(raw.en)文件各一个，一行一句，附自己写的脚本(~/nmt/utils/cut2.py)：
 ```python
 import sys
 
@@ -125,30 +125,44 @@ if __name__ == '__main__':
     cut2(fpath=sys.argv[1], new_data_dir=sys.argv[2], nsrc='zh', ntgt='en')
 ```
 
-调用的命令：  
+使用命令：  
 ```bash
 python ${utils}/cut2.py ${data_dir}/news-commentary-v15.en-zh.tsv ${data_dir}/
 ```
 
 切分后在目录中如下格式存放：  
 ```python
-...
-└── nmt
-    ├── data
-        └── v15news     
-            ├── news-commentary-v15.en-zh.tsv
-            ├── raw.zh
-            └── raw.en
-...
+├── data
+    └── v15news     
+        ├── news-commentary-v15.en-zh.tsv
+        ├── raw.zh
+        └── raw.en
 ```
 
-### 2.2.3 normalize-punctuation
-### 2.2.3 中文分词
-### 2.2.4 tokenize
-### 2.2.5 truecase
-### 2.2.6 bpe
-### 2.2.7 clean
-### 2.2.8 split
+### 2.2.4 normalize-punctuation
+使用命令：  
+```bash
+perl ${NORM_PUNC} -l en < ${data_dir}/raw.en > ${data_dir}/norm.en
+perl ${NORM_PUNC} -l zh < ${data_dir}/raw.zh > ${data_dir}/norm.zh
+```
+处理后在目录中如下格式存放：  
+```python
+├── data
+    └── v15news     
+        ...
+        ├── norm.zh
+        └── norm.en
+```
+标点符号的标准化，效果如下:
+```
+```
+
+### 2.2.5 中文分词
+### 2.2.6 tokenize
+### 2.2.7 truecase
+### 2.2.8 bpe
+### 2.2.9 clean
+### 2.2.10 split
 另外，两个语言都需要按比例划分出训练集、测试集、开发集(所以共6个文件，为方便区分，直接以 'train.en', 'valid.zh' 这样的格式命名)，附自己写的脚本(split.py)：
 ```python
 import random
