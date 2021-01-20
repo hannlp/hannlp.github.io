@@ -419,6 +419,7 @@ fairseq-preprocess --source-lang ${src} --target-lang ${tgt} \
             ...
             └── valid.zh-en.en.bin
 ```
+需要提醒的是：训练阶段使用的是**训练集**和**验证集**，解码阶段使用的是**测试集**
 
 ## 3.2 训练
 使用```fairseq-train```命令进行训练，其中有很多可以自由设置的超参数，比如选择使用什么模型，模型的参数等。其中，```--save-dir``` 这个参数是指每一个epoch结束后模型保存的位置
@@ -454,7 +455,6 @@ epoch 023 | valid on 'valid' subset | loss 4.369 | nll_loss 2.65 | ppl 6.28 | wp
 ```
 
 ## 3.3 解码
-需要知道的是：训练阶段使用的是**训练集**和**验证集**，解码阶段使用的是**测试集**
 ```
 fairseq-generate ${data_dir}/data-bin \
     --path ${model_dir}/checkpoints/checkpoint_best.pt \
