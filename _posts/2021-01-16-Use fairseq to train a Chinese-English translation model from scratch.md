@@ -114,9 +114,14 @@ if __name__ == '__main__':
 ...
 ```
 
-2.2.3 
-
-另外，两个语言都需要按比例划分出训练集、测试集、开发集(所以共6个文件，为方便区分，直接以 'train.en' 这样的格式命名)，附自己写的脚本(split.py)：
+### 2.2.3 normalize-punctuation
+### 2.2.3 中文分词
+### 2.2.4 tokenize
+### 2.2.5 truecase
+### 2.2.6 bpe
+### 2.2.7 clean
+### 2.2.8 split
+另外，两个语言都需要按比例划分出训练集、测试集、开发集(所以共6个文件，为方便区分，直接以 'train.en', 'valid.zh' 这样的格式命名)，附自己写的脚本(split.py)：
 ```python
 import random
 import sys
@@ -166,9 +171,7 @@ if __name__ == '__main__':
 └── nmt
     ├── data
         └── v15news     
-            ├── news-commentary-v15.en-zh.tsv
-            ├── raw.en
-            ├── raw.zh
+            ...
             ├── test.en
             ├── test.zh
             ├── train.en
@@ -177,10 +180,6 @@ if __name__ == '__main__':
             └── valid.zh
 ...
 ```
-
-
-### 2.2.3 tokenize
-### 2.2.4 
 
 # 3 训练过程
 ## 3.1 训练
