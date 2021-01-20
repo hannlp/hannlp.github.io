@@ -70,6 +70,7 @@ NORM_PUNC=${SCRIPTS}/tokenizer/normalize-punctuation.perl
 CLEAN=${SCRIPTS}/training/clean-corpus-n.perl
 BPEROOT=~/subword-nmt/subword_nmt
 MULTI_BLEU=${SCRIPTS}/generic/multi-bleu.perl
+MTEVAL_V14=${SCRIPTS}/generic/mteval-v14.pl
 
 data_dir=~/nmt/data/v15news
 model_dir=~/nmt/models/v15news
@@ -496,6 +497,7 @@ P-432	-1.2762 -0.3546 -0.0142 -0.1261 -0.0058 -0.7617 -0.1695 -0.2992 -0.0777 -0
 ```
 
 ### 3.3.2 交互式解码
+使用```fairseq-generate```命令进行生成式解码(**用于二进制数据**)
 
 ## 3.4 后处理及评价
 ### 3.4.1 抽取译文
@@ -564,7 +566,19 @@ This must change .
 ```
 
 ### 3.4.3 评价
+1. **multi-bleu**：在detokenize前进行评价
+```bash
+${MULTI_BLEU} -lc ${data_dir}/result/answer.tok.en < ${data_dir}/result/predict.tok.en
+```
+结果如下：  
+```
+BLEU = 28.81, 61.8/35.4/22.8/15.2 (BP=0.976, ratio=0.977, hyp_len=187605, ref_len=192093)
+It is not advisable to publish scores from multi-bleu.perl.  The scores depend on your tokenizer, which is unlikely to be reproducible from your paper or consistent across research groups.  Instead you should detokenize then use mteval-v14.pl, which has a standard tokenization.  Scores from multi-bleu.perl can still be used for internal purposes when you have a consistent tokenizer.
+```
+以下两种评价脚本我还没有使用过，以后再补这个坑
 
+2. **mteval-v14**：Usage: ```$0 -r <ref_file> -s <src_file> -t <tst_file>```
+3. **sacrebleu**：updating...
 
 ### 3.4.4 detokenize
 最后一步，是使用detokenize.perl得到纯预测文本
@@ -606,7 +620,8 @@ Exception: process 2 terminated with exit code 1
 1. [如何使用fairseq复现Transformer NMT](http://www.linzehui.me/2019/01/28/%E7%A2%8E%E7%89%87%E7%9F%A5%E8%AF%86/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8fairseq%E5%A4%8D%E7%8E%B0Transformer%20NMT/)
 2. [手把手教你用fairseq训练一个NMT机器翻译系统 - 胤风
 ](https://blog.csdn.net/moreaction_/article/details/107252080)
-3. [FaceBook-NLP工具Fairseq漫游指南(1)—命令行工具 - ZhuNLP](https://zhuanlan.zhihu.com/p/194176917)
+3. [使用Fairseq进行机器翻译 - DonngZH
+](https://blog.csdn.net/weixin_44750512/article/details/112359327)
 4. Findings of the 2019 Conference on Machine Translation (WMT19)
 5. The NiuTrans Machine Translation System for WMT18, WMT19, WMT20
 6. Baidu Neural Machine Translation Systems for WMT19
