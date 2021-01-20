@@ -252,6 +252,53 @@ Europe is being cautious in the name of avoiding debt and defending the euro , w
 ```
 
 ### 2.2.8 bpe
+对上述处理后的双语文件(norm.en, norm.seg.zh)进行子词处理(可以理解为更细粒度的分词)，使用命令：  
+```bash
+python ${BPEROOT}/learn_joint_bpe_and_vocab.py --input ${data_dir}/norm.tok.true.en  -s 32000 -o ${model_dir}/bpecode.en --write-vocabulary ${model_dir}/voc.en
+python ${BPEROOT}/apply_bpe.py -c ${model_dir}/bpecode.en --vocabulary ${model_dir}/voc.en < ${data_dir}/norm.tok.true.en > ${data_dir}/norm.tok.true.bpe.en
+
+python ${BPEROOT}/learn_joint_bpe_and_vocab.py --input ${data_dir}/norm.seg.tok.zh  -s 32000 -o ${model_dir}/bpecode.zh --write-vocabulary ${model_dir}/voc.zh
+python ${BPEROOT}/apply_bpe.py -c ${model_dir}/bpecode.zh --vocabulary ${model_dir}/voc.zh < ${data_dir}/norm.seg.tok.zh > ${data_dir}/norm.seg.tok.bpe.zh
+```
+处理后的文件在目录中如下格式存放：  
+```python
+├── data
+    └── v15news
+        ...
+        ├── norm.seg.tok.bpe.zh
+        └── norm.tok.true.bpe.en
+├── models
+    └── v15news
+        ...
+        ├── voc.zh
+        ├── voc.en
+        ├── bpecode.zh
+        └── bpecode.en
+```
+效果如下:
+```
+# norm.seg.tok.zh
+从 一流 的 麻省理工学院 的 媒体 实验室 到 哈佛大学 的 数学 和 经济系 ， 亚洲 人 - 尤其 是 中国 和 印度人 - 到处 都 是 ， 犹如 公元前 一 世纪 在 雅典 的 罗马 人 一样 ： 他们 对 那里 学到 太 多 东西 的 人们 充满 了 敬佩 ， 而 他们 将 在 今后 几十年 打败 他们 学习 的 对象 。
+这 不仅 加大 了 预防 危机 的 难度 - - 尤其 因为 它 为 参与者 提供 了 钻空子 和 逃避责任 的 机会 - - 还 使得 人们 越来越 难以 采取措施 来 应对 危机 。
+它们 将 通胀 目标 设定 在 2 % 左右 - - 这 意味着 当 波涛汹涌 时 他们 根本 没有 多少 施展 空间 。
+
+# norm.seg.tok.bpe.zh
+从 一流 的 麻省理工学院 的 媒体 实验室 到 哈佛大学 的 数学 和 经济@@ 系 ， 亚洲 人 - 尤其 是 中国 和 印度人 - 到处 都 是 ， 犹如 公元前 一 世纪 在 雅典 的 罗马 人 一样 ： 他们 对 那里 学到 太 多 东西 的 人们 充满 了 敬佩 ， 而 他们 将 在 今后 几十年 打败 他们 学习 的 对象 。
+这 不仅 加大 了 预防 危机 的 难度 - - 尤其 因为 它 为 参与者 提供 了 钻@@ 空子 和 逃避@@ 责任 的 机会 - - 还 使得 人们 越来越 难以 采取措施 来 应对 危机 。
+它们 将 通胀 目标 设定 在 2 % 左右 - - 这 意味着 当 波@@ 涛@@ 汹涌 时 他们 根本 没有 多少 施展 空间 。
+
+# norm.tok.true.en
+indeed , on the surface it seems to be its perfect antithesis : the collapse of a wall symbolizing oppression and artificial divisions versus the collapse of a seemingly indestructible and reassuring institution of financial capitalism .
+as a visiting professor at Harvard and MIT , I am getting a good preview of what the world could look like when the crisis finally passes .
+one senses something like the making of an American-Asian dominated universe .
+
+# norm.tok.true.bpe.en
+indeed , on the surface it seems to be its perfect anti@@ thesis : the collapse of a wall symboli@@ zing oppression and artificial divisions versus the collapse of a seemingly inde@@ struc@@ tible and reassuring institution of financial capitalism .
+as a visiting professor at Harvard and MIT , I am getting a good pre@@ view of what the world could look like when the crisis finally passes .
+one senses something like the making of an American-@@ Asian dominated universe .
+
+```
+
 ### 2.2.9 clean
 ### 2.2.10 split
 另外，两个语言都需要按比例划分出训练集、测试集、开发集(所以共6个文件，为方便区分，直接以 'train.en', 'valid.zh' 这样的格式命名)，附自己写的脚本(split.py)：
