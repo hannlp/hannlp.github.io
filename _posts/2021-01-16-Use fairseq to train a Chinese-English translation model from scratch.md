@@ -447,7 +447,7 @@ epoch 022 | valid on 'valid' subset | loss 4.361 | nll_loss 2.644 | ppl 6.25 | w
 epoch 023 | valid on 'valid' subset | loss 4.369 | nll_loss 2.65 | ppl 6.28 | wps 51878.9 | wpb 8026 | bsz 299.8 | num_updates 16560 | best_loss 4.36
 epoch 023 | valid on 'valid' subset | loss 4.369 | nll_loss 2.65 | ppl 6.28 | wps 51878.9 | wpb 8026 | bsz 299.8 | num_updates 16560 | best_loss 4.36
 ```
-由于```--kep-last-epochs```这个参数我设为10，所以我最后10个epoch的模型都保存在以下目录中。此外，还会额外保存效果最好的模型(即第22个epoch)和最后一个模型(即第49个epoch，可以用于下一次训练)：  
+由于```--keep-last-epochs```这个参数我设为10，所以我最后10个epoch的模型都保存在以下目录中。此外，还会额外保存效果最好的模型(即第22个epoch)和最后一个模型(即第49个epoch，可以用于下一次训练)：  
 ```
 ├── models
     └── v15news
