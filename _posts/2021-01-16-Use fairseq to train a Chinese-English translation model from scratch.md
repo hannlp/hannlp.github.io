@@ -463,7 +463,7 @@ epoch 023 | valid on 'valid' subset | loss 4.369 | nll_loss 2.65 | ppl 6.28 | wp
 
 ## 3.3 解码
 ### 3.3.1 生成式解码
-使用```fairseq-generate```命令进行生成式解码(**用于二进制数据**)，可以自行选择是否添加```--remove-bpe```参数，使得在生成时就去掉bpe符号(@@)
+使用```fairseq-generate```命令进行生成式解码(**用于预处理后的二进制文件**)，可以自行选择是否添加```--remove-bpe```参数，使得在生成时就去掉bpe符号(@@)
 ```
 fairseq-generate ${data_dir}/data-bin \
     --path ${model_dir}/checkpoints/checkpoint_best.pt \
@@ -497,7 +497,9 @@ P-432	-1.2762 -0.3546 -0.0142 -0.1261 -0.0058 -0.7617 -0.1695 -0.2992 -0.0777 -0
 ```
 
 ### 3.3.2 交互式解码
-使用```fairseq-generate```命令进行生成式解码(**用于二进制数据**)
+使用```fairseq-generate```命令进行生成式解码(**用于文本文件**)
+
+updating...
 
 ## 3.4 后处理及评价
 ### 3.4.1 抽取译文
