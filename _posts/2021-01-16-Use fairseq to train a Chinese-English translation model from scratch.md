@@ -9,17 +9,23 @@ tags:
 
 # 1 目录结构及相关工具
 ## 1.1 目录结构
-提前组织一个目录结构的好处是可以让后面的一系列操作更加统一、规范化。下表中```~```代表linux系统中**我的用户目录**  
-```python
+提前组织一个目录结构的好处是可以让后面的一系列操作更加统一、规范化。下表中```~```代表linux系统中**我的用户目录**, v15news目录名代表此次我使用的数据集名称  
+```php
 ~
 ├── mosesdecoder
 ├── subword-nmt
 ├── fairseq
 └── nmt
-    ├── data        # 用于存放训练数据及二进制文件
-    ├── models      # 用于保存模型的checkpoints
-    ├── utils       # 一些其他工具
-    └── scripts     # 一些脚本
+    ├── data
+        └── v15news
+            └── data-bin        # 用于存放二进制文件
+    ├── models                  # 用于保存过程中的model文件和checkpoint
+        └── v15news
+            └── checkpoints     # 保存checkpoints
+    ├── utils                   # 一些其他工具
+        ├── split.py            # 用于划分train,valid,test
+        └── cut2.py             # 用于划分src,tgt
+    └── scripts                 # 一些脚本
 ```
 
 ## 1.2 相关工具
@@ -96,6 +102,20 @@ def cut2(fpath, new_data_dir, nsrc='zh', ntgt='en'):
 if __name__ == '__main__':      
     cut2(fpath=sys.argv[1], new_data_dir=sys.argv[2], nsrc='zh', ntgt='en')
 ```
+切分后在目录中如下格式存放：  
+```python
+...
+└── nmt
+    ├── data
+        └── v15news     
+            ├── news-commentary-v15.en-zh.tsv
+            ├── raw.zh
+            └── raw.en
+...
+```
+
+2.2.3 
+
 另外，两个语言都需要按比例划分出训练集、测试集、开发集(所以共6个文件，为方便区分，直接以 'train.en' 这样的格式命名)，附自己写的脚本(split.py)：
 ```python
 import random
