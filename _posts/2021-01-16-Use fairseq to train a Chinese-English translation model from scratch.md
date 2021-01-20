@@ -421,6 +421,7 @@ fairseq-preprocess --source-lang ${src} --target-lang ${tgt} \
 ```
 
 ## 3.2 训练
+使用```fairseq-train```命令进行训练，其中有很多可以自由设置的超参数，比如选择使用什么模型，模型的参数等。其中，```--save-dir``` 这个参数是指每一个epoch结束后模型保存的位置
 ```
 CUDA_VISIBLE_DEVICES=0,1,2,3 nohup fairseq-train ${data_dir}/data-bin --arch transformer \
 	--source-lang ${src} --target-lang ${tgt}  \
@@ -431,6 +432,28 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 nohup fairseq-train ${data_dir}/data-bin --arch tra
     --keep-last-epochs 10 --num-workers 8 \
 	--save-dir ${model_dir}/checkpoints &
 ```
+我自己训练时是在3块TAITAN X卡上跑了6个小时，共跑了49个epoch，但是在第22个epoch的时候已经收敛(只需要看验证集上的ppl的变化即可)
+```
+epoch 020 | valid on 'valid' subset | loss 4.366 | nll_loss 2.652 | ppl 6.29 | wps 50387.3 | wpb 8026 | bsz 299.8 | num_updates 14400 | best_loss 4.366
+epoch 021 | valid on 'valid' subset | loss 4.36 | nll_loss 2.647 | ppl 6.27 | wps 51992.7 | wpb 8026 | bsz 299.8 | num_updates 15120 | best_loss 4.36
+epoch 022 | valid on 'valid' subset | loss 4.361 | nll_loss 2.644 | ppl 6.25 | wps 49009.9 | wpb 8026 | bsz 299.8 | num_updates 15840 | best_loss 4.36
+epoch 023 | valid on 'valid' subset | loss 4.369 | nll_loss 2.65 | ppl 6.28 | wps 51878.9 | wpb 8026 | bsz 299.8 | num_updates 16560 | best_loss 4.36
+epoch 023 | valid on 'valid' subset | loss 4.369 | nll_loss 2.65 | ppl 6.28 | wps 51878.9 | wpb 8026 | bsz 299.8 | num_updates 16560 | best_loss 4.36
+```
+由于```--kep-last-epochs```这个参数我设为10，所以我最后10个epoch的模型都保存在以下目录中。此外，还会额外保存效果最好的模型(即第22个epoch)和最后一个模型(即第49个epoch，可以用于下一次训练)：  
+```
+├── models
+    └── v15news
+        ...
+        └── checkpoints
+            ├── checkpoint40.pt
+            ...
+            ├── checkpoint49.pt
+            ├── checkpoint_best_.pt
+            └── checkpoint_last.pt
+```
+
+
 ## 3.3 推理
 
 # 4 问题集锦
