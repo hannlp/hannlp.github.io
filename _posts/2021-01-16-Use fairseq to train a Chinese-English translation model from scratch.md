@@ -400,7 +400,7 @@ python ${utils}/split.py ${data_dir}/clean.zh ${data_dir}/clean.en ${data_dir}/
 
 # 3 训练过程
 ## 3.1 生成词表及二进制文件
-由于使用了fairseq工具，就需要按照他的步骤来。首先用预处理后的六个文件(train.zh, valid.en等)，调用```fairseq-preprocess```命令生成**词表**和**训练用的二进制文件**  
+首先用预处理后的六个文件(train.zh, valid.en等)，调用```fairseq-preprocess```命令生成**词表**和**训练用的二进制文件**  
 ```
 fairseq-preprocess --source-lang ${src} --target-lang ${tgt} \
     --trainpref ${data_dir}/train --validpref ${data_dir}/valid --testpref ${data_dir}/test \
@@ -432,7 +432,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 nohup fairseq-train ${data_dir}/data-bin --arch tra
     --keep-last-epochs 10 --num-workers 8 \
 	--save-dir ${model_dir}/checkpoints &
 ```
-我自己训练时是在3块TAITAN X卡上跑了6个小时，共跑了49个epoch，但是在第22个epoch的时候已经收敛(只需要看验证集上的ppl的变化即可)
+我自己训练时是在3块GTX TITAN X卡上跑了6个小时，共跑了49个epoch，但是在第22个epoch的时候已经收敛(只需要看验证集上的ppl的变化即可)
 ```
 epoch 020 | valid on 'valid' subset | loss 4.366 | nll_loss 2.652 | ppl 6.29 | wps 50387.3 | wpb 8026 | bsz 299.8 | num_updates 14400 | best_loss 4.366
 epoch 021 | valid on 'valid' subset | loss 4.36 | nll_loss 2.647 | ppl 6.27 | wps 51992.7 | wpb 8026 | bsz 299.8 | num_updates 15120 | best_loss 4.36
@@ -453,8 +453,41 @@ epoch 023 | valid on 'valid' subset | loss 4.369 | nll_loss 2.65 | ppl 6.28 | wp
             └── checkpoint_last.pt
 ```
 
+## 3.3 解码
+需要知道的是：训练阶段使用的是**训练集**和**验证集**，解码阶段使用的是**测试集**
+```
+fairseq-generate ${data_dir}/data-bin \
+    --path ${model_dir}/checkpoints/checkpoint_best.pt \
+    --batch-size 128 --beam 8 > ./bestbeam8.txt
+```
 
-## 3.3 推理
+选取一部分结果，如下所示(**S**: 源句子，**T**: 目标句子，**H/D**: 预测的句子及其生成概率的log，句子质量越好，其生成概率越接近1，其log越接近0。**P**: 每一个词的生成概率的log。其中，$H=\frac{\sum P}{n}$)：
+```
+S-537	西班牙 的 人权 困境
+T-537	Spain &apos;s Human-Rights Dilemma
+H-537	-0.16863664984703064	Spain &apos;s Human Rights Quandary
+D-537	-0.16863664984703064	Spain &apos;s Human Rights Quandary
+P-537	-0.0973 -0.1385 -0.1464 -0.0123 -0.4252 -0.4299 -0.0110 -0.0884
+
+S-5516	这是 不可 接受 的 。
+T-5516	that is unacceptable .
+H-5516	-0.35840675234794617	this is unacceptable .
+D-5516	-0.35840675234794617	this is unacceptable .
+P-5516	-0.7625 -0.5517 -0.2005 -0.1513 -0.1261
+
+S-676	与 最初 版本 的 破产法 相 比较 ， 2006 年 的 法律 是 牢牢 扎根 于 市场经济 的 。
+T-676	compared with the original bankruptcy code , the 2006 code is firmly rooted in the needs of a market economy .
+H-676	-0.624997079372406	in contrast to the original bankruptcy law , the law of 2006 was firmly rooted in the market economy .
+D-676	-0.624997079372406	in contrast to the original bankruptcy law , the law of 2006 was firmly rooted in the market economy .
+P-676	-1.4995 -0.9434 -0.1292 -0.3479 -0.9758 -0.6600 -0.9037 -0.1836 -0.4983 -1.6406 -0.3142 -0.0344 -0.1685 -1.0289 -1.0286 -0.1917 -1.5369 -0.6586 -0.1119 -0.1333 -0.1361
+
+S-432	用 缅因州 共和党 参议员 苏珊 · 柯林斯 （ Susan Collins ） 的话 说 ， 政府 关门 对 其 缅因州 阿卡迪亚 国家 公园 （ Acadia National Park ） 周边 &quot; 所有 小企业 都 造成 了 伤害 &quot; ， &quot; 这是 完全 错误 的 。 &quot; 是 她 首先 提出 了 和解 协议 纲要 并 送交 参议院 。
+T-432	in the words of Senator Susan Collins , a Republican from Maine who first put together the outlines of a deal and took it to the Senate floor , the shutdown &quot; hurt all the small businesses &quot; around Acadia National Park in her home state , &quot; and that is plain wrong . &quot;
+H-432	-0.7003933787345886	in the words of Susan Collins , a Republican senator from Maine , it would be a mistake to shut down the government &apos;s &quot; all small business &quot; around the Maine National Park , where she proposed a settlement and delivered it to the Senate .
+D-432	-0.7003933787345886	in the words of Susan Collins , a Republican senator from Maine , it would be a mistake to shut down the government &apos;s &quot; all small business &quot; around the Maine National Park , where she proposed a settlement and delivered it to the Senate .
+P-432	-1.2762 -0.3546 -0.0142 -0.1261 -0.0058 -0.7617 -0.1695 -0.2992 -0.0777 -0.3016 -0.4818 -0.0061 -0.0308 -0.3509 -2.5533 -1.5254 -0.2761 -1.1667 -0.6169 -0.6285 -1.2463 -0.0973 -1.4414 -0.3324 -0.2302 -0.3312 -0.6847 -1.0005 -0.1812 -2.9048 -0.3072 -1.8045 -0.0473 -0.8421 -0.4715 -0.6841 -1.1902 -1.6192 -0.3370 -2.3317 -0.3701 -0.2508 -3.0284 -0.2336 -1.1318 -0.3904 -0.1124 -0.0262 -0.2203 -0.1480
+```
+## 3.4 后处理及评价
 
 # 4 问题集锦
 ## 4.1 fairseq框架相关
