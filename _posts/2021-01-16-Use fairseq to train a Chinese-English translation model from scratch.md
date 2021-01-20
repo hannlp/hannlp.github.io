@@ -61,9 +61,11 @@ tgt=en
 
 SCRIPTS=~/mosesdecoder/scripts
 TOKENIZER=${SCRIPTS}/tokenizer/tokenizer.perl
+DETOKENIZER=${SCRIPTS}/tokenizer/detokenizer.perl
 LC=${SCRIPTS}/tokenizer/lowercase.perl
 TRAIN_TC=${SCRIPTS}/recaser/train-truecaser.perl
 TC=${SCRIPTS}/recaser/truecase.perl
+DETC=${SCRIPTS}/recaser/detruecase.perl
 NORM_PUNC=${SCRIPTS}/tokenizer/normalize-punctuation.perl
 CLEAN=${SCRIPTS}/training/clean-corpus-n.perl
 BPEROOT=~/subword-nmt/subword_nmt
@@ -496,19 +498,88 @@ P-432	-1.2762 -0.3546 -0.0142 -0.1261 -0.0058 -0.7617 -0.1695 -0.2992 -0.0777 -0
 
 ## 3.4 后处理及评价
 ### 3.4.1 抽取译文
-由于解码生成的文件包含大量无关信息，所以需要把译文单独抽取出来，一行一句：
+由于解码生成的文件包含大量无关信息，所以需要把**译文**和**正确答案**单独抽取出来：
 ```bash
-grep ^H ${data_dir}/result/bestbeam8.txt | cut -f3- > ${data_dir}/result/result.tok.true.bpe.en
+grep ^H ${data_dir}/result/bestbeam8.txt | cut -f3- > ${data_dir}/result/predict.tok.true.bpe.en
+grep ^T ${data_dir}/result/bestbeam8.txt | cut -f2- > ${data_dir}/result/answer.tok.true.bpe.en
 ```
+效果如下：  
+```
+# predict.tok.true.bpe.en
+the subsidy .
+this is unacceptable .
+there is even worse .
+this must change .
+
+# answer.tok.true.bpe.en
+removal of subsidies .
+that is unacceptable .
+it gets worse .
+this must change .
+```
+
 ### 3.4.1 去除bpe符号
 有两种方法可以去除bpe符号，第一种是在解码时添加```--remove-bpe```参数，第二种是使用```sed```指令：
 ```bash
-sed -r 's/(@@ )| (@@ ?$)//g' < ${data_dir}/result/result.tok.true.bpe.en  > ${data_dir}/result/result.tok.true.en
+sed -r 's/(@@ )| (@@ ?$)//g' < ${data_dir}/result/predict.tok.true.bpe.en  > ${data_dir}/result/predict.tok.true.en
+sed -r 's/(@@ )| (@@ ?$)//g' < ${data_dir}/result/answer.tok.true.bpe.en  > ${data_dir}/result/answer.tok.true.en
+```
+效果如下：  
+```
+# answer.tok.true.bpe.en
+a World of Under@@ investment
+that needs to change .
+revolts of the Righ@@ teous
+Russia &apos;s Economic Imperi@@ alism
+shock and Pan@@ ic
+
+# answer.tok.true.en
+a World of Underinvestment
+that needs to change .
+revolts of the Righteous
+Russia &apos;s Economic Imperialism
+shock and Panic
 ```
 
-### 3.4.2 de_truecase
-### 3.4.3 de_tokenize
+### 3.4.2 detruecase
+需要使用detruecase.perl将文件中的大小写恢复正常：  
+```bash
+${DETC} < ${data_dir}/result/predict.tok.true.en > ${data_dir}/result/predict.tok.en
+${DETC} < ${data_dir}/result/answer.tok.true.en > ${data_dir}/result/answer.tok.en
+```
+效果如下：
+```
+# predict.tok.true.en
+the subsidy .
+this is unacceptable .
+there is even worse .
+this must change .
 
+# predict.tok.en
+The subsidy .
+This is unacceptable .
+There is even worse .
+This must change .
+```
+
+### 3.4.3 评价
+
+
+### 3.4.4 detokenize
+最后一步，是使用detokenize.perl得到纯预测文本
+```bash
+${DETOKENIZER} -l en < ${data_dir}/result/predict.tok.en > ${data_dir}/result/predict.en
+```
+效果如下：  
+```
+# predict.tok.en
+what &apos;s wrong with protectionism ?
+The &quot; establishment &quot; and counterinsurgency strategy , introduced by President Barack Obama &apos;s military surge in 2010 , was intended to reverse the war .
+
+# predict.en
+What's wrong with protectionism?
+The "establishment" and counterinsurgency strategy, introduced by President Barack Obama's military surge in 2010, was intended to reverse the war.
+```
 # 4 问题集锦
 ## 4.1 fairseq框架相关
 ### 4.1.1 多GPU训练报错
