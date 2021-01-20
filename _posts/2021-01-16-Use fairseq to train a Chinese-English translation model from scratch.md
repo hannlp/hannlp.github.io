@@ -51,7 +51,7 @@ pip install --editable ./
 ```
 
 ### 1.2.2 用于初始化的bash文件
-这个文件是在上述目录结构的基础下，定义了一些后面需要用到的变量(主要是各种脚本的路径)，包括tokenizer.perl, truecase.perl等，可以在linux中使用bash xx.sh运行，也可以把这些内容直接全部复制到linux命令行中按回车  
+这个文件是在上述目录结构的基础下，定义了一些后面需要用到的变量(主要是**各种脚本的路径**)，包括tokenizer.perl, truecase.perl等，可以在linux中使用bash xx.sh运行，也可以把这些内容直接全部复制到linux命令行中按回车  
 ```bash
 #!/bin/sh
 
@@ -188,7 +188,7 @@ python -m jieba -d " " ${data_dir}/norm.zh > ${data_dir}/norm.seg.zh
 ```
 
 ### 2.2.6 tokenize
-对上述处理后的双语文件(norm.en, norm.seg.zh)进行标记化处理(可以理解为将英文每句话最后一个词与其后面的标点符号分开，同时将多个连续空格简化为一个空格)，使用命令：  
+对上述处理后的双语文件(norm.en, norm.seg.zh)进行标记化处理(可以理解为将**英文单词**与**标点符号**用空格分开，同时将多个连续空格简化为一个空格)，使用命令：  
 ```bash
 ${TOKENIZER} -l en < ${data_dir}/norm.en > ${data_dir}/norm.tok.en
 ${TOKENIZER} -l zh < ${data_dir}/norm.seg.zh > ${data_dir}/norm.seg.tok.zh
@@ -252,7 +252,7 @@ Europe is being cautious in the name of avoiding debt and defending the euro , w
 ```
 
 ### 2.2.8 bpe
-对上述处理后的双语文件(norm.en, norm.seg.zh)进行子词处理(可以理解为更细粒度的分词)，使用命令：  
+对上述处理后的双语文件(norm.tok.true.en, norm.seg.tok.zh)进行子词处理(可以理解为更细粒度的分词)，使用命令：  
 ```bash
 python ${BPEROOT}/learn_joint_bpe_and_vocab.py --input ${data_dir}/norm.tok.true.en  -s 32000 -o ${model_dir}/bpecode.en --write-vocabulary ${model_dir}/voc.en
 python ${BPEROOT}/apply_bpe.py -c ${model_dir}/bpecode.en --vocabulary ${model_dir}/voc.en < ${data_dir}/norm.tok.true.en > ${data_dir}/norm.tok.true.bpe.en
@@ -313,7 +313,7 @@ ${CLEAN} ${data_dir}/toclean zh en ${data_dir}/clean 1 256
         ├── clean.zh
         └── clean.en
 ```
-效果如下(每行最开始标出了行号):
+效果如下(每行最开始标出了**行号**):
 ```python
 # norm.tok.true.bpe.en
 30 we can only hope that , in the end , the consequences of 2009 similarly prove to be far less dramatic than we now - intuitively and in our historical refle@@ xes - feel them to be .
@@ -381,8 +381,12 @@ def split(src_fpath, tgt_fpath, nsrc='zh', ntgt='en', ratio=(0.9, 0.05, 0.05), n
 if __name__ == '__main__':      
     split(src_fpath=sys.argv[1], tgt_fpath=sys.argv[2], nsrc='zh', ntgt='en', ratio=(0.95, 0.025, 0.025), new_data_dir=sys.argv[3])
 ```
+使用命令：  
+```bash
+python ${utils}/split.py ${data_dir}/clean.zh ${data_dir}/clean.en ${data_dir}/
+```
 最后，data/v15news目录中有如下数据：  
-```pythont
+```
 ├── data
     └── v15news
         ...
@@ -395,8 +399,38 @@ if __name__ == '__main__':
 ```
 
 # 3 训练过程
-## 3.1 训练
-## 3.2 推理
+## 3.1 生成二进制文件
+由于使用了fairseq工具，就需要按照他的步骤来。首先用预处理后的六个文件(train.zh, valid.en等)，调用```fairseq-preprocess```命令生成训练用的二进制文件  
+```
+fairseq-preprocess --source-lang ${src} --target-lang ${tgt} \
+    --trainpref ${data_dir}/train --validpref ${data_dir}/valid --testpref ${data_dir}/test \
+    --destdir ${data_dir}/data-bin
+```
+生成的文件都保存在data-bin目录中  
+```
+├── data
+    └── v15news
+        ...
+        └── data-bin
+            ├── dict.zh
+            ├── dict.en
+            ├── preprocess.log
+            ├── train.zh-en.zh.idx
+            ...
+            └── valid.zh-en.en.bin
+```
+## 3.2 训练
+```
+CUDA_VISIBLE_DEVICES=0,1,2,3 nohup fairseq-train ${data_dir}/data-bin --arch transformer \
+	--source-lang ${src} --target-lang ${tgt}  \
+    --optimizer adam  --lr 0.001 --adam-betas '(0.9, 0.98)' \
+    --lr-scheduler inverse_sqrt --max-tokens 4096  --dropout 0.3 \
+    --criterion label_smoothed_cross_entropy  --label-smoothing 0.1 \
+    --max-update 200000  --warmup-updates 4000 --warmup-init-lr '1e-07' \
+    --keep-last-epochs 10 --num-workers 8 \
+	--save-dir ${model_dir}/checkpoints &
+```
+## 3.3 推理
 
 # 4 问题集锦
 ## 4.1 fairseq框架相关
