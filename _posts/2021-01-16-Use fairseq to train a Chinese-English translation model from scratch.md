@@ -188,7 +188,7 @@ python -m jieba -d " " ${data_dir}/norm.zh > ${data_dir}/norm.seg.zh
 ```
 
 ### 2.2.6 tokenize
-对上述处理后的双语文件(norm.en, norm.seg.zh)进行标记化处理，有很多功能(1.将**英文单词**与**标点符号**用空格分开 2.将多个连续空格简化为一个空格 3.将很多符号替换成转义字符，如：把```"```替换成```&quot;```)，使用命令：  
+对上述处理后的双语文件(norm.en, norm.seg.zh)进行标记化处理，有很多功能(1.将**英文单词**与**标点符号**用空格分开 2.将多个连续空格简化为一个空格 3.将很多符号替换成转义字符，如：把```"```替换成```&quot;```、把```can't```替换成```can &apos;t```)，使用命令：  
 ```bash
 ${TOKENIZER} -l en < ${data_dir}/norm.en > ${data_dir}/norm.tok.en
 ${TOKENIZER} -l zh < ${data_dir}/norm.seg.zh > ${data_dir}/norm.seg.tok.zh
