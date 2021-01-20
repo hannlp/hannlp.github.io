@@ -128,7 +128,7 @@ if __name__ == '__main__':
 ```bash
 python ${utils}/cut2.py ${data_dir}/news-commentary-v15.en-zh.tsv ${data_dir}/
 ```
-切分后在目录中如下格式存放：  
+切分后的文件在目录中如下格式存放：  
 ```python
 ├── data
     └── v15news     
@@ -143,7 +143,7 @@ python ${utils}/cut2.py ${data_dir}/news-commentary-v15.en-zh.tsv ${data_dir}/
 perl ${NORM_PUNC} -l en < ${data_dir}/raw.en > ${data_dir}/norm.en
 perl ${NORM_PUNC} -l zh < ${data_dir}/raw.zh > ${data_dir}/norm.zh
 ```
-处理后在目录中如下格式存放：  
+处理后的文件在目录中如下格式存放：  
 ```python
 ├── data
     └── v15news     
@@ -156,6 +156,7 @@ perl ${NORM_PUNC} -l zh < ${data_dir}/raw.zh > ${data_dir}/norm.zh
 # raw.en
 “We can’t waste time,” he says.
 Yet, according to the political economist Moeletsi Mbeki, at his core, “Zuma is a conservative.”
+
 # norm.en
 "We can't waste time," he says.
 Yet, according to the political economist Moeletsi Mbeki, at his core, "Zuma is a conservative."
@@ -166,7 +167,7 @@ Yet, according to the political economist Moeletsi Mbeki, at his core, "Zuma is 
 ```bash
 python -m jieba -d " " ${data_dir}/norm.zh > ${data_dir}/norm.seg.zh
 ```
-处理后在目录中如下格式存放：  
+处理后的文件在目录中如下格式存放：  
 ```python
 ├── data
     └── v15news     
@@ -179,18 +180,20 @@ python -m jieba -d " " ${data_dir}/norm.zh > ${data_dir}/norm.seg.zh
 1929年还是1989年?
 巴黎-随着经济危机不断加深和蔓延，整个世界一直在寻找历史上的类似事件希望有助于我们了解目前正在发生的情况。
 一开始，很多人把这次危机比作1982年或1973年所发生的情况，这样得类比是令人宽心的，因为这两段时期意味着典型的周期性衰退。
+
 # norm.seg.zh
 1929 年 还是 1989 年 ?
 巴黎 - 随着 经济危机 不断 加深 和 蔓延 ， 整个 世界 一直 在 寻找 历史 上 的 类似 事件 希望 有助于 我们 了解 目前 正在 发生 的 情况 。
 一 开始 ， 很多 人 把 这次 危机 比作 1982 年 或 1973 年 所 发生 的 情况 ， 这样 得 类比 是 令人 宽心 的 ， 因为 这 两段 时期 意味着 典型 的 周期性 衰退 。
 ```
+
 ### 2.2.6 tokenize
 对上述处理后的双语文件(norm.en, norm.seg.zh)进行标记化处理(可以理解为将英文每句话最后一个词与其后面的标点符号分开，同时将多个连续空格简化为一个空格)，使用命令：  
 ```bash
 ${TOKENIZER} -l en < ${data_dir}/norm.en > ${data_dir}/norm.tok.en
 ${TOKENIZER} -l zh < ${data_dir}/norm.seg.zh > ${data_dir}/norm.seg.tok.zh
 ```
-处理后在目录中如下格式存放：  
+处理后的文件在目录中如下格式存放：  
 ```python
 ├── data
     └── v15news     
@@ -203,18 +206,51 @@ ${TOKENIZER} -l zh < ${data_dir}/norm.seg.zh > ${data_dir}/norm.seg.tok.zh
 # norm.seg.zh
 目前 的 趋势 是 ， 要么 是 过度 的 克制 （ 欧洲   ）   ，   要么 是 努力 的 扩展 （ 美国   ）   。
 而 历史 是 不 公平 的 。   尽管 美国 要 为 当今 的 全球 危机 负 更 大 的 责任 ， 但 美国 可能 会 比 大多数 国家 以 更 良好 的 势态 走出 困境 。
+
 # norm.seg.tok.zh
 目前 的 趋势 是 ， 要么 是 过度 的 克制 （ 欧洲 ） ， 要么 是 努力 的 扩展 （ 美国 ） 。
 而 历史 是 不 公平 的 。 尽管 美国 要 为 当今 的 全球 危机 负 更 大 的 责任 ， 但 美国 可能 会 比 大多数 国家 以 更 良好 的 势态 走出 困境 。
+
 # norm.en
 For geo-strategists, however, the year that naturally comes to mind, in both politics and economics, is 1989.
 Of course, the fall of the house of Lehman Brothers has nothing to do with the fall of the Berlin Wall.
+
 # norm.tok.en
 For geo-strategists , however , the year that naturally comes to mind , in both politics and economics , is 1989 .
 Of course , the fall of the house of Lehman Brothers has nothing to do with the fall of the Berlin Wall .
 ```
 
 ### 2.2.7 truecase
+对上述处理后的英文文件(norm.tok.en)进行大小写转换处理(对于句中的每个英文单词，尤其是**句首单词**，在数据中**学习**最适合它们的大小写形式)，使用命令：  
+```bash
+${TRAIN_TC} --model ${model_dir}/truecase-model.en --corpus ${data_dir}/norm.tok.en
+${TC} --model ${model_dir}/truecase-model.en < ${data_dir}/norm.tok.en > ${data_dir}/norm.tok.true.en
+```
+处理后的文件在目录中如下格式存放：  
+```python
+├── data
+    └── v15news
+        ...
+        └── norm.tok.true.en
+├── models
+    └── v15news
+        └── truecase-model.en
+```
+效果如下:
+```
+# norm.tok.en
+PARIS - As the economic crisis deepens and widens , the world has been searching for historical analogies to help us understand what has been happening .
+At the start of the crisis , many people likened it to 1982 or 1973 , which was reassuring , because both dates refer to classical cyclical downturns .
+When the TTIP was first proposed , Europe seemed to recognize its value .
+Europe is being cautious in the name of avoiding debt and defending the euro , whereas the US has moved on many fronts in order not to waste an ideal opportunity to implement badly needed structural reforms .
+
+# norm.tok.true.en
+Paris - As the economic crisis deepens and widens , the world has been searching for historical analogies to help us understand what has been happening .
+at the start of the crisis , many people likened it to 1982 or 1973 , which was reassuring , because both dates refer to classical cyclical downturns .
+when the TTIP was first proposed , Europe seemed to recognize its value .
+Europe is being cautious in the name of avoiding debt and defending the euro , whereas the US has moved on many fronts in order not to waste an ideal opportunity to implement badly needed structural reforms .
+```
+
 ### 2.2.8 bpe
 ### 2.2.9 clean
 ### 2.2.10 split
