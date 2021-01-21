@@ -580,7 +580,7 @@ It is not advisable to publish scores from multi-bleu.perl.  The scores depend o
 以下两种评价脚本我还没有使用过，以后再补这个坑
 
 2. **mteval-v14**：Usage: ```$0 -r <ref_file> -s <src_file> -t <tst_file>```
-3. **sacrebleu**：updating...
+3. **sacrebleu**：[link](https://github.com/mjpost/sacreBLEU)
 
 ### 3.4.4 detokenize
 最后一步，是使用detokenize.perl得到纯预测文本
