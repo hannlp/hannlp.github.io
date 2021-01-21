@@ -344,7 +344,7 @@ ${CLEAN} ${data_dir}/toclean zh en ${data_dir}/clean 1 256
 ```
 
 ### 2.2.10 split
-最后，双语文件(clean.zh, clean.en)都需要按比例划分出训练集、测试集、开发集(所以共6个文件，为方便区分，直接以 'train.en', 'valid.zh' 这样的格式命名)，附自己写的脚本(split.py)：
+最后，双语文件(clean.zh, clean.en)都需要按比例划分出训练集、测试集、开发集(所以共6个文件，为方便区分，直接以 'train.en', 'valid.zh' 这样的格式命名)，附自己写的脚本(~/nmt/utils/split.py)：
 ```python
 import random
 import sys
@@ -457,7 +457,7 @@ epoch 023 | valid on 'valid' subset | loss 4.369 | nll_loss 2.65 | ppl 6.28 | wp
             ├── checkpoint40.pt
             ...
             ├── checkpoint49.pt
-            ├── checkpoint_best_.pt
+            ├── checkpoint_best.pt
             └── checkpoint_last.pt
 ```
 
