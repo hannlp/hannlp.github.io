@@ -304,9 +304,11 @@ indeed , on the surface it seems to be its perfect anti@@ thesis : the collapse 
 as a visiting professor at Harvard and MIT , I am getting a good pre@@ view of what the world could look like when the crisis finally passes .
 one senses something like the making of an American-@@ Asian dominated universe .
 ```
+> **后注：**  
+> 需要注意的是，我为了方便，步骤上失去了一些正确性。正确的做法应该是在**训练集**中学习bpe模型，再将bpe模型应用到**测试集**和**验证集**中。而我是直接在全部数据中学bpe模型了。
 
 ### 2.2.9 clean
-对上述处理后的双语文件(norm.tok.true.bpe.en, norm.seg.tok.bpe.zh)进行过滤(取设定的**最小长度**和**最大长度**之间的句对，可有效过滤空白行)，使用命令：  
+对上述处理后的双语文件(norm.tok.true.bpe.en, norm.seg.tok.bpe.zh)进行过滤(可以过滤**最小长度**和**最大长度**之间的句对，这样能够有效过滤空白行。还可以过滤**长度比**不合理的句对)，使用命令：  
 ```bash
 mv ${data_dir}/norm.seg.tok.bpe.zh ${data_dir}/toclean.zh
 mv ${data_dir}/norm.tok.true.bpe.en ${data_dir}/toclean.en 
@@ -624,7 +626,8 @@ Exception: process 2 terminated with exit code 1
 ](https://blog.csdn.net/moreaction_/article/details/107252080)
 3. [使用Fairseq进行机器翻译 - DonngZH
 ](https://blog.csdn.net/weixin_44750512/article/details/112359327)
-4. Findings of the 2019 Conference on Machine Translation (WMT19)
-5. The NiuTrans Machine Translation System for WMT18, WMT19, WMT20
-6. Baidu Neural Machine Translation Systems for WMT19
-7. [Evaluation Matrix - Submitter of best systems for test sets](http://matrix.statmt.org/matrix)
+4. [利用Fairseq训练新的机器翻译模型 - 冬色](https://www.cnblogs.com/mengnan/p/13549969.html)
+5. Findings of the 2019 Conference on Machine Translation (WMT19)
+6. The NiuTrans Machine Translation System for WMT18, WMT19, WMT20
+7. Baidu Neural Machine Translation Systems for WMT19
+8. [Evaluation Matrix - Submitter of best systems for test sets](http://matrix.statmt.org/matrix)
