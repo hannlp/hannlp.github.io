@@ -8,7 +8,7 @@ tags:
 发现每次用conda的时候都要去百度找命令，故在此记录我最常用到的命令，以方便我或者其他人查找使用！此外，除了conda的使用，此博客还记录了一些常用深度学习库的安装及配置的踩坑记录，以及一些冷门但较重要的环境细节。
 
 # 1 常用命令
-以下所有命令在**2021-01-10**被验证可用！另附[官方文档](https://docs.conda.io/projects/conda/en/latest/index.html)
+以下所有命令在**2021-01-28**被验证可用！另附[官方文档](https://docs.conda.io/projects/conda/en/latest/index.html)
 
 ## 1.1 Conda基本配置
 ```python
@@ -27,6 +27,9 @@ conda config --set show_channel_urls yes
 
 # 查看已经添加的源
 conda config --get channels
+
+# 恢复默认源
+conda config --remove-key channels
 ```
 
 附链接：[清华源](https://mirrors.tuna.tsinghua.edu.cn/), [中科大源](https://mirrors.ustc.edu.cn/), [上交源](https://mirrors.sjtug.sjtu.edu.cn/#/)
@@ -70,7 +73,7 @@ conda deactivate
 
 但我发现**这个答案并不奏效**(似乎在windows上有效？)，而且我在linux下尝试使用其他环境进入python并```import torch```，仍显示‘ImportError: No module named torch’，所以此答案仅供参考，我目前没有太多心思继续深究这个问题了，所以对于自己出现的问题的解决方案是：
 
-> 坚决只使用(base)环境即可
+> 只使用(base)环境和新建的环境即可，**不退出**(base)环境
 
 ## 1.3 包管理
 ```python
@@ -165,6 +168,25 @@ FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecate
 
 **原因：** 预计是h5py版本不匹配  
 **解决方案：** 降低h5py版本即可。```pip install h5py==2.8.0``` ([参考](https://github.com/h5py/h5py/issues/1151))
+
+## 2.5 网络相关
+### 2.5.1 代理错误ProxyError
+使用conda需要联网的命令时，出现以下报错：  
+```
+ProxyError: Conda cannot proceed due to an error in your proxy configuration.
+Check for typos and other configuration errors in any '.netrc' file in your home directory,
+any environment variables ending in '_PROXY', and any other system-wide proxy
+configuration settings.
+```
+
+**原因：** 使用了科学上网软件，或者在公司代理下，但是没有对conda进行相关配置([参考](https://docs.anaconda.com/anaconda/user-guide/tasks/proxy/))  
+**解决方案：**
+windows下：在 "设置-网络和internet-代理-手动设置代理" 处查看**ip地址**和**端口号**，将其添加在.condarc文件中，形式如下：  
+```
+proxy_servers:
+    http: http://username:password@corp.com:8080
+    https: https://username:password@corp.com:8080
+```
 
 # 参考资料
 1. [conda简直神了[conda基本废了]](https://www.jianshu.com/p/47a536e6ee20)

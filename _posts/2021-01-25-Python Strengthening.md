@@ -13,9 +13,25 @@ tags: 基础知识
 # 1 Python进阶
 ## 1.1 装饰器
 
+## 1.2 *_ 的用法
+在元组拆包时，一般情况下，```=``` 左边的变量个数等于元组元素个数。但如果只想使用元组中某几个元素的话，不需要的元素就没必要给它一个变量（因为这会占用内存），那就用 ```_``` 取代变量名。如果不需要的元素是连续的，不用写多个 ```_``` ，直接写一个 ```*_``` 就行了。另外，如果想把多个元素分配给一个变量p，可以使用 ```*p``` 。例子如下：  
+```python
+>>> a = (1, 2 ,3 ,4 ,5, 6)
+>>> b, *_, d = a
+>>> b, d
+(1, 6)
+>>> b, *c, d = a
+>>> b, c, d
+(1, [2, 3, 4, 5], 6)
+```
+
 # 2 常用模块
 ## 2.1 argparse
 [官方文档](https://docs.python.org/zh-cn/3.7/library/argparse.html#module-argparse) | [简易教程](https://docs.python.org/zh-cn/3.7/howto/argparse.html)
 
 ## 2.2 typing
 [Python中typing模块与类型注解的使用方法](https://www.jb51.net/article/166907.htm)
+
+# 参考资料
+1. [python中*_是什么意思？ - 薄荷红茶
+](https://www.zhihu.com/question/374007342)
