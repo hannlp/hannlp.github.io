@@ -37,9 +37,15 @@ drive.mount('/content/drive')
 **法1：** 使用```%cd```命令  
 **法2：** 使用```os.chdir()```方法  
 
-# 2 一些需要注意的地方
+# 2 使用技巧
+## 2.1 尤其要注意
 1. 在cell中，其他linux命令都可以通过在前面加```!```使用(如```!ls```)，但```cd```命令需要用```%cd```才可以
 2. **目录名**中最好不要有空格。如果有空格，用到此目录名时需要在空格前加```\```进行转义
+
+## 2.2 其他使用技巧
+1. 可以通过按 ```Ctrl``` 键，然后单击一个类名来跳转到**类定义**
+2. 可以使用 ```!bash``` 命令使用交互式 shell
+3. 可以同linux一样，使用 ```!nohup``` 命令，然后使用常规的 shell 命令，并在末尾添加 ```&``` 使其在后台运行。使用 ```!ps -ef``` 命令查看任务号，并用 ```!kill 任务号``` 的方式手动结束任务
 
 # 3 深度学习环境相关
 ## 3.1 PyTorch 1.6.0 及环境配置
@@ -56,3 +62,4 @@ print(torch.cuda.is_available())
 
 # 参考资料
 1. [Colab配置: 使用gpu训练模型](https://blog.csdn.net/Augurlee/article/details/103019181)
+2. [20种小技巧，玩转Google Colab](https://cloud.tencent.com/developer/article/1708477)
