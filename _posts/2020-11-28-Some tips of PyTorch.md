@@ -88,7 +88,7 @@ x.requires_grad_()
 
 # 3 常用模板代码
 ## 3.1 模型的训练及验证
-* 模型的训练  
+**模型的训练:**  
 ```python
 def train_epoch(epoch, model, optimizer, criterion, train_iter):
     model.train()
@@ -102,7 +102,7 @@ def train_epoch(epoch, model, optimizer, criterion, train_iter):
             print('Epoch: {}, batch: [{}/{}], Loss: {:.5}'.format(epoch, i, len(train_iter), loss.item()))
 ```
 
-* 模型的验证
+**模型的验证:**  
 ```python
 def valid_epoch(epoch, model, optimizer, criterion, valid_iter):
     model.eval()
@@ -116,14 +116,14 @@ def valid_epoch(epoch, model, optimizer, criterion, valid_iter):
 ```
 
 ## 3.2 模型的保存和加载
-* 模型的保存  
+**模型的保存:**  
 ```python
 torch.save(model, PATH) # 方法1(不推荐)
 torch.save(model.state_dict(), PATH) # 方法2
 torch.save({'epoch':epoch, 'model':model.state_dict(), ...}, PATH) # 方法3
 ```
 
-* 模型的加载
+**模型的加载:**  
 ```python
 # 对应方法1(不推荐)
 model = torch.load(PATH)
