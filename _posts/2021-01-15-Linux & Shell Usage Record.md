@@ -8,8 +8,9 @@ tags:
 最近需要在linux系统上写一些脚本(bash文件)，方便批处理。自己目前的笔记本系统是windows10，现在使用的一套配置是Xshell6(使用服务器) + Xftp7(文件传输) + Notepad++(文件编辑)。用这篇博客记录使用过程中的一些问题及解决方案。
 
 # 0 相关链接
-1. [Shell 教程 - runoob](https://www.runoob.com/linux/linux-shell.html)
+1. [Linux / Shell 教程 - runoob](https://www.runoob.com/linux/linux-shell.html)
 2. [Linux命令大全 - runoob](https://www.runoob.com/linux/linux-command-manual.html)
+3. [一篇文章让你彻底掌握 Shell 语言 - 静默虚空](https://www.cnblogs.com/jingmoxukong/p/7867397.html)
 
 # 1 Linux使用记录
 ## 1.1 基础知识
@@ -26,14 +27,14 @@ Linux中，根目录从```/```开始
 ```~user``` 表示用户名为user的家目录，这里的user是在/etc/passwd中存在的用户名  
 
 **举例：**  
-* 当前在hans目录中，使用```ls /```列出根目录中的目录和文件：```[hanyuchen@IP-xxx hans]$ ls /``` ，得到:
+当前在hans目录中，使用```ls /```列出根目录中的目录和文件：```[hanyuchen@IP-xxx hans]$ ls /``` ，得到:
 
 ```
 bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
 boot  etc  lib   media  opt  root  sbin  sys  usr
 ```
 
-* 当前在hans目录中，使用```ls .```列出hans目录中的目录和文件：```[hanyuchen@IP-xxx hans]$ ls .``` ，得到：
+当前在hans目录中，使用```ls .```列出hans目录中的目录和文件：```[hanyuchen@IP-xxx hans]$ ls .``` ，得到：
 
 ```
 Anaconda3-2020.07-Linux-x86_64.sh  mycert.pem  mykey.key  test.py
