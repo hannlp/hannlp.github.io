@@ -157,7 +157,28 @@ $$\begin{aligned}
 
 再对比一下**回归问题**，若采用$\mathrm{MSE}$作为损失函数，使用除$\mathrm{Softmax}$外的其他激活函数$\sigma^L$作为最后一层的激活函数的话，很容易得到$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\odot\sigma'^L(\bm{z^L})$，惊讶的发现他们竟如此的一致！
 
-# 4 参考资料
+# 4 PyTorch中的CrossEntropyLoss
+## 4.1 原理速览
+具体用法见[官方文档](https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html?highlight=nn%20crossentropyloss#torch.nn.CrossEntropyLoss)，下面简单介绍原理。在PyTorch中，```nn.CrossEntropyLoss```的作用是把```softmax```、```log```和```nn.NLLLoss```合成一步，具体为：  
+1. **softmax:** 在某一维度进行Softmax归一化，使这一维度均在0-1之间，且和为1
+2. **log:** 对上面结果取log，由于定义域在(0,1)，取log后的值域就在(-inf,0)
+3. **NLLLoss:** 按照类别标签，在与步骤1不同的另一维度上，仅抽取标签处的值，去掉负号并求均值
+
+在这里推荐[参考资料4](https://blog.csdn.net/qq_22210253/article/details/85229988)，里面有简单详细的例子，看一遍就会用了
+
+## 4.2 一个实际的例子
+在我复现Transformer时，需要定义```criterion```,由于机器翻译中译文的生成需要在词表中挑选词语，属于分类问题。所以直接选用```nn.CrossEntropyLoss```作为准则  
+```python
+criterion = nn.CrossEntropyLoss(ignore_index=args['tgt_pdx'], reduction='sum')
+```
+以下是```loss```的计算。其中```out```的维度为 **(batch_size, tgt_len, n_tgt_words)** ，```tgt_tokens```的维度为 **(batch_size, tgt_len)**。其中，```out```是模型最后一个DecoderLayer的输出，使用Linear层将模型维度映射到了目标语言词表维度  
+```python
+loss = self.criterion(out.reshape(-1, out.size(-1)), tgt_tokens.contiguous().view(-1))
+```
+做维度变换的原因是：将整个batch的句子，直接展开成所有词。```out```变成了 **(n_total_words, n_tgt_words)** ，```tgt_tokens```变成了 **(n_total_words)**，符合官方文档中的输入形式。最后通过```reduction='sum'```，将结果求和得到标量```loss```，用于autograd
+
+# 5 参考资料
 1. [你 真的 懂 Softmax 吗？](https://zhuanlan.zhihu.com/p/90771255)
 2. [softmax激活+crossEntropy损失求导公式推导](https://fengzhe.blog.csdn.net/article/details/99707296)
 3. [深度学习之反向传播算法(2)——全连接神经网络的BP算法推导](https://zhuanlan.zhihu.com/p/61531989)
+4. [Pytorch详解NLLLoss和CrossEntropyLoss](https://blog.csdn.net/qq_22210253/article/details/85229988)
