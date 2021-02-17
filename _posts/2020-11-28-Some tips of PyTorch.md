@@ -123,7 +123,7 @@ torch.save(model.state_dict(), PATH) # 方法2
 torch.save({'epoch':epoch, 'model':model.state_dict(), ...}, PATH) # 方法3
 ```
 
-* 模型的加载  
+* 模型的加载
 ```python
 # 对应方法1(不推荐)
 model = torch.load(PATH)
