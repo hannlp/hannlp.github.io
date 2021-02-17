@@ -175,7 +175,7 @@ criterion = nn.CrossEntropyLoss(ignore_index=args['tgt_pdx'], reduction='sum')
 ```python
 loss = self.criterion(out.reshape(-1, out.size(-1)), tgt_tokens.contiguous().view(-1))
 ```
-做维度变换的原因是：将整个batch的句子，直接展开成所有词。```out```变成了 **(n_total_words, n_tgt_words)** ，```tgt_tokens```变成了 **(n_total_words)**，符合官方文档中的输入形式。最后通过```reduction='sum'```，将结果求和得到标量```loss```，用于autograd
+做维度变换的原因是：将整个batch的句子，直接展开成所有词。```out```的维度变成了 **(n_total_words, n_tgt_words)** ，```tgt_tokens```的维度变成了 **(n_total_words)**，符合官方文档中的输入形式。最后通过```reduction='sum'```，将结果求和得到标量```loss```，用于autograd
 
 # 5 参考资料
 1. [你 真的 懂 Softmax 吗？](https://zhuanlan.zhihu.com/p/90771255)
