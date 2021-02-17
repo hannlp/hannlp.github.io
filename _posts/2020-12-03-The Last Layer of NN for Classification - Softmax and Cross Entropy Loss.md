@@ -162,7 +162,7 @@ $$\begin{aligned}
 具体用法见[官方文档](https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html?highlight=nn%20crossentropyloss#torch.nn.CrossEntropyLoss)，下面简单介绍原理。在PyTorch中，```nn.CrossEntropyLoss```的作用是把```softmax```、```log```和```nn.NLLLoss```合成一步，具体为：  
 1. **softmax:** 在某一维度进行Softmax归一化，使这一维度均在0-1之间，且和为1
 2. **log:** 对上面结果取log，由于定义域在(0,1)，取log后的值域就在(-inf,0)
-3. **NLLLoss:** 按照类别标签，在与步骤1不同的另一维度上，仅抽取标签处的值，去掉负号并求均值
+3. **NLLLoss:** 按照类别标签，在与步骤1不同的另一维度上，仅抽取标签处的值，去掉负号并按```reduction```的方法降维成标量
 
 在这里推荐[参考资料4](https://blog.csdn.net/qq_22210253/article/details/85229988)，里面有简单详细的例子，看一遍就会用了
 
