@@ -27,14 +27,14 @@ Linux中，根目录从```/```开始
 ```~user``` 表示用户名为user的家目录，这里的user是在/etc/passwd中存在的用户名  
 
 **举例：**  
-当前在hans目录中，使用```ls /```列出根目录中的目录和文件：```[hanyuchen@IP-xxx hans]$ ls /``` ，得到:
+当前在hans目录中，使用```ls /```列出根目录中的目录和文件：
 
 ```
 bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
 boot  etc  lib   media  opt  root  sbin  sys  usr
 ```
 
-当前在hans目录中，使用```ls .```列出hans目录中的目录和文件：```[hanyuchen@IP-xxx hans]$ ls .``` ，得到：
+当前在hans目录中，使用```ls .```列出hans目录中的目录和文件：
 
 ```
 Anaconda3-2020.07-Linux-x86_64.sh  mycert.pem  mykey.key  test.py
