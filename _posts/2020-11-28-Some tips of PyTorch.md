@@ -116,16 +116,16 @@ def valid_epoch(epoch, model, optimizer, criterion, valid_iter):
 ```
 
 ## 3.2 模型的保存和加载
-* 模型的保存(不推荐方法1)  
+* 模型的保存  
 ```python
-torch.save(model, PATH) # 方法1
+torch.save(model, PATH) # 方法1(不推荐)
 torch.save(model.state_dict(), PATH) # 方法2
 torch.save({'epoch':epoch, 'model':model.state_dict(), ...}, PATH) # 方法3
 ```
 
 * 模型的加载  
 ```python
-# 对应方法1
+# 对应方法1(不推荐)
 model = torch.load(PATH)
 
 # 对应方法2
@@ -144,4 +144,4 @@ model.load_state_dict(checkpoint['model'])
 1. [PyTorch中的contiguous - 栩风](https://zhuanlan.zhihu.com/p/64551412)
 2. [[TorchText]使用 - VanJordan](https://www.jianshu.com/p/e5adb235399e)
 3. [torchtext入门教程，轻松玩转文本数据处理 - Lee](https://zhuanlan.zhihu.com/p/31139113)
-4. [PyTorch | 保存和加载模型 - 鑫鑫淼淼焱焱](https://zhuanlan.zhihu.com/p/82038049) ([原文 - Matthew Inkawhich](https://pytorch.org/tutorials/beginner/saving_loading_models.html))
+4. [PyTorch 保存和加载模型 - 鑫鑫淼淼焱焱](https://zhuanlan.zhihu.com/p/82038049) ([原文 - Matthew Inkawhich](https://pytorch.org/tutorials/beginner/saving_loading_models.html))
