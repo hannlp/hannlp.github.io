@@ -87,7 +87,33 @@ x.requires_grad_()
 
 
 # 3 常用模板代码
-## 3.1 训练
+## 3.1 模型的训练及验证
+* 模型的训练  
+```python
+def train_epoch(epoch, model, optimizer, criterion, train_iter):
+    model.train()
+    for i, batch in enumerate(train_iter, start=1):
+        optimizer.zero_grad()
+        out = model(inputs)
+        loss = criterion(out, gold)
+        loss.backward()
+        optimizer.step()
+        if i % 5 == 0:
+            print('Epoch: {}, batch: [{}/{}], Loss: {:.5}'.format(epoch, i, len(train_iter), loss.item()))
+```
+
+* 模型的验证
+```python
+def valid_epoch(epoch, model, optimizer, criterion, valid_iter):
+    model.eval()
+    with torch.no_grad():
+        loss_list = []
+        for _, batch in enumerate(valid_iter, start=1):
+            out = model(inputs)
+            loss = criterion(out, gold)
+            loss_list.append(loss)
+    return sum(loss_list) / len(valid_iter)
+```
 
 ## 3.2 模型的保存和加载
 * 模型的保存(不推荐方法1)  
