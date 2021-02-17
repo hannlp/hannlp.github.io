@@ -78,10 +78,44 @@ x.requires_grad_()
 
 # 2 重要的库
 ## 2.1 TorchText
+### 2.1.1 推荐资源
+1. [TORCHTEXT DOCUMENTATION (0.8.1)](https://pytorch.org/text/stable/index.html) (官方文档)
+2. [pytorch/text](https://github.com/pytorch/text#data) (官方github仓库，其**readme**是一个非常简洁的使用指南)
+3. [How to use TorchText for neural machine translation, plus hack to make it 5x faster](https://towardsdatascience.com/how-to-use-torchtext-for-neural-machine-translation-plus-hack-to-make-it-5x-faster-77f3884d95#8a90) (一个优质的使用torchtext预处理机器翻译数据的教程)
+
+### 2.1.2 使用技巧
 
 
 # 3 常用模板代码
-## 
+## 3.1 训练
+
+## 3.2 模型的保存和加载
+* 模型的保存(不推荐方法1)  
+```python
+torch.save(model, PATH) # 方法1
+torch.save(model.state_dict(), PATH) # 方法2
+torch.save({'epoch':epoch, 'model':model.state_dict(), ...}, PATH) # 方法3
+```
+
+* 模型的加载  
+```python
+# 对应方法1
+model = torch.load(PATH)
+
+# 对应方法2
+model = TheModelClass(*args, **kwargs)
+model.load_state_dict(torch.load(PATH))
+
+# 对应方法3
+model = TheModelClass(*args, **kwargs)
+checkpoint = torch.load(PATH)
+model.load_state_dict(checkpoint['model'])
+```
+
+**注意：** 在不同设备上保存或加载，需要添加```torch.load(PATH, map_location=device)```参数，且还需要使用```model.to(device)```。其中```device```是希望加载到的设备
 
 # 参考资料
 1. [PyTorch中的contiguous - 栩风](https://zhuanlan.zhihu.com/p/64551412)
+2. [[TorchText]使用 - VanJordan](https://www.jianshu.com/p/e5adb235399e)
+3. [torchtext入门教程，轻松玩转文本数据处理 - Lee](https://zhuanlan.zhihu.com/p/31139113)
+4. [PyTorch | 保存和加载模型 - 鑫鑫淼淼焱焱](https://zhuanlan.zhihu.com/p/82038049) ([原文 - Matthew Inkawhich](https://pytorch.org/tutorials/beginner/saving_loading_models.html))
