@@ -49,14 +49,17 @@ Anaconda3-2020.07-Linux-x86_64.sh  mycert.pem  mykey.key  test.py
 对于需求1，可以使用```&```符号，例如```command &```。这个符号可以使进程**后台运行**，但是关闭终端(Xshell)后进程也会退出  
 对于需求2，可以使用```nohup```命令，例如```nohup command```。这个命令是“no hang up”(不挂断)的缩写，可以使得关闭终端之后继续运行相应的进程
 
-综上所述，想同时满足两个需求，可以直接使用```nohup command &```。更多的使用方法见[参考资料1](https://www.cnblogs.com/caodneg7/p/12028236.html), [2](https://mp.weixin.qq.com/s/nyT-FPdIUdJUiUCYVGEnTg)
+综上所述，想同时满足两个需求，可以直接使用```nohup command &```。更多的使用方法见[参考1](https://www.cnblogs.com/caodneg7/p/12028236.html), [2](https://mp.weixin.qq.com/s/nyT-FPdIUdJUiUCYVGEnTg)。下面给出一个完美的运行命令：  
+```bash
+nohup python -u train.py > train.log 2>&1 &
+```
 
 ### 1.2.2 结束进程
-结束进程最安全的方法是单纯使用kill命令，不加修饰符，不带标志，如```kill 32464 32465 32466 32467```(后面的几个数字是我要结束的进程号)，关于其他方式，见[参考资料](https://blog.csdn.net/lechengyuyuan/article/details/16337233)
+结束进程最安全的方法是单纯使用kill命令，不加修饰符，不带标志，如```kill 32464 32465 32466 32467```(后面的几个数字是我要结束的进程号)，关于其他方式，见[参考](https://blog.csdn.net/lechengyuyuan/article/details/16337233)
 
 # 2 问题记录
 ## 2.1 运行脚本时出现```$'\r': 未找到命令```
-报错已经非常明确了，是linux无法解析$'\r'。这其实是windows与linux系统的差异导致的：因为linux上的换行符为\n，而windows上的换行符为\r\n，所以脚本到linux上就无法解析了([参考资料](https://blog.csdn.net/u010416101/article/details/80135293))。
+报错已经非常明确了，是linux无法解析$'\r'。这其实是windows与linux系统的差异导致的：因为linux上的换行符为\n，而windows上的换行符为\r\n，所以脚本到linux上就无法解析了。见[参考](https://blog.csdn.net/u010416101/article/details/80135293)
 
 **解决方案：**   
 例如在windows下编辑好一个'hello.sh'文件，传输到了linux系统下，运行前需要进行以下操作：
@@ -66,6 +69,12 @@ vi hello.sh
 :set ff=unix
 :wq
 ```
+
+## 2.2 生成nohup.out文件的内容始终是空的
+使用```nohup python train.py &```命令时，生成的nohup.out文件始终是0kb
+
+**原因：** python的输出有缓冲，导致out.log并不能够马上看到输出。  
+**解决方案：** 加```-u```参数，使得python不启用缓冲。见[参考](https://blog.csdn.net/qq_31821675/article/details/78246808)
 
 # 参考资料
 1. [Linux - 路径的表示](https://blog.csdn.net/zhangzhebjut/article/details/22977477)
