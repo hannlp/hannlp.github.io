@@ -57,6 +57,12 @@ nohup python -u train.py > train.log 2>&1 &
 ### 1.2.2 结束进程
 结束进程最安全的方法是单纯使用kill命令，不加修饰符，不带标志，如```kill 32464 32465 32466 32467```(后面的几个数字是我要结束的进程号)，关于其他方式，见[参考](https://blog.csdn.net/lechengyuyuan/article/details/16337233)
 
+### 1.2.3 查看某一进程的信息
+
+```bash
+ps aux | grep 任务号
+```
+
 # 2 问题记录
 ## 2.1 运行脚本时出现```$'\r': 未找到命令```
 报错已经非常明确了，是linux无法解析$'\r'。这其实是windows与linux系统的差异导致的：因为linux上的换行符为\n，而windows上的换行符为\r\n，所以脚本到linux上就无法解析了。见[参考](https://blog.csdn.net/u010416101/article/details/80135293)
