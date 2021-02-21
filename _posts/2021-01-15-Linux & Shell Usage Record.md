@@ -63,8 +63,35 @@ nohup python -u train.py > train.log 2>&1 &
 ps aux | grep 任务号
 ```
 
-# 2 问题记录
-## 2.1 运行脚本时出现```$'\r': 未找到命令```
+# 2 工具快速部署
+## 2.1 Jupyter Lab
+[官方文档](https://jupyterlab.readthedocs.io/en/stable/index.html) (需科学上网)
+
+### 2.1.1 快速部署
+**目的:** 在实验室服务器后台运行jupyter lab服务，在自己电脑的浏览器上使用
+
+1. 安装：```pip install jupyterlab```
+2. 生成配置文件：```jupyter lab --generate-config```
+3. 在```ipython```交互环境下：  
+```bash
+from jupyter_server.auth import passwd; passwd()
+Enter password:         # 这个是进入网页jupyter lab的密码
+Verify password: 
+Out[1]: 'sha1:4907....' # 这个需要复制，一会用到
+```
+4. 修改配置文件(第2步生成的，默认在~/.jupyter/jupyter_lab_config.py，是一个隐藏文件)：  
+```bash
+c.ServerApp.ip = '*'
+c.ServerApp.port = 8888                  # 端口号，不冲突即可
+c.ServerApp.password = u'sha1:4907....'  # 刚才复制的
+c.ServerApp.open_browser = False
+```
+5. 设置XShell隧道：```文件-(默认+当前)会话属性-隧道-TCP/IP转移规则``` 添加两个，一个拨出，一个传入。源主机填```localhost```，目标主机填写```服务器的ip地址```，端口号填写第4步配置文件中设置的的port(在这里即8888)。侦听端口任意设置，如8889  
+6. 后台运行：```nohup jupyter lab &```
+7. 在自己电脑的浏览器上输入： ```localhost:8889```(端口即侦听端口)
+
+# 3 问题记录
+## 3.1 运行脚本时出现```$'\r': 未找到命令```
 报错已经非常明确了，是linux无法解析$'\r'。这其实是windows与linux系统的差异导致的：因为linux上的换行符为\n，而windows上的换行符为\r\n，所以脚本到linux上就无法解析了。见[参考](https://blog.csdn.net/u010416101/article/details/80135293)
 
 **解决方案：**   
@@ -76,7 +103,7 @@ vi hello.sh
 :wq
 ```
 
-## 2.2 生成nohup.out文件的内容始终是空的
+## 3.2 生成nohup.out文件的内容始终是空的
 使用```nohup python train.py &```命令时，生成的nohup.out文件始终是0kb
 
 **原因：** python的输出有缓冲，导致out.log并不能够马上看到输出。  
@@ -84,4 +111,5 @@ vi hello.sh
 
 # 参考资料
 1. [Linux - 路径的表示](https://blog.csdn.net/zhangzhebjut/article/details/22977477)
-2. 
+2. [服务器端jupyter notebook映射到本地浏览器的操作](https://www.qedev.com/python/271029.html)
+3. [如何利用XShell隧道通过跳板机连接内网机器](https://jingyan.baidu.com/article/d5a880ebd69c2613f147ccbf.html)
