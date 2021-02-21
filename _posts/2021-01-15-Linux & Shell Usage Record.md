@@ -87,7 +87,7 @@ c.ServerApp.password = u'sha1:4907....'  # 刚才复制的
 c.ServerApp.open_browser = False
 ```
 5. 设置XShell隧道：```文件-(默认+当前)会话属性-隧道-TCP/IP转移规则``` 添加两个，一个拨出，一个传入。源主机填```localhost```，目标主机填写```服务器的ip地址```，端口号填写第4步配置文件中设置的的port(在这里即8888)。侦听端口任意设置，如8889  
-6. 后台运行：```nohup jupyter lab &```
+6. 后台运行：```nohup jupyter lab > jupyter.log 2>&1 &```
 7. 在自己电脑的浏览器上输入： ```localhost:8889```(端口即侦听端口)
 
 # 3 问题记录
