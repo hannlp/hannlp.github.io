@@ -57,8 +57,13 @@ nohup python -u train.py > train.log 2>&1 &
 ### 1.2.2 结束进程
 结束进程最安全的方法是单纯使用kill命令，不加修饰符，不带标志，如```kill 32464 32465 32466 32467```(后面的几个数字是我要结束的进程号)，关于其他方式，见[参考](https://blog.csdn.net/lechengyuyuan/article/details/16337233)
 
-### 1.2.3 查看某一进程的信息
+### 1.2.3 查看进程
+查看某个用户的所有进程：  
+```bash
+top -U 用户名
+```
 
+查看某一进程的详细信息：  
 ```bash
 ps aux | grep 任务号
 ```
