@@ -68,9 +68,9 @@ top -U 用户名
 ps aux | grep 任务号
 ```
 
-# 2 工具快速部署
+# 2 常用工具
 ## 2.1 Jupyter Lab
-[官方文档](https://jupyterlab.readthedocs.io/en/stable/index.html) (需科学上网)
+官方文档: [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/index.html) (需科学上网) , [IPython](https://ipython.readthedocs.io/en/stable/index.html)
 
 ### 2.1.1 快速部署
 **目的:** 在实验室服务器后台运行jupyter lab服务，在自己电脑的浏览器上使用
@@ -94,6 +94,23 @@ c.ServerApp.open_browser = False
 5. 设置XShell隧道：```文件-(默认+当前)会话属性-隧道-TCP/IP转移规则``` 添加两个，一个拨出，一个传入。源主机填```localhost```，目标主机填写```服务器的ip地址```，端口号填写第4步配置文件中设置的的port(在这里即8888)。侦听端口任意设置，如8889  
 6. 后台运行：```nohup jupyter lab > jupyter.log 2>&1 &```
 7. 在自己电脑的浏览器上输入： ```localhost:8889```(端口即侦听端口)
+
+### 2.1.2 使用技巧
+1. **在一个ipynb中导入另一个ipynb的类：**  
+```bash
+%run OtherNotebook.ipynb
+```
+2. **关闭浏览器选项卡后，希望cell的输出不丢失：**  
+```python
+import sys
+temp = sys.stdout
+sys.stdout = open("my_log.txt", "a")
+```
+有很多思路([参考](https://www.thinbug.com/q/32539832))，但最高效的方法即将标准输出重定向到文件中。在cell运行时，可以查看文件中的输出，且关闭选项卡后cell仍会继续向文件追加输出。在运行完cell后，用以下代码恢复标准输出：  
+```python
+sys.stdout = temp
+```
+
 
 # 3 问题记录
 ## 3.1 运行脚本时出现```$'\r': 未找到命令```
