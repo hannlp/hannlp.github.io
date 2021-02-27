@@ -9,8 +9,8 @@ tags:
 在DNN的反向传播算法中，几乎所有教材都只使用**单个样本**(一个特征向量)进行相关公式的推导，而**多个样本**(也就是**mini-batch**，即多个特征向量组成的矩阵)反向传播的**全矩阵方法**对于理解“多样本”这一概念是非常重要的。所以花了一点时间推导了一下并记录在此，便于记忆，同时希望能对别人有所帮助。
 
 # 0 几点说明
-1. 该文章是我上一篇博客[Back Propagation and Gradient Calculation in Deep Learning](https://hannlp.github.io/2020-11-06-Back-Propagation-and-Gradient-Calculation-in-Deep-Learning/)(单样本反向传播)的后续版本，写作风格、符号表示与上篇类似，请按顺序阅读
-2. 请时刻记住，不论是标量，还是向量、矩阵，**其梯度的维度**一定与**其本身的维度**相同，这可以作为很多梯度推导的检验方法
+1. 该文章是我上一篇博客[Back Propagation and Gradient Calculation in Deep Learning](https://hannlp.github.io/2020-11-06-Back-Propagation-and-Gradient-Calculation-in-Deep-Learning/)(单样本反向传播)的后续版本，写作风格、符号表示与上篇类似，可以按顺序阅读
+2. 只要是变量(向量或矩阵)关于**标量**的梯度，**其梯度的维度**一定与**其本身的维度**相同，这可以作为很多梯度推导的检验方法
 3. 多样本在DNN的前向传播和反向传播中，**样本(列)与样本(列)**之间是毫无影响的。这一点**符合直觉**，也属于**矩阵的特性**，具体会在之后的推导过程中详细解释
 
 # 1 变量定义

@@ -106,7 +106,10 @@ $$C=Loss(\bm{a^L,y})=\frac{1}{2}\Vert\bm{y-a^L}\Vert^2=\frac{1}{2}\sum_j(y_j-a_j
 
 那么，我们便可以求得
 
-$$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...+(y_{N_L}-a_{N_L}^L)^2]}{{\partial a_j^L}}=\frac{1}{2}\times2(y_j-a_j^L)\times-1=a_j^L-y_j$$
+$$\begin{aligned}
+    \frac{\partial C}{\partial a_j^L}&=\partial \frac{1}{2}[(y_1-a_1^L)^2+...+(y_{N_L}-a_{N_L}^L)^2]/\partial a_j^L\\
+    &=\frac{1}{2}\times2(y_j-a_j^L)\times-1=a_j^L-y_j
+\end{aligned}$$
 
 可以看到$\frac{\partial C}{\partial a_j^L}和\frac{\partial a_j^L}{\partial z_j^L}$都是只与下标$\bm{j}$有关的，所以我们可以直接将其扩展成向量形式，即$\frac{\partial C}{\partial\bm{z^L}}=(\bm{a^L-y})\odot\sigma'^L(\bm{z^L})$，其中$\odot$是两个向量的按元素乘法
 
@@ -129,11 +132,7 @@ $$\frac{\partial C}{\partial a_j^L}=\frac{\partial \frac{1}{2}[(y_1-a_1^L)^2+...
 
 把他带回$\frac{\partial C}{\partial z_j^l}$，得到$\frac{\partial C}{\partial z_j^l}=\sum_k\frac{\partial C}{\partial z_k^{l+1}}\times W_{kj}^{l+1}\times\sigma'^l(z_j^l)$。
 
-展开求和项，得到$\frac{\partial C}{\partial z_j^l}=[\frac{\partial C}{\partial z_1^{l+1}}\times W_{1j}^{l+1}+\frac{\partial C}{\partial z_2^{l+1}}\times W_{2j}^{l+1}+...+\frac{\partial C}{\partial z_{N_{l+1}}^{l+1}}\times W_{N_{l+1}j}^{l+1}]\times \sigma'^l(z_j^l)$
-
-仔细观察其向量表示！
-
-很惊讶的发现，上式$=[\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{z^{l+1}}})]_j\times \sigma'^l(z_j^l)$
+可以发现，上式$=[\bm{(W^{l+1})}^\mathrm{T}(\frac{\partial C}{\partial \bm{z^{l+1}}})]_j\times \sigma'^l(z_j^l)$
 
 因为只由下标$\bm{j}$决定，所以又可以得到一个完美漂亮的向量表达~
 
