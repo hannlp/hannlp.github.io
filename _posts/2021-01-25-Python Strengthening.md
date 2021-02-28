@@ -8,7 +8,8 @@ tags: 基础知识
 
 # 0 推荐学习资源
 1. [Python documentation](https://docs.python.org/3/) - 官方文档，最好的学习资源
-2. [《Python进阶》](https://eastlakeside.gitbook.io/interpy-zh/) - 是《Intermediate Python》的中文译本，简单、易读、易译
+2. [Python Cookbook 3rd Edition Documentation](https://python3-cookbook.readthedocs.io/zh_CN/latest/index.html) - 是《Python Cookbook》的中文译本
+3. [《Python进阶》](https://eastlakeside.gitbook.io/interpy-zh/) - 是《Intermediate Python》的中文译本
 
 # 1 Python进阶
 ## 1.1 装饰器
