@@ -131,6 +131,17 @@ vi hello.sh
 **原因：** python的输出有缓冲，导致out.log并不能够马上看到输出。  
 **解决方案：** 加```-u```参数，使得python不启用缓冲。见[参考](https://blog.csdn.net/qq_31821675/article/details/78246808)
 
+## 3.3 git clone报错
+使用```git clone```命令时，出现如下报错:
+```
+Failed to connect to github.com/xx port 443: Timed out
+```
+**解决方案：** 输入如下命令
+```bash
+git config --global http.proxy http://127.0.0.1:1080
+git config --global https.proxy http://127.0.0.1:1080
+```
+
 # 参考资料
 1. [Linux - 路径的表示](https://blog.csdn.net/zhangzhebjut/article/details/22977477)
 2. [服务器端jupyter notebook映射到本地浏览器的操作](https://www.qedev.com/python/271029.html)
