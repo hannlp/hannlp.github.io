@@ -49,7 +49,20 @@ tags: 基础知识
 ## 2.2 typing
 [Python中typing模块与类型注解的使用方法](https://www.jb51.net/article/166907.htm)
 
+# 3 Python项目相关
+## 3.1 requirements.txt
+快速导出当前项目的类库生成requirements.txt：
+```bash
+pip install pipreqs
+pipreqs .
+```
+安装requirements.txt中的类库
+```bash
+pip install -r requirements.txt
+```
+
 # 参考资料
 1. [python中*_是什么意思？ - 薄荷红茶
 ](https://www.zhihu.com/question/374007342)
 2. [Python中下划线的5种含义](https://zhuanlan.zhihu.com/p/36173202)
+3. [python 项目自动生成requirements.txt文件](https://blog.csdn.net/Irving_zhang/article/details/79087569)
