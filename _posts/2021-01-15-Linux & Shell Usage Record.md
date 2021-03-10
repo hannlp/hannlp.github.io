@@ -140,6 +140,8 @@ Failed to connect to github.com/xx port 443: Timed out
 ```bash
 git config --global http.proxy http://127.0.0.1:1080
 git config --global https.proxy http://127.0.0.1:1080
+git config --global --unset http.proxy
+git config --global --unset https.proxy
 ```
 
 # 参考资料
