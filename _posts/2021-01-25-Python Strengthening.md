@@ -54,8 +54,15 @@ tags: 基础知识
 快速导出当前项目的类库生成requirements.txt：
 ```bash
 pip install pipreqs
-pipreqs .
+
+# 在项目文件夹下
+pipreqs ./
+# 若报UnicodeDecodeError，则：
+pipreqs ./ --encoding=utf-8
+# 若想覆盖之前的requirements.txt，则：
+pipreqs ./ --encoding=utf-8 --force
 ```
+
 安装requirements.txt中的类库
 ```bash
 pip install -r requirements.txt
@@ -65,4 +72,4 @@ pip install -r requirements.txt
 1. [python中*_是什么意思？ - 薄荷红茶
 ](https://www.zhihu.com/question/374007342)
 2. [Python中下划线的5种含义](https://zhuanlan.zhihu.com/p/36173202)
-3. [python 项目自动生成requirements.txt文件](https://blog.csdn.net/Irving_zhang/article/details/79087569)
+3. [Python项目生成依赖包清单requirements .txt文件](https://zhuanlan.zhihu.com/p/57839415)
