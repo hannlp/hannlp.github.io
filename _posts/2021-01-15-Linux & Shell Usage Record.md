@@ -113,14 +113,13 @@ sys.stdout = temp
 
 ## 2.2 git
 ### 2.2.1 问题记录
-1. 使用```git clone```命令时，出现如下报错:
+1.使用```git clone```命令时，出现如下报错:
 ```
 Failed to connect to github.com/xx port 443: Timed out
 ```
 
-**问题分析：** 代理没有设置好
+**问题分析：** 代理没有设置好  
 **解决方案：** 目前还未完美解决，尝试输入以下命令但是没有效果
-
 ```bash
 git config --global http.proxy http://127.0.0.1:1080
 git config --global https.proxy http://127.0.0.1:1080
@@ -128,7 +127,7 @@ git config --global --unset http.proxy
 git config --global --unset https.proxy
 ```
 
-2. 大小写不敏感。例：我在本地仓库建立一个Diagrams文件夹，push到了远程仓库。此时在本地把Diagrams修改为diagrams，再push，远程仓库依旧为Diagrams
+2.大小写不敏感。例：我在本地仓库建立一个Diagrams文件夹，push到了远程仓库。此时在本地把Diagrams修改为diagrams，再push，远程仓库依旧为Diagrams
 
 **解决方案：**
 在本地的项目文件夹输入```git config core.ignorecase false```，再push上去，发现远程仓库既有```Diagrams```又有```diagrams```。再使用```git rm -r --cached Diagrams``` 删除远程的Diagrams文件夹，再push上去，就好了。
