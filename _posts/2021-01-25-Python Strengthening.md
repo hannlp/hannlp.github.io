@@ -55,6 +55,52 @@ tags: 基础知识
 ## 2.2 typing
 [Python中typing模块与类型注解的使用方法](https://www.jb51.net/article/166907.htm)
 
+## 2.3 Counter
+Counter类在collections模块里，是字典的子类，可以为hashable对象计数。见([Python标准库——collections模块的Counter类](http://www.pythoner.com/205.html))
+### 2.3.1 用法速览
+1.创建(四种方法)
+```python
+c = Counter()  # 创建一个空的Counter类
+c = Counter('gallahad')  # 从一个可iterable对象（list、tuple、dict、字符串等）创建
+c = Counter({'a': 4, 'b': 2})  # 从一个字典对象创建
+c = Counter(a=4, b=2)  # 从一组键值对创建
+```
+
+2.元素访问与删除
+```python
+c = Counter("aabc")
+c["a"] # Out: 2
+c["h"] # Out: 0
+del c["a"]; c["a"] # Out: 0
+```
+
+3.常用操作
+```python
+sum(c.values())  # 所有计数的总数
+c.clear()  # 重置Counter对象，注意不是删除
+list(c)  # 将c中的键转为列表
+set(c)  # 将c中的键转为set
+dict(c)  # 将c中的键值对转为字典
+c.items()  # 转为(elem, cnt)格式的列表
+Counter(dict(list_of_pairs))  # 从(elem, cnt)格式的列表转换为Counter类对象
+c.most_common()[:-n:-1]  # 取出计数最少的n-1个元素
+c += Counter()  # 移除0和负值
+```
+### 2.3.2 常用函数
+1.most_common(n)
+返回一个TopN列表，如果n没有被指定，则返回所有元素。当多个元素计数值相同时，排列是无确定顺序的。
+```python
+# 使用TorchText统计词频的例子，其中freqs是Counter对象
+SRC.vocab.freqs.most_common(6)
+Out:
+[('the', 3775),
+ (',', 3050),
+ ('.', 2796),
+ ('of', 1697),
+ ('to', 1682),
+ ('a', 1303)]
+```
+
 # 3 Python项目相关
 ## 3.1 requirements.txt
 快速导出当前项目的类库生成requirements.txt：
