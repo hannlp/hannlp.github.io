@@ -126,6 +126,8 @@ git config --global https.proxy http://127.0.0.1:1080
 git config --global --unset http.proxy
 git config --global --unset https.proxy
 ```
+目前读到一个解决方案说是把hosts里面与github相关的行都删掉即可，但是发现修改hosts需要管理员权限，就只能止步于此了。
+
 
 2.大小写不敏感。例：我在本地仓库建立一个Diagrams文件夹，push到了远程仓库。此时在本地把Diagrams修改为diagrams，再push，远程仓库依旧为Diagrams
 
