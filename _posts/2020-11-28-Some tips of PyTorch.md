@@ -65,7 +65,7 @@ x.requires_grad_()
 ```
 
 ### 1.1.4 tensor在不同设备上移动
-使用方法```.to()```可以将tensor在cpu和gpu之间相互移动。
+使用方法```.to(device)```可以将tensor在cpu和gpu之间相互移动。
 
 ## 1.2 网络结构
 ### 1.2.1 定义网络的几种方法
@@ -84,7 +84,6 @@ x.requires_grad_()
 3. [How to use TorchText for neural machine translation, plus hack to make it 5x faster](https://towardsdatascience.com/how-to-use-torchtext-for-neural-machine-translation-plus-hack-to-make-it-5x-faster-77f3884d95#8a90) (一个优质的使用torchtext预处理机器翻译数据的教程)
 
 ### 2.1.2 使用技巧
-
 
 # 3 常用模板代码
 ## 3.1 模型的训练及验证
