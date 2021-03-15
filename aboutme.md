@@ -5,7 +5,7 @@ title: About me
 
 # Me (韩宇晨 [CV](https://cdn.jsdelivr.net/gh/hannlp/Books@1.02/private/me_cv_en.pdf))
 
-A senior in AHU(Anhui University), China. My Major is CS, and I'm being interested in *NLP(Natural Language Processing)*, *RS(Recommendation System)* and *KG(Knowledge Graph)*. My tutor in AHU is [*Liu Huiting*](http://cs.ahu.edu.cn/7d/7e/c11202a163198/page.htm). I will go to NEU(Northeastern University) [NLP lab](http://www.nlplab.com/) in next year to pursuit of my dreams ^ ^  
+Welcome to my homepage, I am an undergraduate from Anhui University in China. I have been interested in **Natural Language Processing** since my second year of university, and I am grateful to my tutor [Liu Huiting](http://cs.ahu.edu.cn/7d/7e/c11202a163198/page.htm) from Anhui University. Currently, I am engaged in the research of **machine translation**, especially interested in deep network modeling and knowledge-based machine translation methods. I will start my postgraduate career in the [Natural Language Processing Laboratory](http://www.nlplab.com/) of Northeastern University in China in September this year ^ ^
 
 # Others
 - *other links :*  
