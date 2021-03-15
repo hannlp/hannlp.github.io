@@ -56,7 +56,7 @@ tags: 基础知识
 [Python中typing模块与类型注解的使用方法](https://www.jb51.net/article/166907.htm)
 
 ## 2.3 Counter
-Counter类在collections模块里，是字典的子类，可以为hashable对象计数。见([Python标准库——collections模块的Counter类](http://www.pythoner.com/205.html))
+Counter类在collections模块里，是字典的子类，可以为hashable对象计数。见 [参考](http://www.pythoner.com/205.html)
 ### 2.3.1 用法速览
 1.创建(四种方法)
 ```python
@@ -87,7 +87,7 @@ c.most_common()[:-n:-1]  # 取出计数最少的n-1个元素
 c += Counter()  # 移除0和负值
 ```
 ### 2.3.2 常用函数
-1.most_common(n)
+1.**most_common(n)**  
 返回一个TopN列表，如果n没有被指定，则返回所有元素。当多个元素计数值相同时，排列是无确定顺序的。
 ```python
 # 使用TorchText统计词频的例子，其中freqs是Counter对象
