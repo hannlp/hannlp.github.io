@@ -52,6 +52,14 @@ tags: 基础知识
 ## 2.1 argparse
 [官方文档](https://docs.python.org/zh-cn/3.7/library/argparse.html#module-argparse) | [简易教程](https://docs.python.org/zh-cn/3.7/howto/argparse.html)
 
+### 2.1.1 用法速览
+### 2.1.2 常用函数
+```python
+from argparse import Namespace
+a = Namespace()
+a.e = 1
+```
+
 ## 2.2 typing
 [Python中typing模块与类型注解的使用方法](https://www.jb51.net/article/166907.htm)
 
