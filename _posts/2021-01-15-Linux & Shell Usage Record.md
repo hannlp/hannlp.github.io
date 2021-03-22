@@ -69,7 +69,7 @@ ps aux | grep 任务号
 结束进程最安全的方法是单纯使用kill命令，不加修饰符，不带标志，如```kill 32464 32465 32466 32467```(后面的几个数字是我要结束的进程号)，关于其他方式，见[参考](https://blog.csdn.net/lechengyuyuan/article/details/16337233)
 
 ### 1.2.4 cut命令
-命令```cut```可以对file(或stdin)的每行抽取出希望抽取的部分。常用参数：  
+命令```cut```可以对file(或stdin)的每行抽取出希望抽取的部分([参考](https://man.linuxde.net/cut))。常用参数：  
 1. ```-d```：指定字段的分隔符，默认的字段分隔符为“TAB”
 2. ```-f```：显示指定字段的内容
 3. ```N-```：从第N个字节、字符、字段到结尾
@@ -87,7 +87,7 @@ ps aux | grep 任务号
 -P: The relevant departments should strengthen the obligation of low - bonded households to carry out such tasks as helping low - income families to enjoy low - income insured : if timely reporting of changes in the income and changes in the income and reporting on employment , and receiving regular reviews , the relevant departments should intensify supervision and inspection .
 ```
 
-使用命令：```grep ^-T ldc_test.result | cut -f2- -d" " > new.result``` 其中，```-d" "```将空格设为分隔符，```-f2-```在空格分开后的字段中，抽取第二个之后的所有字段。效果如下：
+使用命令：```grep ^-T ldc_test.result | cut -f2- -d" " > new.result```。其中，```-d" "```将空格设为分隔符，```-f2-```在用空格分开后的字段中，从第二个字段起，抽取后面所有字段。效果如下：
 
 ```
 The resolution requires Ethiopia to immediately take concrete steps to allow the Erit@@ rea - Ethiopia Boundary Commission to speedily demarc@@ ate the border without any preconditions ; and requires Erit@@ rea to cancel all of its restrictions on UN@@ ME@@ E 's actions and operations without any further delay and without setting any preconditions .
