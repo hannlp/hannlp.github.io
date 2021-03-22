@@ -54,10 +54,7 @@ Anaconda3-2020.07-Linux-x86_64.sh  mycert.pem  mykey.key  test.py
 nohup python -u train.py > train.log 2>&1 &
 ```
 
-### 1.2.2 结束进程
-结束进程最安全的方法是单纯使用kill命令，不加修饰符，不带标志，如```kill 32464 32465 32466 32467```(后面的几个数字是我要结束的进程号)，关于其他方式，见[参考](https://blog.csdn.net/lechengyuyuan/article/details/16337233)
-
-### 1.2.3 查看进程
+### 1.2.2 查看进程
 查看某个用户的所有进程：  
 ```bash
 top -U 用户名
@@ -66,6 +63,35 @@ top -U 用户名
 查看某一进程的详细信息：  
 ```bash
 ps aux | grep 任务号
+```
+
+### 1.2.3 结束进程
+结束进程最安全的方法是单纯使用kill命令，不加修饰符，不带标志，如```kill 32464 32465 32466 32467```(后面的几个数字是我要结束的进程号)，关于其他方式，见[参考](https://blog.csdn.net/lechengyuyuan/article/details/16337233)
+
+### 1.2.4 cut命令
+命令```cut```可以对file(或stdin)的每行抽取出希望抽取的部分。常用参数：  
+1. ```-d```：指定字段的分隔符，默认的字段分隔符为“TAB”
+2. ```-f```：显示指定字段的内容
+3. ```N-```：从第N个字节、字符、字段到结尾
+4. ```N-M```：从第N个字节、字符、字段到第M个（包括M在内）字节、字符、字段
+5. ```-M```：从第1个字节、字符、字段到第M个（包括M在内）字节、字符、字段
+
+**举例：** 在文件ldc_test.result中抽取出以```-T```开头的句子
+```
+-S: 决议 要求 埃塞俄比亚 立即 采取 具体 步骤 , 使 厄 埃 边界 委员会 能 在 没有 先决条件 的 情况 下 迅速 标@@ 定 边界 ; 要求 厄立特里亚 不再 拖延 , 不 设 先决条件 地 取消 对 埃@@ 厄 特派 团 的 行动 和 作业 的 所有 限制 .
+-T: The resolution requires Ethiopia to immediately take concrete steps to allow the Erit@@ rea - Ethiopia Boundary Commission to speedily demarc@@ ate the border without any preconditions ; and requires Erit@@ rea to cancel all of its restrictions on UN@@ ME@@ E 's actions and operations without any further delay and without setting any preconditions .
+-P: The resolution asked Ethiopia to take specific steps immediately to enable the Erit@@ rean border committee to rapidly set its boundary without a precondition ; Erit@@ rea would no longer delay or set a precedent for the removal of all restrictions on the actions and operations of the Erit@@ rean special missions .
+
+-S: 有关 部门 应 强化 低 保@@ 户 在 享受 低 保 时 须 履行 的 义务 : 如 及时 通报 家庭 人员 及 收入 变化 情况 , 汇报 就业 情况 , 接受 定期 复@@ 审 等 , 而 有关 部门 则 应 加大 监督 检查 的 力度 .
+-T: The relevant department should stress the obligations that welfare recipients must carry out while enjoying the welfare : for example , promptly notifying the changes in the family members and incomes , reporting the status of employment , accepting regular reviews , etc. On the other hand , the relevant department should step up monitoring and inspection .
+-P: The relevant departments should strengthen the obligation of low - bonded households to carry out such tasks as helping low - income families to enjoy low - income insured : if timely reporting of changes in the income and changes in the income and reporting on employment , and receiving regular reviews , the relevant departments should intensify supervision and inspection .
+```
+
+使用命令：```grep ^-T ldc_test.result | cut -f2- -d" " > new.result``` 其中，```-d" "```将空格设为分隔符，```-f2-```在空格分开后的字段中，抽取第二个之后的所有字段。效果如下：
+
+```
+The resolution requires Ethiopia to immediately take concrete steps to allow the Erit@@ rea - Ethiopia Boundary Commission to speedily demarc@@ ate the border without any preconditions ; and requires Erit@@ rea to cancel all of its restrictions on UN@@ ME@@ E 's actions and operations without any further delay and without setting any preconditions .
+The relevant department should stress the obligations that welfare recipients must carry out while enjoying the welfare : for example , promptly notifying the changes in the family members and incomes , reporting the status of employment , accepting regular reviews , etc. On the other hand , the relevant department should step up monitoring and inspection .
 ```
 
 # 2 常用工具
