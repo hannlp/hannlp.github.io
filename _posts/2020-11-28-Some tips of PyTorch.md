@@ -32,15 +32,11 @@ PyTorch又提供了```.reshape()```方法，其实就等价于```.contiguous().v
 下面是一个简单的示例：  
 ```python
 a = torch.randn(16)
-print(a.is_contiguous())
+print(a.is_contiguous()) # True
 b = a.view(-1, 4)
-print(b.is_contiguous())
+print(b.is_contiguous()) # True
 c = b.transpose(0, 1)
-print(c.is_contiguous())
-# Outputs:
-True
-True
-False
+print(c.is_contiguous()) # False
 
 d = c.view(-1)
 # Outputs:
