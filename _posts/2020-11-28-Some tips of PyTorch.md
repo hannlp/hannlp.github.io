@@ -9,7 +9,7 @@ tags:
 
 # 0 推荐学习资源
 * [PYTORCH DOCUMENTATION](https://pytorch.org/docs/stable/index.html) - 最好的学习资源当然是官方文档啦
-* [《动手学深度学习》-PyTorch](https://tangshusen.me/Dive-into-DL-PyTorch/#/) - 只需了解基础的线性代数、微分和概率，以及基础的Python编程，即可迅速入门PyTorch。是 [Dive-into-DL](http://zh.d2l.ai/) 的PyTorch中文重构版本
+* [《动手学深度学习》-PyTorch](https://tangshusen.me/Dive-into-DL-PyTorch/#/) - 是 [Dive-into-DL](http://zh.d2l.ai/)(更新：[第二版](https://zh-v2.d2l.ai/index.html)) 的PyTorch中文重构版本
 * [pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial) - 提供了很多非常简洁的模板代码，也很适合学习使用
 
 # 1 经验细节汇总
@@ -21,17 +21,15 @@ tags:
 3. 使用```.numpy()```和```.from_numpy()```将tensor与Numpy中的array相互转换时，产生的tensor和array**共享内存**。如果这个tensor需要一个新的内存，那么可以使用```torch.tensor()```，这将消耗更多的时间和空间。
 
 ### 1.1.2 tensor的contiguous
-顾名思义，**连续的**。这里的连续是指在**内存中**是连续的。PyTorch中张量的底层实现是使用C中的一维数组(一段连续的内存空间)
+顾名思义，**连续的**。PyTorch中张量的底层实现是使用C中的一维数组(一段连续的内存空间)，所以这里的连续是指在**内存中**是连续的。
 
-使用```.view()```等方法时，必须先保证这个tensor是连续的。使用```.is_contiguous()```方法可以判断。  
+使用```.view()```等方法时，必须先保证这个tensor是连续的(使用```.is_contiguous()```方法可以判断)。如果tensor在内存中不连续，则需要使用```.contiguous()```方法，他会**重新开辟一块内存空间**以保证连续。
+
 > ```.is_contiguous()```的直观解释是**tensor底层一维数组元素的存储顺序与tensor按行优先一维展开的元素顺序是否一致**
-
-如果tensor在内存中不连续，则需要使用```.contiguous()```方法，他会**重新开辟一块内存空间**以保证连续。
 
 PyTorch又提供了```.reshape()```方法，其实就等价于```.contiguous().view()```
 
-下面是一个简单的示例：
-
+下面是一个简单的示例：  
 ```python
 a = torch.randn(16)
 print(a.is_contiguous())
