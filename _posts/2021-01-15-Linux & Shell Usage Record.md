@@ -15,30 +15,9 @@ tags:
 # 1 Linux使用记录
 ## 1.1 基础知识
 ### 1.1.1 Linux中路径的表示
-可以使用```pwd```查看当前路径(从根目录开始)
-
-**绝对路径：**  
-Linux中，根目录从```/```开始
-
-**相对路径：**  
-```.``` 表示当前目录  
-```..``` 表示上级目录  
-```~``` 表示当前用户自己的家目录  
-```~user``` 表示用户名为user的家目录，这里的user是在/etc/passwd中存在的用户名  
-
-**举例：**  
-当前在hans目录中，使用```ls /```列出根目录中的目录和文件：
-
-```
-bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
-boot  etc  lib   media  opt  root  sbin  sys  usr
-```
-
-当前在hans目录中，使用```ls .```列出hans目录中的目录和文件：
-
-```
-Anaconda3-2020.07-Linux-x86_64.sh  mycert.pem  mykey.key  test.py
-```
+1. 可以使用```pwd```查看当前路径(从根目录开始)
+2. **绝对路径：** Linux中，根目录从```/```开始
+3. **相对路径：** ```.``` 表示当前目录，```..``` 表示上级目录，```~``` 表示当前用户自己的家目录，```~user``` 表示用户名为user的家目录，这里的user是在/etc/passwd中存在的用户名  
 
 ## 1.2 常用命令
 ### 1.2.1 令进程在后台不挂断运行
@@ -54,21 +33,18 @@ Anaconda3-2020.07-Linux-x86_64.sh  mycert.pem  mykey.key  test.py
 nohup python -u train.py > train.log 2>&1 &
 ```
 
-### 1.2.2 查看进程
-查看某个用户的所有进程：  
-```bash
-top -U 用户名
-```
+### 1.2.2 指定进程使用的gpu
+1. 在终端执行程序时指定：```CUDA_VISIBLE_DEVICES=0,1```
+2. 在Python代码中指定：```import os; os.environ["CUDA_VISIBLE_DEVICES"] = "0"```
 
-查看某一进程的详细信息：  
-```bash
-ps aux | grep 任务号
-```
+### 1.2.3 查看进程
+1. 查看某个用户的所有进程：```top -U 用户名```
+2. 查看某一进程的详细信息：```ps aux | grep 任务号```
 
-### 1.2.3 结束进程
+### 1.2.4 结束进程
 结束进程最安全的方法是单纯使用kill命令，不加修饰符，不带标志，如```kill 32464 32465 32466 32467```(后面的几个数字是我要结束的进程号)，关于其他方式，见[参考](https://blog.csdn.net/lechengyuyuan/article/details/16337233)
 
-### 1.2.4 cut命令
+### 1.2.5 cut命令
 命令```cut```可以对file(或stdin)的每行抽取出希望抽取的部分([参考](https://man.linuxde.net/cut))。常用参数：  
 1. ```-d```：指定字段的分隔符，默认的字段分隔符为“TAB”
 2. ```-f```：显示指定字段的内容
