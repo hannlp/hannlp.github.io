@@ -63,3 +63,5 @@ print(torch.cuda.is_available())
 # 参考资料
 1. [Colab配置: 使用gpu训练模型](https://blog.csdn.net/Augurlee/article/details/103019181)
 2. [20种小技巧，玩转Google Colab](https://cloud.tencent.com/developer/article/1708477)
+3. [Colab Pro 值得花 9.9$/mon 订阅吗？来看这篇完整评测- 佘城璐](https://zhuanlan.zhihu.com/p/145929375)
+4. [Google Colab 的正确使用姿势 - 佘城璐](https://zhuanlan.zhihu.com/p/218133131)
