@@ -8,8 +8,8 @@ tags:
 在大三的时候已经使用PyTorch写过简单的DNN、CNN、预训练模型等，但当时只是被学分课(机器学习、计算机视觉)逼着写的，所以写完作业就基本不碰PyTorch了，也没有认真研究很多细节。现重新学习PyTorch，记录其很多重要但容易被忽略的细节，争取早日开始复现代码~
 
 # 0 推荐学习资源
-* [PYTORCH DOCUMENTATION](https://pytorch.org/docs/stable/index.html) - 最好的学习资源当然是官方文档啦
-* [《动手学深度学习》-PyTorch](https://tangshusen.me/Dive-into-DL-PyTorch/#/) - 是 [Dive-into-DL](http://zh.d2l.ai/)(更新：[第二版](https://zh-v2.d2l.ai/index.html)) 的PyTorch中文重构版本
+* [PYTORCH DOCUMENTATION](https://pytorch.org/docs/stable/index.html) - 官方文档
+* [《动手学深度学习》-PyTorch](https://tangshusen.me/Dive-into-DL-PyTorch/#/) - 是 [Dive-into-DL](http://zh.d2l.ai/)([第二版](https://zh-v2.d2l.ai/index.html)) 的PyTorch中文重构版本
 * [pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial) - 提供了很多非常简洁的模板代码，也很适合学习使用
 
 # 1 经验细节汇总
@@ -70,6 +70,9 @@ x.requires_grad_()
 1. 可使用```net.parameters()```来查看模型所有的可学习参数，返回一个生成器
 2. ```torch.nn```仅支持**一个batch**样本的输入(不支持单样本)，如果只有单个样本，需要手动添加维度
 
+### 1.2.3 train()与eval()
+1. 在验证和测试时，需使用```model.eval()```方法，它可以自动关闭训练时使用的**Dropout**和**Batch Norm**
+
 # 2 重要的库
 ## 2.1 TorchText
 ### 2.1.1 推荐资源
@@ -78,10 +81,19 @@ x.requires_grad_()
 3. [How to use TorchText for neural machine translation, plus hack to make it 5x faster](https://towardsdatascience.com/how-to-use-torchtext-for-neural-machine-translation-plus-hack-to-make-it-5x-faster-77f3884d95#8a90) (一个优质的使用torchtext预处理机器翻译数据的教程)
 
 ### 2.1.2 使用技巧
+在0.9.0版本中，之前版本的很多重要模块如```data```、```field```等已经移动到legacy中了，需要注意  
+```
+torchtext.legacy.data.field
+torchtext.legacy.data.batch
+torchtext.legacy.data.example
+torchtext.legacy.data.iterator
+torchtext.legacy.data.pipeline
+torchtext.legacy.datasets
+```
 
 # 3 常用模板代码
 ## 3.1 模型的训练及验证
-**模型的训练:**  
+* 模型的训练  
 ```python
 def train_epoch(epoch, model, optimizer, criterion, train_iter):
     model.train()
@@ -95,7 +107,7 @@ def train_epoch(epoch, model, optimizer, criterion, train_iter):
             print('Epoch: {}, batch: [{}/{}], Loss: {:.5}'.format(epoch, i, len(train_iter), loss.item()))
 ```
 
-**模型的验证:**  
+* 模型的验证  
 ```python
 def valid_epoch(epoch, model, optimizer, criterion, valid_iter):
     model.eval()
@@ -109,14 +121,14 @@ def valid_epoch(epoch, model, optimizer, criterion, valid_iter):
 ```
 
 ## 3.2 模型的保存和加载
-**模型的保存:**  
+* 模型的保存  
 ```python
 torch.save(model, PATH) # 方法1(不推荐)
 torch.save(model.state_dict(), PATH) # 方法2
 torch.save({'epoch':epoch, 'model':model.state_dict(), ...}, PATH) # 方法3
 ```
 
-**模型的加载:**  
+* 模型的加载  
 ```python
 # 对应方法1(不推荐)
 model = torch.load(PATH)
