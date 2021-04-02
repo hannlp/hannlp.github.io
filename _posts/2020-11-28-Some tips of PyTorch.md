@@ -121,14 +121,14 @@ def valid_epoch(epoch, model, optimizer, criterion, valid_iter):
 ```
 
 ## 3.2 模型的保存和加载
-* 模型的保存  
+* 模型的保存
 ```python
 torch.save(model, PATH) # 方法1(不推荐)
 torch.save(model.state_dict(), PATH) # 方法2
 torch.save({'epoch':epoch, 'model':model.state_dict(), ...}, PATH) # 方法3
 ```
 
-* 模型的加载  
+* 模型的加载
 ```python
 # 对应方法1(不推荐)
 model = torch.load(PATH)
