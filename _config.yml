@@ -15,10 +15,9 @@ author: hannlp
 
 navbar-links:
   About Me: "aboutme"
-  Articles: https://hannlp.github.io/tags/
+  Posts: https://hannlp.github.io/tags/
   Projects:
     - SimpleNMT: "https://github.com/hannlp/SimpleNMT"
-  #  - Learn markdown: "https://www.markdowntutorial.com/"
 
 # --- Logo --- #
 
