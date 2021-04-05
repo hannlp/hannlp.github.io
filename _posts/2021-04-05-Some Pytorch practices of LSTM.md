@@ -23,6 +23,10 @@ tags:
 
 ## 3.2 LSTMCell
 
+# 4 PyTorch实践：Encoder-Decoder模型
+## 4.1 用LSTM写Encoder
+## 4.2 用LSTMCell写带attention的Decoder
+
 # 参考资料
 1. [Understanding LSTM Networks](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 2. [Fully understand LSTM network and input, output, hidden_size and other parameters](https://programmersought.com/article/91264364976/)
