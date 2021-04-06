@@ -3,6 +3,7 @@ title: Some News Recommendation Models NPA/ NAML/ LSTUR/ NRMS
 date: 2020-11-11
 tags:
 - 推荐系统
+- 论文阅读
 ---
 
 # 前言
