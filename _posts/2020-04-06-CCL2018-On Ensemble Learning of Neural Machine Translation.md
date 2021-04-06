@@ -1,6 +1,6 @@
 ---
 title: CCL2018-On Ensemble Learning of Neural Machine Translation
-date: 2019-04-16
+date: 2021-04-06
 tags:
 - 机器翻译
 - 论文阅读
