@@ -47,8 +47,9 @@ tags: 基础知识
 (1, [2, 3, 4, 5], 6)
 ```
 
-### 1.3 迭代器和生成器
-
+### 1.3 迭代器和生成器的区别
+![](https://i.loli.net/2021/04/07/HSTk2iuahZEzWvU.png)
+(图片来自[Iterables vs. Iterators vs. Generators](https://nvie.com/posts/iterators-vs-generators/))
 
 # 2 常用模块
 ## 2.1 argparse
