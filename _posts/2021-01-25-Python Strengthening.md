@@ -16,7 +16,6 @@ tags: 基础知识
 1. [Google Python 风格指南](https://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/contents/)
 2. [Abbreviations.com](https://www.abbreviations.com/https://www.abbreviations.com/) - 查单词缩写的网站，用于变量命名
 
-
 # 1 Python进阶
 ## 1.1 装饰器
 
@@ -30,24 +29,19 @@ tags: 基础知识
 |双前导和双末尾下划线|\_\_var\_\_|表示Python语言定义的特殊方法。避免在自己的属性中使用这种命名方案|
 
 ### 1.2.2 *_的用法
-在元组拆包时，一般情况下，```=``` 左边的变量个数等于元组元素个数。
-
-但如果只想使用元组中某几个元素的话，不需要的元素就没必要给它一个变量（因为这会占用内存），那就用 ```_``` 取代变量名。
-
-如果不需要的元素是连续的，不用写多个 ```_``` ，直接写一个 ```*_``` 就行了。
-
+在元组拆包时，一般情况下，```=``` 左边的变量个数等于元组元素个数。  
+但如果只想使用元组中某几个元素的话，不需要的元素就没必要给它一个变量（因为这会占用内存），那就用 ```_``` 取代变量名。  
+如果不需要的元素是连续的，不用写多个 ```_``` ，直接写一个 ```*_``` 就行了。  
 另外，如果想把多个元素分配给一个变量p，可以使用 ```*p``` 。例子如下：  
 ```python
->>> a = (1, 2 ,3 ,4 ,5, 6)
->>> b, *_, d = a
->>> b, d
-(1, 6)
->>> b, *c, d = a
->>> b, c, d
-(1, [2, 3, 4, 5], 6)
+a = (1, 2 ,3 ,4 ,5, 6)
+b, *_, d = a
+>> b, d # Out: (1, 6)
+b, *c, d = a
+>> b, c, d # Out: (1, [2, 3, 4, 5], 6)
 ```
 
-### 1.3 迭代器和生成器的区别
+## 1.3 迭代器和生成器的区别
 ![](https://i.loli.net/2021/04/07/HSTk2iuahZEzWvU.png)
 (图片来自[Iterables vs. Iterators vs. Generators](https://nvie.com/posts/iterators-vs-generators/))
 

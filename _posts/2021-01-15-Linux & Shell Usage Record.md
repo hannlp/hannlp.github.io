@@ -8,8 +8,8 @@ tags:
 最近需要在linux系统上写一些脚本(bash文件)，方便批处理。自己目前的笔记本系统是windows10，现在使用的一套配置是Xshell6(使用服务器) + Xftp7(文件传输) + Notepad++(文件编辑)。用这篇博客记录使用过程中的一些问题及解决方案。
 
 # 0 相关链接
-1. [Linux / Shell 教程 - runoob](https://www.runoob.com/linux/linux-shell.html)
-2. [Linux命令大全 - runoob](https://www.runoob.com/linux/linux-command-manual.html)
+1. [Linux / Shell 教程](https://www.runoob.com/linux/linux-shell.html) & [Linux命令大全](https://www.runoob.com/linux/linux-command-manual.html) - runoob
+2. [Linux命令大全(手册)](https://www.linuxcool.com/)
 3. [一篇文章让你彻底掌握 Shell 语言 - 静默虚空](https://www.cnblogs.com/jingmoxukong/p/7867397.html)
 
 # 1 Linux使用记录
