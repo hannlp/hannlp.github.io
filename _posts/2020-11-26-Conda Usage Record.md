@@ -65,13 +65,7 @@ conda deactivate
 ```
 [hanyuchen@IP-xxx-xxx-xx-xx ~]$
 ```
-但退出(base)后，会发现之前使用conda安装的很多库，就无法导入了，比如```import torch```，遂上网寻找答案，找到了一个[看起来比较优质的回答](https://segmentfault.com/q/1010000016958462)：
-
-1. ```conda install```的package是在**anaconda\pkgs**下，而```pip install```的package是在**anaconda\Lib\site-packages**下
-2. 如果你在 **(base)环境**使用```pip install```，package应该就是安装在anaconda\Lib\site-packages下; 如果你在**其他虚拟环境**使用``pip install``，那么下载的包就只在这个虚拟环境中
-3. 其他虚拟环境下的使用python packages时优先搜索**该虚拟环境**下的package，如果没有它就搜索(base)环境下的package，也就是(base)环境下的package是可以被其他虚拟环境使用的
-
-但我发现**这个答案并不奏效**(似乎在windows上有效？)，而且我在linux下尝试使用其他环境进入python并```import torch```，仍显示‘ImportError: No module named torch’，所以此答案仅供参考，我目前没有太多心思继续深究这个问题了，所以对于自己出现的问题的解决方案是：
+但退出(base)后，会发现之前在(base)环境下使用conda安装的很多库，就无法导入了，比如```import torch```，遂上网寻找答案，比如[这个](https://segmentfault.com/q/1010000016958462)。不过似乎对我没用，所以我目前的解决方案是：
 
 > 只使用(base)环境和新建的环境即可，**不退出**(base)环境
 
@@ -87,7 +81,7 @@ conda list
 # 2 常出现的错误
 ## 2.1 python相关
 ### 2.1.1 启动时的interactivehook UnicodeDecodeError
-具体情况如下：
+具体报错如下：
 ```
 Failed calling sys.__interactivehook__
 Traceback (most recent call last):
@@ -102,6 +96,15 @@ UnicodeDecodeError: 'gbk' codec can't decode byte 0xaf in position 34: illegal m
 ```python
 for line in open(filename, 'r', encoding='utf-8'):
 ```
+### 2.1.2 Win10系统Ipython异常，中止I/O操作
+具体报错如下：
+```
+Unhandled exception in event loop:
+  ...
+Exception [WinError 995] The I/O operation has been aborted because of either a thread exit or an application request
+Press ENTER to continue...
+```
+**解决方案：**```pip install --upgrade prompt-toolkit==2.0.10```即可。具体讨论见[this issue](https://github.com/ipython/ipython/issues/12049)
 
 ## 2.2 anaconda-navigator 不能正常启动
 如果错误提示中明显能够看到pyQt5相关条目，并且anaconda prompt可以运行，则说明核心模块安装正确，是UI(界面插件)的问题
