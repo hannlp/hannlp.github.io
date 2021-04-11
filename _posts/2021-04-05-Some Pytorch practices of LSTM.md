@@ -38,3 +38,4 @@ tags:
 1. [Understanding LSTM Networks](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 2. [Fully understand LSTM network and input, output, hidden_size and other parameters](https://programmersought.com/article/91264364976/)
 3. [LSTM细节分析理解（pytorch版）](https://zhuanlan.zhihu.com/p/79064602)
+4. [混合前端的seq2seq模型部署](https://cloud.tencent.com/developer/article/1507554)
