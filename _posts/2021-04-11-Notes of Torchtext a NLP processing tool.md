@@ -18,11 +18,12 @@ tags:
 
 
 # 2 Field
+在这里，我用大写字母如```Field```表示一个类，用小写字母如```field```表示一个对象，本文其它部分亦如此。
 ## 2.1 field.vocab
 
 
 ## 2.2 field.pad()
-使用field，将一批句子用PAD填充到这批句子中最长的句子长度。
+将一批长度不同的句子用PAD填充到这批句子中最长的句子长度。
 ```python
 src = [['I', 'love', 'you', 'china', '!']]
 padded = SRC.pad(src); print(padded)
@@ -32,7 +33,25 @@ srcs = [['I', 'love', 'you', 'china', '!'],
         ['China', ',', 'i', 'very', 'love', 'you', '!'],
         ['Chinese', ',', 'is', 'my', 'born', 'country', 'i', 'like', 'it']]
 padded = SRC.pad(srcs); print(padded)
-# Out: [['I', 'love', 'you', 'china', '!', '<pad>', '<pad>', '<pad>', '<pad>'], ['China', ',', 'i', 'very', 'love', 'you', '!', '<pad>', '<pad>'], ['Chinese', ',', 'is', 'my', 'born', 'country', 'i', 'like', 'it']]
+# Out: [['I', 'love', 'you', 'china', '!', '<pad>', '<pad>', '<pad>', '<pad>'], 
+#       ['China', ',', 'i', 'very', 'love', 'you', '!', '<pad>', '<pad>'], 
+#       ['Chinese', ',', 'is', 'my', 'born', 'country', 'i', 'like', 'it']]
 ```
+
+## 2.3 field.numericalize()
+使用field，将一批PAD后的句子数值化，即将单词转换成词典中对应的索引。
+```python
+src_tokens = SRC.numericalize(padded)
+print(src_tokens)
+# Out: tensor([[  46,  998,   77,    0, 1590,    1,    1,    1,    1],
+#              [1381,    3,  584,  300,  998,   77, 1590,    1,    1],
+#              [3497,    3,   12,  177,  883,  304,  584,  181,   27]])
+
+print(list([SRC.vocab.itos[x] for x in src_tokens[i]] for i in range(len(src_tokens))))
+# Out: [['I', 'love', 'you', '<unk>', '!', '<pad>', '<pad>', '<pad>', '<pad>'], 
+#       ['China', ',', 'i', 'very', 'love', 'you', '!', '<pad>', '<pad>'], 
+#       ['Chinese', ',', 'is', 'my', 'born', 'country', 'i', 'like', 'it']]
+```
+
 
 # 3 Dataset
