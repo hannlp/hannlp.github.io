@@ -73,26 +73,8 @@ x.requires_grad_()
 ### 1.2.3 train()与eval()
 1. 在验证和测试时，需使用```model.eval()```方法，它可以自动关闭训练时使用的**Dropout**和**Batch Norm**
 
-# 2 重要的库
-## 2.1 TorchText
-### 2.1.1 推荐资源
-1. [TORCHTEXT DOCUMENTATION (0.8.1)](https://pytorch.org/text/0.8.1/) (官方文档，目前已更新到[0.9.0](https://pytorch.org/text/stable/index.html))
-2. [pytorch/text](https://github.com/pytorch/text#data) (官方github仓库，其**readme**是一个非常简洁的使用指南)
-3. [How to use TorchText for neural machine translation, plus hack to make it 5x faster](https://towardsdatascience.com/how-to-use-torchtext-for-neural-machine-translation-plus-hack-to-make-it-5x-faster-77f3884d95#8a90) (一个优质的使用torchtext预处理机器翻译数据的教程)
-
-### 2.1.2 使用技巧
-在0.9.0版本中，之前版本的很多重要模块如```torchtext.data```、```torchtext.datasets```等已经移动到```torchtext.legacy```中了，导入时需要注意  
-```
-torchtext.legacy.data.field
-torchtext.legacy.data.batch
-torchtext.legacy.data.example
-torchtext.legacy.data.iterator
-torchtext.legacy.data.pipeline
-torchtext.legacy.datasets
-```
-
-# 3 常用模板代码
-## 3.1 模型的训练及验证
+# 2 常用模板代码
+## 2.1 模型的训练及验证
 模型的训练  
 ```python
 def train_epoch(epoch, model, optimizer, criterion, train_iter):
@@ -120,7 +102,7 @@ def valid_epoch(epoch, model, optimizer, criterion, valid_iter):
     return sum(loss_list) / len(valid_iter)
 ```
 
-## 3.2 模型的保存和加载
+## 2.2 模型的保存和加载
 模型的保存  
 ```python
 torch.save(model, PATH) # 方法1(不推荐)
