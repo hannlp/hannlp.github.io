@@ -6,7 +6,10 @@ tags:
 ---
 
 # 前言
-在复现Bahdana的注意力机制NMT模型时(PyTorch)，第一次使用LSTM作为编码器和解码器的基本结构，发现fairseq的源码中编码器使用LSTM，而解码器使用的却是LSTMCell，遂产生好奇。在深入研究之后才明白其原因，将经验心得记录在此。
+本篇博客记录了我对LSTM的理论学习、PyTorch上LSTM和LSTMCell的学习，以及用LSTM对Seq2Seq框架+注意力机制的实现。还包括了很多有趣的细节，包括RNNs对批量序列数据Padding的处理，以及多层RNNs中Dropout的使用等等。
+
+# 0 好奇心害死猫
+最近在复现Bahdana的注意力机制NMT模型(PyTorch)，第一次使用LSTM作为编码器和解码器的基本结构。发现fairseq的源码中编码器使用LSTM，而解码器使用的却是LSTMCell；而OpenNMT的编码器和解码器实现都只使用了LSTM，遂产生好奇。原因竟然是...
 
 # 1 LSTM速览
 ## 1.1 LSTM流程图
@@ -26,6 +29,7 @@ tags:
 ![](https://i.loli.net/2021/04/05/scw8fu5I27DQjSN.png)
 
 # 3 PyTorch中的LSTM
+由于深度学习框架对模型成熟的封装，RNN这类模型的输入输出、使用方法基本一致。这里以LSTM为例，可以很容易的掌握其他所有RNNs
 ## 3.1 LSTM
 
 ## 3.2 LSTMCell
