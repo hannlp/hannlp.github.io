@@ -27,8 +27,21 @@ TGT.build_vocab(test)
 # 2 Field
 在这里，我用大写字母如```Field```表示一个类，用小写字母如```field```表示一个对象，本文其它部分亦如此。
 ## 2.1 field.vocab
+在使用```field.build_vocab()```后，相应的词表便建立好了，可以使用下面的几个函数或属性：
+1. ```vocab.stoi[]```：使用vocab，将单词转化为索引
+2. ```vocab.itos[]```：使用vocab，将索引转化为单词
+3. ```vocab.freqs```：一个```collections.Counter```对象，统计了词表中单词的词频。可以使用```Counter```的所有方法
 
+```python
+word = 'the'
+word_id = SRC.vocab.stoi[word]
+word = SRC.vocab.itos[word_id]
+print(word_id, word)
+# Out: 2 the
 
+SRC.vocab.freqs.most_common(5)
+# Out: [('the', 3775), (',', 3050), ('.', 2796), ('of', 1697), ('to', 1682)]
+```
 ## 2.2 field.pad()
 将一批长度不同的句子用PAD填充到这批句子中最长的句子长度。
 ```python
