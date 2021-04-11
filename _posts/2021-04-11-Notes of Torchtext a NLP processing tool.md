@@ -16,7 +16,14 @@ tags:
 
 # 1 TorchText 0.8.1总体介绍
 
-
+```python
+from torchtext.legacy import data, datasets
+SRC = data.Field(pad_token='<pad>', batch_first=True)
+TGT = data.Field(init_token='<sos>', eos_token='<eos>', pad_token='<pad>', batch_first=True)
+test = datasets.TranslationDataset(path='./test', exts=('.en', '.de'), fields=(('src', SRC), ('trg', TGT)))
+SRC.build_vocab(test)
+TGT.build_vocab(test)
+```
 # 2 Field
 在这里，我用大写字母如```Field```表示一个类，用小写字母如```field```表示一个对象，本文其它部分亦如此。
 ## 2.1 field.vocab
