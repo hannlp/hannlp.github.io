@@ -1,5 +1,5 @@
 ---
-title: CCL2018-On Ensemble Learning of Neural Machine Translation
+title: CCL-2018-On Ensemble Learning of Neural Machine Translation
 date: 2021-04-06
 tags:
 - 机器翻译
