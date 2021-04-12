@@ -1,5 +1,5 @@
 ---
-title: Notes of TorchText a NLP processing tool
+title: Notes of TorchText-a NLP tool
 date: 2021-04-11
 tags:
 - 自然语言处理
