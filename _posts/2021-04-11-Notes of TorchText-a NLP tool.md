@@ -28,8 +28,8 @@ TGT.build_vocab(test)
 在这里，我用大写字母如```Field```表示一个类，用小写字母如```field```表示一个对象，本文其它部分亦如此。
 ## 2.1 field.vocab
 在使用```field.build_vocab()```后，相应的词表便建立好了，可以使用下面的几个函数或属性：
-1. ```vocab.stoi[]```：使用vocab，将单词转化为索引
-2. ```vocab.itos[]```：使用vocab，将索引转化为单词
+1. ```vocab.stoi[]```：使用vocab将单词转化为索引
+2. ```vocab.itos[]```：使用vocab将索引转化为单词
 3. ```vocab.freqs```：一个```collections.Counter```对象，统计了词表中单词的词频。可以使用```Counter```的所有方法
 
 ```python
