@@ -32,8 +32,7 @@ nlp实验室肖桐老师、朱靖波老师主编的[《机器翻译-统计建模
 采用跨层连接的结构，有$\bm{x_{l+1}}=F(\bm{x_l})+\bm{x_l}$。在反向传播时，在$\bm{x_l}$处的梯度为：
 
 $$\begin{aligned}
-    \frac{\partial L}{\partial \bm{x_l}}&=\frac{\partial L}{\partial \bm{x_{l+1}}}\cdot\frac{\partial \bm{x_{l+1}}}{\partial \bm{x_l}}\\
-    &=\frac{\partial L}{\partial \bm{x_{l+1}}}(1+\frac{\partial F(\bm{x_l})}{\partial \bm{x_l}})\\
+    \frac{\partial L}{\partial \bm{x_l}}&=\frac{\partial L}{\partial \bm{x_{l+1}}}\cdot\frac{\partial \bm{x_{l+1}}}{\partial \bm{x_l}}=\frac{\partial L}{\partial \bm{x_{l+1}}}(1+\frac{\partial F(\bm{x_l})}{\partial \bm{x_l}})\\
     &=\frac{\partial L}{\partial \bm{x_{l+1}}}+\frac{\partial L}{\partial \bm{x_{l+1}}}\cdot\frac{\partial F(\bm{x_l})}{\partial \bm{x_l}}
 \end{aligned}
 $$
