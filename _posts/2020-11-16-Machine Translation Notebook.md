@@ -18,13 +18,7 @@ nlp实验室肖桐老师、朱靖波老师主编的[《机器翻译-统计建模
 分为**有参考答案评价**(人工打分、BLEU)和**无参考答案评价**
 ## 2.1 BLEU(*Bilingual Evaluation Understudy*)
 
-采用$n$-$gram$匹配+短句惩罚的方式：
-
-$$\begin{aligned}
-    \mathrm{BLEU}&=\mathrm{BP}\cdot\mathrm{exp}(\sum_{i=1}^Nw_n\cdot\mathrm{logP}_n)\\
-    \mathrm{BP}&=
-\end{aligned}
-$$
+采用$n$-$gram$匹配+短句惩罚的方式
 
 # 3 统计机器翻译部分
 
@@ -63,13 +57,22 @@ $$PPL=p(w_1w_2...w_m)^\frac{1}{m}=\sqrt[m]{\frac{1}{p(w_1w_2...w_m)}}$$
 
 在不同模型中，其计算方法也不同。在NMT中，困惑度其实就是**交叉熵的指数形式**，也就是说，$PPL=e^{loss}$。推导见[参考1](https://zhuanlan.zhihu.com/p/114432097),[2](https://www.zhihu.com/question/58482430)
 
-# 6 机器翻译中的数据处理
-## 6.1 子词切分
+# 6 神经机器翻译模型
+## 6.1 基于卷积神经网络的NMT模型
+### 6.1.1 CNN相对于全连接的特点
+1. 全连接层考虑了所有的输入，层输出中的每一个元素都依赖于所有输入。但当处理图像这种以像素为单位的网格数据的时候，规模过大的数据会导致模型参数量过大。
+2. 在一些网格数据中，通常具有**局部不变性**的特征，比如图像中不同位置的相同物体、语言序列中相同的n-gram等，全连接网络很难提取这些局部不变性特征。
+3. CNN最大的特点在于具有**局部连接**（Locally Connected，也叫稀疏交互）和**权值共享**（Weight Sharing）的特性。卷积层中每个神经元只响应周围部分的局部输入特征，即稀疏交互。另外，卷积层使用相同的卷积核对不同位置进行特征提取，也就是采用权值共享来进一步减少参数量。
+
+### 6.1.2
+
+# 7 机器翻译中的数据处理
+## 7.1 子词切分
 1. [深入理解NLP Subword算法：BPE、WordPiece、ULM](https://zhuanlan.zhihu.com/p/86965595)
 2. [BPE系列之—— BPE算法](https://blog.csdn.net/qq_40240102/article/details/101843196)
 
-# 7 资源
-## 7.1 平行语料
+# 8 资源
+## 8.1 平行语料
 1. [联合国平行语料库](https://conferences.unite.un.org/UNCORPUS/zh)
 2. [WMT19语料](http://www.statmt.org/wmt19/index.html)
 3. [NiuTrans开源语料](https://github.com/NiuTrans/NiuTrans.SMT/tree/master/sample-data)
