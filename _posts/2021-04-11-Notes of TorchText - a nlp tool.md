@@ -6,6 +6,7 @@ tags:
 ---
 
 # 前言
+毕业设计中偷懒用了一些轮子，TorchText就是其中一个:)主要用了它来加载数据、构建词表、得到训练、测试及验证集的生成器等等。本篇博客主要记录一下我用过的，觉得非常有用、有趣的功能，方便回顾。
 
 # 0 推荐资源
 1. [TORCHTEXT DOCUMENTATION (0.8.1)](https://pytorch.org/text/0.8.1/) (官方文档，目前已更新到[0.9.0](https://pytorch.org/text/stable/index.html))
