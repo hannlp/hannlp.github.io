@@ -29,19 +29,25 @@ tags:
 由于深度学习框架对模型成熟的封装，RNN这类模型的输入输出、使用方法基本一致。这里以LSTM为例，可以很容易的掌握其他所有RNNs。下面是官方文档中两者的公式：
 
 ![](https://i.loli.net/2021/04/20/TcyFzdCOGP8its1.png)
+
 ## 3.1 LSTM
+
 
 ## 3.2 LSTMCell
 
 # 4 PyTorch实践：Encoder-Decoder模型
 ## 4.1 用LSTM写Encoder
 ```python
+# 由于成熟的封装，切换使用几种RNNs只需要换个名即可
+str2rnn = {'lstm': nn.LSTM, 'gru': nn.GRU, 'rnn': nn.RNN}
+
 class Encoder(nn.Module):
     def __init__(self, n_src_words, d_model, src_pdx, n_layers, p_drop, bidirectional, rnn_type):
         super().__init__()
         self.d_model, self.n_layers, self.src_pdx = d_model, n_layers, src_pdx
         self.n_directions = 2 if bidirectional else 1
-        self.input_embedding = nn.Embedding(n_src_words, d_model, padding_idx=src_pdx)   
+        self.input_embedding = nn.Embedding(n_src_words, d_model, padding_idx=src_pdx)
+        # 这里hidden_size=d_model/n_directions，是因为双向会堆叠一层导致最后的模型维度加倍，与Decoder不匹配
         self.rnn = str2rnn[rnn_type](input_size=d_model, hidden_size=d_model // self.n_directions, 
                             num_layers=n_layers, dropout=p_drop, 
                             batch_first=True, bidirectional=bidirectional)
@@ -63,6 +69,7 @@ class Encoder(nn.Module):
 ```
 
 ## 4.2 用LSTMCell写带attention的Decoder
+### 4.2.1 Attention Layer
 ```python
 class AttentionLayer(nn.Module):
     # 2015 luong et, Effective Approaches to Attention-based Neural Machine Translation
@@ -104,7 +111,9 @@ class AttentionLayer(nn.Module):
         
         attn = F.softmax(score, dim=-1)
         return attn
-
+```
+### 4.2.2 Decoder
+```python
 class Decoder(nn.Module):
     def __init__(self, n_tgt_words, d_model, tgt_pdx, n_layers, p_drop, attn_type, rnn_type):
         super().__init__()
