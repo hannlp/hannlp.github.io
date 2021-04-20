@@ -23,15 +23,17 @@ tags:
 要说的是，LSTM的设计只是较RNN**缓解**了梯度消失问题，并没有完全解决。与Transformer的自注意力相比，LSTM的顺序输入的方式影响了模型的并行性，但符合人对序列的理解方式。
 
 # 2 多层LSTM
+层与层之间用于信息流通的其实还是隐藏状态$h_t^{(l)}$
 ![](https://i.loli.net/2021/04/05/scw8fu5I27DQjSN.png)
 
 # 3 PyTorch中的LSTM
-由于深度学习框架对模型成熟的封装，RNN这类模型的输入输出、使用方法基本一致。这里以LSTM为例，可以很容易的掌握其他所有RNNs。下面是官方文档中两者的公式：
+由于深度学习框架对模型成熟的封装，RNN这类模型的输入输出、使用方法基本一致。这里以LSTM为例，可以很容易的掌握其他所有RNNs。
+
+在PyTorch中，有两种形式：**LSTM**和**LSTMCell**。两者的关系如上面多层LSTM的图中，一个蓝色块就是LSTMCell，所有蓝色块放在一起就是LSTM。下面是官方文档中LSTM和LSTMCell的公式：
 
 ![](https://i.loli.net/2021/04/20/TcyFzdCOGP8its1.png)
 
 ## 3.1 LSTM
-
 
 ## 3.2 LSTMCell
 
