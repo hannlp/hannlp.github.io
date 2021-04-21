@@ -31,7 +31,7 @@ tags:
 1. [The Illustrated Transformer - Jay Alammar](https://jalammar.github.io/illustrated-transformer/) (**首推**，以图像形式详细介绍了计算细节，例如block中的$QKV$矩阵运算、多头、前馈部分，附[中文版](https://zhuanlan.zhihu.com/p/48508221))
 2. [Dissecting BERT Part 1: The Encoder - Miguel Romero Calvo](https://medium.com/dissecting-bert/dissecting-bert-part-1-d3c3d495cdb3) (推荐，也是编码器部分，但较上一篇更严谨，展示了**维度**的变化，并给出更多**真实的矩阵**示例)
 3. [Dissecting BERT Appendix: The Decoder - Miguel Romero Calvo](https://medium.com/dissecting-bert/dissecting-bert-appendix-the-decoder-3b86f66b0e5f) (**必读**，详细介绍了前两篇很少提及的**解码器**部分，包括sequence mask、编码器与解码器间的attention、src_length与tgt_length转换)
-4. 几篇对位置编码作用的分析[1](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/), [2](https://timodenk.com/blog/linear-relationships-in-the-transformers-positional-encoding/), [3](https://zhuanlan.zhihu.com/p/106644634)(中文)
+4. 几篇对**位置编码**作用的分析[1](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/), [2](https://timodenk.com/blog/linear-relationships-in-the-transformers-positional-encoding/), [3](https://zhuanlan.zhihu.com/p/106644634)(中文)
 
 **深入篇(复现时阅读有奇效)：**
 1. [Transformer Details Not Described in The Paper](https://tunz.kr/post/4) (论文发布后，官方代码其实有不少改动，在此文章中能找到很多答案。附[中文版](https://zhuanlan.zhihu.com/p/79987949))
