@@ -76,3 +76,7 @@ print(list([SRC.vocab.itos[x] for x in src_tokens[i]] for i in range(len(src_tok
 
 
 # 3 Dataset
+
+# 参考资料
+1. [torchtext(一) 概述与基本操作](https://blog.csdn.net/bqw18744018044/article/details/109149646), [(二) Field详解](https://blog.csdn.net/bqw18744018044/article/details/109150802?spm=1001.2014.3001.5501), [(三) Dataset详解](https://blog.csdn.net/bqw18744018044/article/details/109150919?spm=1001.2014.3001.5501)
+2. [torchtext入门教程，轻松玩转文本数据处理](https://zhuanlan.zhihu.com/p/31139113)
