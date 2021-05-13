@@ -2,7 +2,7 @@
 title: Google Colab Usage Record
 date: 2020-12-12
 tags:
-- 环境配置
+- 系统与环境
 ---
 
 # 前言
