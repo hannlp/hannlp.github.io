@@ -5,7 +5,7 @@ tags:
 - 系统与环境
 ---
 # 前言
-发现每次用conda的时候都要去百度找命令，故在此记录我最常用到的命令，以方便我或者其他人查找使用！此外，除了conda的使用，此博客还记录了一些常用深度学习库的安装及配置的踩坑记录，以及一些冷门但较重要的环境细节。
+这篇博客记录了一些conda使用方法，以及一些常用深度学习库安装、配置的踩坑过程
 
 # 1 常用命令
 以下所有命令在**2021-01-28**被验证可用！另附[官方文档](https://docs.conda.io/projects/conda/en/latest/index.html)
@@ -35,6 +35,16 @@ conda config --remove-key channels
 附链接：[清华源](https://mirrors.tuna.tsinghua.edu.cn/), [中科大源](https://mirrors.ustc.edu.cn/), [上交源](https://mirrors.sjtug.sjtu.edu.cn/#/)
 
 ## 1.2 环境管理
+在安装conda后，会发现命令提示符前多了一个(base)，这其实是conda自带的一个基础环境，而且每次登录后都会默认激活该环境：
+```
+(base) [hanyuchen@IP-xxx-xxx-xx-xx ~]$
+``` 
+当然，可以通过```conda deactivate```命令来退出(base)环境：
+```
+[hanyuchen@IP-xxx-xxx-xx-xx ~]$
+```
+可以发现，两个环境中的python版本不同，在不同环境中使用```pip/conda```安装的包也是相互隔离的。这方便我们运行不同依赖环境的代码，这就是conda的环境管理功能
+
 ### 1.2.1 常用命令
 ```python
 # 查看已存在的环境
@@ -55,19 +65,6 @@ conda activate test
 # 退出虚拟环境
 conda deactivate
 ```
-
-### 1.2.2 conda环境管理中的一个细节
-在使用conda后，会发现命令提示符前多了一个(base)，这其实是conda自带的一个基础环境，而且每次登录后都会默认激活该环境：
-```
-(base) [hanyuchen@IP-xxx-xxx-xx-xx ~]$
-``` 
-当然，可以通过```conda deactivate```命令来退出(base)环境：
-```
-[hanyuchen@IP-xxx-xxx-xx-xx ~]$
-```
-但退出(base)后，会发现之前在(base)环境下使用conda安装的很多库，就无法导入了，比如```import torch```，遂上网寻找答案，比如[这个](https://segmentfault.com/q/1010000016958462)。不过似乎对我没用，所以我目前的解决方案是：
-
-> 只使用(base)环境和新建的环境即可，**不退出**(base)环境
 
 ## 1.3 包管理
 ```python
