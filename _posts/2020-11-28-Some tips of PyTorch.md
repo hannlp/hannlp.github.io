@@ -127,6 +127,18 @@ model.load_state_dict(checkpoint['model'])
 
 **注意：** 在不同设备上保存或加载，需要添加```torch.load(PATH, map_location=device)```参数，且还需要使用```model.to(device)```。其中```device```是希望加载到的设备
 
+## 2.3 可复现性
+```python
+def set_random_seed(seed, deterministic=False):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    if deterministic:
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+```
+
 # 参考资料
 1. [PyTorch中的contiguous - 栩风](https://zhuanlan.zhihu.com/p/64551412)
 2. [[TorchText]使用 - VanJordan](https://www.jianshu.com/p/e5adb235399e)
