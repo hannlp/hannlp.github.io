@@ -110,6 +110,7 @@ jupyter kernelspec remove test
 # 建立环境并在环境中安装ipykernel
 conda create -n 环境名称 python=3.7 ipykernel
 # 将环境加入jupyter的kernel中
+conda activate 环境名称
 python -m ipykernel install --user --name 环境名称 --display-name "kernel在菜单中的名称"
 ```
 
