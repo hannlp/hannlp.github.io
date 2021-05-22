@@ -46,11 +46,11 @@ nohup python -u train.py > train.log 2>&1 &
 
 ### 1.2.5 cut命令
 命令```cut```可以对file(或stdin)的每行抽取出希望抽取的部分([参考](https://man.linuxde.net/cut))。常用参数：  
-1. ```-d```：指定字段的分隔符，默认的字段分隔符为“TAB”
-2. ```-f```：显示指定字段的内容
-3. ```N-```：从第N个字节、字符、字段到结尾
-4. ```N-M```：从第N个字节、字符、字段到第M个（包括M在内）字节、字符、字段
-5. ```-M```：从第1个字节、字符、字段到第M个（包括M在内）字节、字符、字段
+1. ```-d```：指定分隔符，默认为“TAB”
+2. ```-f```：抽取指定部分
+3. ```N-```：从第N个部分到结尾
+4. ```N-M```：从第N个部分到第M个（包括M）部分
+5. ```-M```：从第1个部分到第M个（包括M）部分
 
 **举例：** 在文件ldc_test.result中抽取出以```-T```开头的句子
 ```
@@ -63,7 +63,7 @@ nohup python -u train.py > train.log 2>&1 &
 -P: The relevant departments should strengthen the obligation of low - bonded households to carry out such tasks as helping low - income families to enjoy low - income insured : if timely reporting of changes in the income and changes in the income and reporting on employment , and receiving regular reviews , the relevant departments should intensify supervision and inspection .
 ```
 
-使用命令：```grep ^-T ldc_test.result | cut -f2- -d" " > new.result```。其中，```-d" "```将空格设为分隔符，```-f2-```在用空格分开后的字段中，从第二个字段起，抽取后面所有字段。效果如下：
+使用命令：```grep ^-T ldc_test.result | cut -f2- -d" " > new.result```。其中，```-d" "```将空格设为分隔符，```-f2-```在用空格分开后的部分中，从第二个部分起，抽取后面所有部分。效果如下：
 
 ```
 The resolution requires Ethiopia to immediately take concrete steps to allow the Erit@@ rea - Ethiopia Boundary Commission to speedily demarc@@ ate the border without any preconditions ; and requires Erit@@ rea to cancel all of its restrictions on UN@@ ME@@ E 's actions and operations without any further delay and without setting any preconditions .
@@ -98,11 +98,26 @@ c.ServerApp.open_browser = False
 7. 在自己电脑的浏览器上输入： ```localhost:8889```(端口即侦听端口)
 
 ### 2.1.2 使用技巧
-1. **在一个ipynb中导入另一个ipynb的类：**  
+1. **内核(ipython kernel)管理：**
+```bash
+# 查看安装的kernel和其位置
+jupyter kernelspec list
+# 移除名为test的kernel
+jupyter kernelspec remove test
+```
+仅使用conda新建一个环境，在jupyter lab中还无法使用其中的库。需要先配置相应的jupyter内核，并在菜单中选择此内核。
+```bash
+# 建立环境并在环境中安装ipykernel
+conda create -n 环境名称 python=3.7 ipykernel
+# 将环境加入jupyter的kernel中
+python -m ipykernel install --user --name 环境名称 --display-name "kernel在菜单中的名称"
+```
+
+2. **在一个ipynb中导入另一个ipynb的类或变量：**  
 ```bash
 %run OtherNotebook.ipynb
 ```
-2. **关闭浏览器选项卡后，希望cell的输出不丢失：**  
+3. **关闭浏览器选项卡后，希望cell的输出不丢失：**  
 ```python
 import sys
 temp = sys.stdout
@@ -115,23 +130,16 @@ sys.stdout = temp
 
 ## 2.2 git
 ### 2.2.1 问题记录
-1.使用```git clone```命令时，出现如下报错:
+1.**使用```git clone```命令时，出现如下报错:**
 ```
 Failed to connect to github.com/xx port 443: Timed out
 ```
 
 **问题分析：** 代理没有设置好  
-**解决方案：** 目前还未完美解决，尝试输入以下命令但是没有效果
-```bash
-git config --global http.proxy http://127.0.0.1:1080
-git config --global https.proxy http://127.0.0.1:1080
-git config --global --unset http.proxy
-git config --global --unset https.proxy
-```
-目前读到一个解决方案说是把hosts里面与github相关的行都删掉即可，但是发现修改hosts需要管理员权限，就只能止步于此了。
+**解决方案：** 目前尚未完美解决，不过有两种方案：1.多次```clone```，会偶尔成功。2.将此仓库同步至gitee，再```clone``` gitee上的仓库地址即可。
 
-
-2.大小写不敏感。例：我在本地仓库建立一个Diagrams文件夹，push到了远程仓库。此时在本地把Diagrams修改为diagrams，再push，远程仓库依旧为Diagrams
+2.**大小写不敏感**
+例：在本地仓库建立一个Diagrams文件夹，push到了远程仓库。此时在本地把Diagrams修改为diagrams，再push，远程仓库依旧为Diagrams
 
 **解决方案：**
 在本地的项目文件夹输入```git config core.ignorecase false```，再push上去，发现远程仓库既有```Diagrams```又有```diagrams```。再使用```git rm -r --cached Diagrams``` 删除远程的Diagrams文件夹，再push上去，就好了。

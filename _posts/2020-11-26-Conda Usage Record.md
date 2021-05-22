@@ -7,7 +7,7 @@ tags:
 # 前言
 这篇博客记录了一些conda使用方法，以及一些常用深度学习库安装、配置的踩坑过程
 
-# 1 常用命令
+# 1 基本使用
 以下所有命令在**2021-01-28**被验证可用！另附[官方文档](https://docs.conda.io/projects/conda/en/latest/index.html)
 
 ## 1.1 Conda基本配置
@@ -43,9 +43,7 @@ conda config --remove-key channels
 ```
 [hanyuchen@IP-xxx-xxx-xx-xx ~]$
 ```
-可以发现，两个环境中的python版本不同，在不同环境中使用```pip/conda```安装的包也是相互隔离的。这方便我们运行不同依赖环境的代码，这就是conda的环境管理功能
-
-### 1.2.1 常用命令
+可以发现，两个环境中的python版本不同，在不同环境中使用```pip/conda```安装的包也是相互隔离的。这方便我们运行依赖不同环境的代码，这就是conda的环境管理功能。常用命令如下：
 ```python
 # 查看已存在的环境
 conda env list
