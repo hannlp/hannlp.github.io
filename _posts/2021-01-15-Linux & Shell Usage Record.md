@@ -105,7 +105,7 @@ jupyter kernelspec list
 # 移除名为test的kernel
 jupyter kernelspec remove test
 ```
-仅使用conda新建一个环境，在jupyter lab中还无法使用其中的库。需要先配置相应的jupyter内核，并在菜单中选择此内核。
+仅使用conda新建一个环境，在jupyter lab中还无法使用其中的库。需要先配置相应的jupyter内核，并在菜单中选择此内核。([参考](https://zhuanlan.zhihu.com/p/81605893))
 ```bash
 # 建立环境并在环境中安装ipykernel
 conda create -n 环境名称 python=3.7 ipykernel
