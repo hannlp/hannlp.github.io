@@ -4,7 +4,7 @@ title: About me
 ---
 
 # Me (韩宇晨)
-An undergraduate from Anhui University who interested in **Natural Language Processing** under the guidance of my tutor [Liu Huiting](http://cs.ahu.edu.cn/7d/7e/c11202a163198/page.htm). Currently, I am engaged in the research of **Machine Translation**, especially interested in Non-Autoregressive NMT and Knowledge-based MT methods. I will start my postgraduate career in the [Natural Language Processing Laboratory](http://www.nlplab.com/) of Northeastern University, Shenyang, China in this year ^ ^
+An undergraduate from Anhui University who interested in **Natural Language Processing**. Currently, I am engaged in the research of **Machine Translation**, especially interested in Non-Autoregressive NMT and Knowledge-based MT methods. I will start my postgraduate career in the [Natural Language Processing Laboratory](http://www.nlplab.com/) of Northeastern University, Shenyang, China in this year ^ ^
 
 Here is my [CV](https://cdn.jsdelivr.net/gh/hannlp/Books@1.02/private/me_cv_en.pdf) & [zhihu](https://www.zhihu.com/people/han-yu-chen-3) & [csdn](https://blog.csdn.net/qq_42734797) & [github](https://github.com/hannlp)
 
