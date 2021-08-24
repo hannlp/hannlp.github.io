@@ -14,7 +14,7 @@ author: hannlp
 # --- List of links in the navigation bar --- #
 
 navbar-links:
-  Articles: https://hannlp.github.io/tags/
+  Articles: "Tag Index"
   NoteBooks:
     - Linux: https://hannlp.github.io/2021-01-15-Linux-&-Shell-Usage-Record/
     - Conda: https://hannlp.github.io/2020-11-26-Conda-Usage-Record/
