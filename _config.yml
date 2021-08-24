@@ -14,12 +14,12 @@ author: hannlp
 # --- List of links in the navigation bar --- #
 
 navbar-links:
-  Articles: "tags"
+  Articles: "/tags"
   NoteBooks:
-    - Linux: "2021-01-15-Linux-&-Shell-Usage-Record"
-    - Conda: "2020-11-26-Conda-Usage-Record"
-    - Matlab: "2019-06-05-Matlab-quickly-check"
-    - PyTorch: "2020-11-28-Some-tips-of-PyTorch"
+    - Linux: "/2021-01-15-Linux-&-Shell-Usage-Record/"
+    - Conda: "/2020-11-26-Conda-Usage-Record/"
+    - Matlab: "/2019-06-05-Matlab-quickly-check"
+    - PyTorch: "/2020-11-28-Some-tips-of-PyTorch"
   Projects:
     - SimpleNMT: https://github.com/hannlp/SimpleNMT
   About Me: "aboutme"
