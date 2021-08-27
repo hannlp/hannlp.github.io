@@ -38,9 +38,10 @@ python ~/fairseq/scripts/average_checkpoints.py \
 使用fairseq-generate和fairseq-interactive命令，传递--path模型地址时，
 将多个模型的路径用:连接在一起。例：--path model1.pt:model2.pt
 ```
-注：
+
+注意：
 1. 这些模型需要共享一个词表，也就是data-bin目录
-2. 由于要同时加载多个模型，所以可能需要用内存更大的cpu来进行生成（参数：--cpu）
+2. 由于要同时加载多个模型，所以可能需要用内存更大的cpu来进行生成（参数：```--cpu```）
 
 # 2 实验步骤
 这是师兄论文中比较关键的部分，将步骤和结果列在下面。

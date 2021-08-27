@@ -74,7 +74,6 @@ print(list([SRC.vocab.itos[x] for x in src_tokens[i]] for i in range(len(src_tok
 #       ['Chinese', ',', 'is', 'my', 'born', 'country', 'i', 'like', 'it']]
 ```
 
-
 # 3 Dataset
 
 # 参考资料
