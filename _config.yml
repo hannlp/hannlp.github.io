@@ -20,8 +20,6 @@ navbar-links:
     - Conda: "/2020-11-26-Conda-Usage-Record/"
     - Matlab: "/2019-06-05-Matlab-quickly-check"
     - PyTorch: "/2020-11-28-Some-tips-of-PyTorch"
-  Projects:
-    - SimpleNMT: https://github.com/hannlp/SimpleNMT
   About Me: "aboutme"
 # --- Logo --- #
 
