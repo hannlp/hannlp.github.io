@@ -1,11 +1,11 @@
 ---
-title: Use fairseq to train a Chinese-English translation model from scratch
+title: 使用fairseq从头训练一个中英神经机器翻译模型
 date: 2021-01-16
 tags:
 - 机器翻译
 ---
 # 前言
-由于毕设是做神经机器翻译相关，所以先尝试一下神经机器翻译的整个流程是非常有必要的。故将在news-commentary-v15语料上训练有监督**中英NMT模型**的整个流程，包括工具和数据的准备、数据的预处理、训练及解码等过程，以及过程中遇到的问题和解决方案记录在此，以供后期回顾，也希望能够给予别人一些帮助。
+本文在news-commentary-v15语料上训练了**中英NMT模型**，并将整个流程，包括工具和数据的准备、数据的预处理、训练及解码，以及中途遇到的问题和解决方案记录在此，希望能够给予别人一些帮助。
 
 # 1 相关工具及目录结构
 ## 1.1 相关工具
@@ -133,6 +133,10 @@ if __name__ == '__main__':
 ```bash
 python ${utils}/cut2.py ${data_dir}/news-commentary-v15.en-zh.tsv ${data_dir}/
 ```
+
+**后注：** 在linux里可以直接用cut实现 ```cut -f 1 fpath > new_data_dir/raw.en | cut -f 2 fpath > new_data_dir/raw.zh```
+
+
 切分后的文件在目录中如下格式存放：  
 ```python
 ├── data
@@ -464,6 +468,12 @@ epoch 023 | valid on 'valid' subset | loss 4.369 | nll_loss 2.65 | ppl 6.28 | wp
 ```
 
 ## 3.3 解码
+fairseq中支持两种解码命令```generate```和```interactive```。
+
+其区别很简单，```generate```使用**二进制文件**，这个二进制文件是在```fairseq-preprocess```过程生成的，当时提供了一个```testpref```参数。也就是说测试集的src和tgt都是已获得的，这种场景符合自己在公开的数据集上做实验（如WMT14en-de），需要在论文中报告测试集结果。
+
+而```interactive```用于文本文件，也就是说不需要二进制文件，在```fairseq-preprocess```中也就不需要提供```testpref```参数。这种场景符合在比赛中，比赛方只提供测试集中的src部分，需要自己来解码得到tgt，并最终提交。
+
 ### 3.3.1 生成式解码
 使用```fairseq-generate```命令进行生成式解码(**用于预处理后的二进制文件**)，可以自行选择是否添加```--remove-bpe```参数，使得在生成时就去掉bpe符号(@@)
 ```
@@ -499,9 +509,14 @@ P-432	-1.2762 -0.3546 -0.0142 -0.1261 -0.0058 -0.7617 -0.1695 -0.2992 -0.0777 -0
 ```
 
 ### 3.3.2 交互式解码
-使用```fairseq-interactive```命令进行交互式解码(**用于文本文件**)
+使用```fairseq-interactive```命令进行交互式解码(**用于文本文件**)。注意其```input```参数
 
-updating...
+```
+!fairseq-interactive ${data_dir}/data-bin \
+    --input ${data_dir}/test.zh \
+    --path ${model_dir}/checkpoints/checkpoint_best.pt \
+    --batch-size 1 --beam 8 --remove-bpe > ${data_dir}/result/bestbeam8.txt
+```
 
 ## 3.4 后处理及评价
 ### 3.4.1 抽取译文
@@ -570,7 +585,7 @@ This must change .
 ```
 
 ### 3.4.3 评价
-1. **multi-bleu**：在detokenize前进行评价
+1.**multi-bleu**：在detokenize前进行评价
 ```bash
 ${MULTI_BLEU} -lc ${data_dir}/result/answer.tok.en < ${data_dir}/result/predict.tok.en
 ```
@@ -579,10 +594,11 @@ ${MULTI_BLEU} -lc ${data_dir}/result/answer.tok.en < ${data_dir}/result/predict.
 BLEU = 28.81, 61.8/35.4/22.8/15.2 (BP=0.976, ratio=0.977, hyp_len=187605, ref_len=192093)
 It is not advisable to publish scores from multi-bleu.perl.  The scores depend on your tokenizer, which is unlikely to be reproducible from your paper or consistent across research groups.  Instead you should detokenize then use mteval-v14.pl, which has a standard tokenization.  Scores from multi-bleu.perl can still be used for internal purposes when you have a consistent tokenizer.
 ```
-以下两种评价脚本我还没有使用过，以后再补这个坑
 
-2. **mteval-v14**：Usage: ```$0 -r <ref_file> -s <src_file> -t <tst_file>```
-3. **sacrebleu**：[link](https://github.com/mjpost/sacreBLEU)
+2.**sacrebleu**：在detokenize后进行评价。[link](https://github.com/mjpost/sacreBLEU)
+
+3.**mteval-v14**：Usage: ```$0 -r <ref_file> -s <src_file> -t <tst_file>```
+
 
 ### 3.4.4 detokenize
 最后一步，是使用detokenize.perl得到纯预测文本
