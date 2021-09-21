@@ -3,7 +3,7 @@ layout: page
 title: About me
 ---
 
-[东北大学NLP实验室](http://www.nlplab.com/)2021级硕士研究生。研究方向为为神经机器翻译，致力于从结构优化、训练方法、底层原理等多个角度探索更强大的NMT及NLP模型或算法框架
+[东北大学NLP实验室](http://www.nlplab.com/)2021级硕士研究生。研究方向为端对端结构的离线语音翻译和神经机器翻译，致力于从结构优化、训练方法、底层原理等多个角度探索更强大的ST、NMT模型及算法框架
 
 [CV](https://cdn.jsdelivr.net/gh/hannlp/Books@1.02/private/me_cv_en.pdf) & [zhihu](https://www.zhihu.com/people/han-yu-chen-3) & [csdn](https://blog.csdn.net/qq_42734797) & [github](https://github.com/hannlp)
 
