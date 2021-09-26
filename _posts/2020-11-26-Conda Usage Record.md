@@ -1,5 +1,5 @@
 ---
-title: Conda Usage Record
+title: Conda 使用记录
 date: 2020-11-26
 tags:
 - 系统与环境
@@ -10,7 +10,10 @@ tags:
 # 1 基本使用
 以下所有命令在**2021-01-28**被验证可用！另附[官方文档](https://docs.conda.io/projects/conda/en/latest/index.html)
 
-## 1.1 Conda基本配置
+## 1.1 迅速安装
+建议安装Miniconda，直接在[这里](https://docs.conda.io/en/latest/miniconda.html#linux-installers)找到对应的下载链接，右键复制链接，在服务器端用wget命令下载，bash命令安装。重启终端，即可使用conda命令。
+
+## 1.2 基本配置
 ```python
 # 更新conda至最新版本，也会更新其它相关包
 conda update conda
@@ -34,7 +37,7 @@ conda config --remove-key channels
 
 附链接：[清华源](https://mirrors.tuna.tsinghua.edu.cn/), [中科大源](https://mirrors.ustc.edu.cn/), [上交源](https://mirrors.sjtug.sjtu.edu.cn/#/)
 
-## 1.2 环境管理
+## 1.3 环境管理
 在安装conda后，会发现命令提示符前多了一个(base)，这其实是conda自带的一个基础环境，而且每次登录后都会默认激活该环境：
 ```
 (base) [hanyuchen@IP-xxx-xxx-xx-xx ~]$
@@ -43,6 +46,8 @@ conda config --remove-key channels
 ```
 [hanyuchen@IP-xxx-xxx-xx-xx ~]$
 ```
+如果希望每次登录默认为某一环境，可以在```~/.bash_profile```中添加```conda activate 该环境名```
+
 可以发现，两个环境中的python版本不同，在不同环境中使用```pip/conda```安装的包也是相互隔离的。这方便我们运行依赖不同环境的代码，这就是conda的环境管理功能。常用命令如下：
 ```python
 # 查看已存在的环境
@@ -64,7 +69,7 @@ conda activate test
 conda deactivate
 ```
 
-## 1.3 包管理
+## 1.4 包管理
 ```python
 # 在指定环境安装包并指定版本,如果不用-n指定环境名称，则被安装在当前活跃环境
 conda install -n test package=x.x
@@ -128,9 +133,7 @@ pip install torch==1.6.0+cu92 torchvision==0.7.0+cu92 -f https://download.pytorc
 
 ### 2.3.2 PyTorch检查CUDA是否可用
 ```python
-import torch
-print(torch.__version__)
-print(torch.cuda.is_available())
+import torch; print(torch.__version__); print(torch.cuda.is_available())
 ```
 
 ## 2.4 tensorflow-gpu安装相关

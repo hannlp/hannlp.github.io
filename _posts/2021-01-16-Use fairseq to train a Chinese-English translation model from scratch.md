@@ -105,7 +105,7 @@ At the start of the crisis, many people likened it to 1982 or 1973, which was re
 ...
 ```
 
-### 2.2.3 切分
+### 2.2.2 切分
 首先，需要将一个单独的数据文件切分成标准格式，即源语言(raw.zh)、目标语言(raw.en)文件各一个，一行一句，附自己写的脚本(~/nmt/utils/cut2.py)：
 ```python
 import sys
@@ -146,7 +146,7 @@ python ${utils}/cut2.py ${data_dir}/news-commentary-v15.en-zh.tsv ${data_dir}/
         └── raw.en
 ```
 
-### 2.2.4 normalize-punctuation(可选)
+### 2.2.3 normalize-punctuation(可选)
 标点符号的标准化，同时对双语文件(raw.en, raw.zh)处理，使用命令：  
 ```bash
 perl ${NORM_PUNC} -l en < ${data_dir}/raw.en > ${data_dir}/norm.en
@@ -171,7 +171,7 @@ Yet, according to the political economist Moeletsi Mbeki, at his core, “Zuma i
 Yet, according to the political economist Moeletsi Mbeki, at his core, "Zuma is a conservative."
 ```
 
-### 2.2.5 中文分词
+### 2.2.4 中文分词
 对标点符号标准化后的中文文件(norm.zh)进行分词处理，使用命令：  
 ```bash
 python -m jieba -d " " ${data_dir}/norm.zh > ${data_dir}/norm.seg.zh
@@ -196,7 +196,7 @@ python -m jieba -d " " ${data_dir}/norm.zh > ${data_dir}/norm.seg.zh
 一 开始 ， 很多 人 把 这次 危机 比作 1982 年 或 1973 年 所 发生 的 情况 ， 这样 得 类比 是 令人 宽心 的 ， 因为 这 两段 时期 意味着 典型 的 周期性 衰退 。
 ```
 
-### 2.2.6 tokenize
+### 2.2.5 tokenize
 对上述处理后的双语文件(norm.en, norm.seg.zh)进行标记化处理，有很多功能(1.将**英文单词**与**标点符号**用空格分开 2.将多个连续空格简化为一个空格 3.将很多符号替换成转义字符，如：把```"```替换成```&quot;```、把```can't```替换成```can &apos;t```)，使用命令：  
 ```bash
 ${TOKENIZER} -l en < ${data_dir}/norm.en > ${data_dir}/norm.tok.en
@@ -231,7 +231,7 @@ Of course , the fall of the house of Lehman Brothers has nothing to do with the 
 Second , Zoellick should ask why the Bank spends only 2.5 % of its budget on the &quot; knowledge bank &quot; research function that it trumpets so proudly in its external relations materials , while it spends three times that amount on maintaining its executive board .
 ```
 
-### 2.2.7 truecase
+### 2.2.6 truecase
 对上述处理后的英文文件(norm.tok.en)进行大小写转换处理(对于句中的每个英文单词，尤其是**句首单词**，在数据中**学习**最适合它们的大小写形式)，使用命令：  
 ```bash
 ${TRAIN_TC} --model ${model_dir}/truecase-model.en --corpus ${data_dir}/norm.tok.en
@@ -262,7 +262,7 @@ when the TTIP was first proposed , Europe seemed to recognize its value .
 Europe is being cautious in the name of avoiding debt and defending the euro , whereas the US has moved on many fronts in order not to waste an ideal opportunity to implement badly needed structural reforms .
 ```
 
-### 2.2.8 bpe
+### 2.2.7 bpe
 对上述处理后的双语文件(norm.tok.true.en, norm.seg.tok.zh)进行子词处理(可以理解为更细粒度的分词)，使用命令：  
 ```bash
 python ${BPEROOT}/learn_joint_bpe_and_vocab.py --input ${data_dir}/norm.tok.true.en  -s 32000 -o ${model_dir}/bpecode.en --write-vocabulary ${model_dir}/voc.en
@@ -311,7 +311,7 @@ one senses something like the making of an American-@@ Asian dominated universe 
 > **后注：**  
 > 需要注意的是，我为了方便，步骤上失去了一些正确性。正确的做法应该是在**训练集**中学习bpe模型，再将bpe模型应用到**测试集**和**验证集**中。而我是直接在全部数据中学bpe模型了。
 
-### 2.2.9 clean
+### 2.2.8 clean
 对上述处理后的双语文件(norm.tok.true.bpe.en, norm.seg.tok.bpe.zh)进行过滤(可以过滤**最小长度**和**最大长度**之间的句对，这样能够有效过滤空白行。还可以过滤**长度比**不合理的句对)，使用命令：  
 ```bash
 mv ${data_dir}/norm.seg.tok.bpe.zh ${data_dir}/toclean.zh
@@ -349,7 +349,7 @@ ${CLEAN} ${data_dir}/toclean zh en ${data_dir}/clean 1 256
 32 柏林 - - 2008 年 爆发 的 全球 金融 和 经济危机 是 自大 萧条 以来 最 严峻 的 一次 经济 压力 测试 ， 也 是 自 二战 以来 社会 和 政治 制度 所 面临 的 最 严重 挑战 。
 ```
 
-### 2.2.10 split
+### 2.2.9 split
 最后，双语文件(clean.zh, clean.en)都需要按比例划分出训练集、测试集、开发集(所以共6个文件，为方便区分，直接以 'train.en', 'valid.zh' 这样的格式命名)，附自己写的脚本(~/nmt/utils/split.py)：
 ```python
 import random
@@ -596,6 +596,15 @@ It is not advisable to publish scores from multi-bleu.perl.  The scores depend o
 ```
 
 2.**sacrebleu**：在detokenize后进行评价。[link](https://github.com/mjpost/sacreBLEU)
+```bash
+# Option 1: Pass the reference file as a positional argument to sacreBLEU
+sacrebleu ref.detok.txt -i output.detok.txt -m bleu -b -w 4
+20.7965
+
+# Option 2: Redirect the system into STDIN (Compatible with multi-bleu.perl way of doing things)
+cat output.detok.txt | sacrebleu ref.detok.txt -m bleu -b -w 4
+20.7965
+```
 
 3.**mteval-v14**：Usage: ```$0 -r <ref_file> -s <src_file> -t <tst_file>```
 

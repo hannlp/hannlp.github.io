@@ -6,7 +6,7 @@ tags:
 ---
 
 # 前言
-在NLP中，分类无处不在。从RNN与其变体，到Transformer、Bert等预训练模型，只要涉及到在**词表**中**挑选单词**，就可以使用分类任务的思路来解决。本文对分类常用的**Softmax+CrossEntropyLoss组合**的符号梯度进行推导，证明其巧妙之处，加深理解。
+本文对NLP中常用的**Softmax+CrossEntropyLoss组合**的符号梯度进行推导，证明其巧妙之处。
 
 # 1 关于Softmax
 ## 1.1 Softmax的形式
