@@ -16,4 +16,4 @@ title: About me
 - **常用 :**  
  [NLP-progress](http://nlpprogress.com/) | [Chinese NLP](https://chinesenlp.xyz/#/) | [中文NLP数据集搜索](https://www.cluebenchmarks.com/dataSet_search.html) | [AI Conference Deadlines](https://aideadlin.es/?sub=NLP,ML) | [烂番茄学术](https://xueshu.lanfanshu.cn/) | [文献部落](http://459.org/) | [科学空间](https://spaces.ac.cn/category/Big-Data) | [卖萌屋学术站](https://arxiv.xixiaoyao.cn/) | [刘建平Pinard](https://www.cnblogs.com/pinard/) | [easyai](https://easyai.tech/) | [快捷键大全](http://mykeys.sinaapp.com/index.php#) | [研控](https://www.yankong.org/) | [显卡天梯](https://topic.expreview.com/GPU/#) ([附](https://www.mydrivers.com/zhuanti/tianti/gpu/)) | [officeplus](http://www.officeplus.cn/Template/Home.shtml)
 
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/1.js?i=5b8uacvbriq&amp;s=208&amp;m=8&amp;v=false&amp;r=false&amp;b=000000&amp;n=false&amp;c=ff0000" async="async"></script>
+<script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=2e6ec0&w=280&t=m&d=I1ClSNJbPhfkK-rEqGcvpUg8xI7SlPY63dPey9SxbtM&co=ffffff&cmo=4db62c&cmn=ff5353&ct=808080'></script>
