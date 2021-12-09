@@ -309,7 +309,7 @@ as a visiting professor at Harvard and MIT , I am getting a good pre@@ view of w
 one senses something like the making of an American-@@ Asian dominated universe .
 ```
 > **后注：**  
-> 需要注意的是，我为了方便，步骤上失去了一些正确性。正确的做法应该是在**训练集**中学习bpe模型，再将bpe模型应用到**测试集**和**验证集**中。而我是直接在全部数据中学bpe模型了。
+> 需要注意的是，我为了方便，步骤上失去了一些正确性。正确的做法应该是在**训练集**中学习bpe模型，再将bpe模型应用到**训练集**、**验证集**和**测试集**中。而我是直接在全部数据中学bpe模型了。
 
 ### 2.2.8 clean
 对上述处理后的双语文件(norm.tok.true.bpe.en, norm.seg.tok.bpe.zh)进行过滤(可以过滤**最小长度**和**最大长度**之间的句对，这样能够有效过滤空白行。还可以过滤**长度比**不合理的句对)，使用命令：  
@@ -512,7 +512,7 @@ P-432	-1.2762 -0.3546 -0.0142 -0.1261 -0.0058 -0.7617 -0.1695 -0.2992 -0.0777 -0
 使用```fairseq-interactive```命令进行交互式解码(**用于文本文件**)。注意其```input```参数
 
 ```
-!fairseq-interactive ${data_dir}/data-bin \
+fairseq-interactive ${data_dir}/data-bin \
     --input ${data_dir}/test.zh \
     --path ${model_dir}/checkpoints/checkpoint_best.pt \
     --batch-size 1 --beam 8 --remove-bpe > ${data_dir}/result/bestbeam8.txt
